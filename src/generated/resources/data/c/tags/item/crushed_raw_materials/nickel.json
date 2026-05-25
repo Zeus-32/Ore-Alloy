@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:crushed_garnierite", "required": false },
+    { "id": "ore_and_alloy:crushed_pentlandite", "required": false }
+  ]
+}

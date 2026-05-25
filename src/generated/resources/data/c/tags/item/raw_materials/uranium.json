@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:raw_uraninite", "required": false },
+    { "id": "ore_and_alloy:raw_uranium", "required": false }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:amethyst", "required": false },
+    { "id": "ore_and_alloy:coal", "required": false },
+    { "id": "ore_and_alloy:diamond", "required": false },
+    { "id": "ore_and_alloy:emerald", "required": false },
+    { "id": "ore_and_alloy:lapis", "required": false },
+    { "id": "ore_and_alloy:quartz", "required": false },
+    { "id": "ore_and_alloy:ruby", "required": false },
+    { "id": "ore_and_alloy:sapphire", "required": false }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:raw_hemimorphite", "required": false },
+    { "id": "ore_and_alloy:raw_sphalerite", "required": false }
+  ]
+}

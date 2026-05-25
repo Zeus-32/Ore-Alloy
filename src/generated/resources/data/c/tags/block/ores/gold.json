@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_gold_ore", "required": false },
+    { "id": "ore_and_alloy:andesite_sylvanite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_gold_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_sylvanite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_gold_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_sylvanite_ore", "required": false },
+    { "id": "ore_and_alloy:end_gold_ore", "required": false },
+    { "id": "ore_and_alloy:end_sylvanite_ore", "required": false },
+    { "id": "ore_and_alloy:gold_ore", "required": false },
+    { "id": "ore_and_alloy:granite_gold_ore", "required": false },
+    { "id": "ore_and_alloy:granite_sylvanite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_gold_ore", "required": false },
+    { "id": "ore_and_alloy:nether_sylvanite_ore", "required": false },
+    { "id": "ore_and_alloy:sylvanite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_gold_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_sylvanite_ore", "required": false }
+  ]
+}

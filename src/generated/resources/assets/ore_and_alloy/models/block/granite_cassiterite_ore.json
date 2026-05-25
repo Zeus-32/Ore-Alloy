@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "ore_and_alloy:block/ore/granite_cassiterite_ore"
+  }
+}

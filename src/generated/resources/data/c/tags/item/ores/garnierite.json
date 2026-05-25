@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_garnierite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_garnierite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_garnierite_ore", "required": false },
+    { "id": "ore_and_alloy:end_garnierite_ore", "required": false },
+    { "id": "ore_and_alloy:garnierite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_garnierite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_garnierite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_garnierite_ore", "required": false }
+  ]
+}

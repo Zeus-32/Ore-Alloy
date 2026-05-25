@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:enderium_nugget" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:enderium_ingot" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "ore_and_alloy:enderium_nugget" },
+    { "item": "ore_and_alloy:enderium_nugget" },
+    { "item": "ore_and_alloy:enderium_nugget" },
+    { "item": "ore_and_alloy:enderium_nugget" },
+    { "item": "ore_and_alloy:enderium_nugget" },
+    { "item": "ore_and_alloy:enderium_nugget" },
+    { "item": "ore_and_alloy:enderium_nugget" },
+    { "item": "ore_and_alloy:enderium_nugget" },
+    { "item": "ore_and_alloy:enderium_nugget" }
+  ],
+  "result": { "id": "ore_and_alloy:enderium_ingot", "count": 1 }
+}

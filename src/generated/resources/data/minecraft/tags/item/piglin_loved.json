@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:gold_ingot", "required": false },
+    { "id": "ore_and_alloy:gold_nugget", "required": false }
+  ]
+}

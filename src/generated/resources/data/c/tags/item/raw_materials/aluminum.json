@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:raw_bauxite", "required": false },
+    { "id": "ore_and_alloy:raw_cryolite", "required": false }
+  ]
+}

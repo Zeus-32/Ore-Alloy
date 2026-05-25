@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:iron_ingot", "required": false },
+    { "id": "ore_and_alloy:gold_ingot", "required": false },
+    { "id": "ore_and_alloy:diamond", "required": false },
+    { "id": "ore_and_alloy:emerald", "required": false }
+  ]
+}

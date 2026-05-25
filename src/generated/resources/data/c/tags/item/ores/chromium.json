@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_chromite_ore", "required": false },
+    { "id": "ore_and_alloy:chromite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_chromite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_chromite_ore", "required": false },
+    { "id": "ore_and_alloy:end_chromite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_chromite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_chromite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_chromite_ore", "required": false }
+  ]
+}

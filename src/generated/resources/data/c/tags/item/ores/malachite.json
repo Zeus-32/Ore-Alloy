@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_malachite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_malachite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_malachite_ore", "required": false },
+    { "id": "ore_and_alloy:end_malachite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_malachite_ore", "required": false },
+    { "id": "ore_and_alloy:malachite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_malachite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_malachite_ore", "required": false }
+  ]
+}

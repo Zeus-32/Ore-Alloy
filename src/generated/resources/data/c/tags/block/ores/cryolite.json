@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_cryolite_ore", "required": false },
+    { "id": "ore_and_alloy:cryolite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_cryolite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_cryolite_ore", "required": false },
+    { "id": "ore_and_alloy:end_cryolite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_cryolite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_cryolite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_cryolite_ore", "required": false }
+  ]
+}

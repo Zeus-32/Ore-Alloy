@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:uranium_nugget" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:uranium_ingot" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "ore_and_alloy:uranium_nugget" },
+    { "item": "ore_and_alloy:uranium_nugget" },
+    { "item": "ore_and_alloy:uranium_nugget" },
+    { "item": "ore_and_alloy:uranium_nugget" },
+    { "item": "ore_and_alloy:uranium_nugget" },
+    { "item": "ore_and_alloy:uranium_nugget" },
+    { "item": "ore_and_alloy:uranium_nugget" },
+    { "item": "ore_and_alloy:uranium_nugget" },
+    { "item": "ore_and_alloy:uranium_nugget" }
+  ],
+  "result": { "id": "ore_and_alloy:uranium_ingot", "count": 1 }
+}

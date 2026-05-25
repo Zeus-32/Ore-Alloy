@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:molten_iron", "required": false },
+    { "id": "ore_and_alloy:molten_gold", "required": false },
+    { "id": "ore_and_alloy:molten_copper", "required": false },
+    { "id": "ore_and_alloy:molten_tin", "required": false },
+    { "id": "ore_and_alloy:molten_lead", "required": false },
+    { "id": "ore_and_alloy:molten_silver", "required": false },
+    { "id": "ore_and_alloy:molten_nickel", "required": false },
+    { "id": "ore_and_alloy:molten_zinc", "required": false },
+    { "id": "ore_and_alloy:molten_aluminum", "required": false },
+    { "id": "ore_and_alloy:molten_osmium", "required": false },
+    { "id": "ore_and_alloy:molten_uranium", "required": false },
+    { "id": "ore_and_alloy:molten_cobalt", "required": false },
+    { "id": "ore_and_alloy:molten_titanium", "required": false },
+    { "id": "ore_and_alloy:molten_chrome", "required": false },
+    { "id": "ore_and_alloy:molten_platinum", "required": false },
+    { "id": "ore_and_alloy:molten_iridium", "required": false },
+    { "id": "ore_and_alloy:molten_steel", "required": false },
+    { "id": "ore_and_alloy:molten_brass", "required": false },
+    { "id": "ore_and_alloy:molten_bronze", "required": false },
+    { "id": "ore_and_alloy:molten_electrum", "required": false },
+    { "id": "ore_and_alloy:molten_invar", "required": false },
+    { "id": "ore_and_alloy:molten_constantan", "required": false }
+  ]
+}

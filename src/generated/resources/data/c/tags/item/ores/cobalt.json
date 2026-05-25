@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_cobaltite_ore", "required": false },
+    { "id": "ore_and_alloy:cobaltite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_cobaltite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_cobaltite_ore", "required": false },
+    { "id": "ore_and_alloy:end_cobaltite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_cobaltite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_cobaltite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_cobaltite_ore", "required": false }
+  ]
+}

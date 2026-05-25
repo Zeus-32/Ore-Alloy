@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_limonite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_limonite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_limonite_ore", "required": false },
+    { "id": "ore_and_alloy:end_limonite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_limonite_ore", "required": false },
+    { "id": "ore_and_alloy:limonite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_limonite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_limonite_ore", "required": false }
+  ]
+}

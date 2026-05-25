@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:raw_platinum", "required": false },
+    { "id": "ore_and_alloy:raw_sperrylite", "required": false }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:zinc_nugget" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:zinc_ingot" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [ { "item": "ore_and_alloy:zinc_ingot" } ],
+  "result": { "id": "ore_and_alloy:zinc_nugget", "count": 9 }
+}

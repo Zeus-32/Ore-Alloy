@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_sphalerite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_sphalerite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_sphalerite_ore", "required": false },
+    { "id": "ore_and_alloy:end_sphalerite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_sphalerite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_sphalerite_ore", "required": false },
+    { "id": "ore_and_alloy:sphalerite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_sphalerite_ore", "required": false }
+  ]
+}

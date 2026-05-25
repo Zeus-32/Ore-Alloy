@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_cassiterite_ore", "required": false },
+    { "id": "ore_and_alloy:cassiterite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_cassiterite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_cassiterite_ore", "required": false },
+    { "id": "ore_and_alloy:end_cassiterite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_cassiterite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_cassiterite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_cassiterite_ore", "required": false }
+  ]
+}

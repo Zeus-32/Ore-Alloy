@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_osmium_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_osmium_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_osmium_ore", "required": false },
+    { "id": "ore_and_alloy:end_osmium_ore", "required": false },
+    { "id": "ore_and_alloy:granite_osmium_ore", "required": false },
+    { "id": "ore_and_alloy:nether_osmium_ore", "required": false },
+    { "id": "ore_and_alloy:osmium_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_osmium_ore", "required": false }
+  ]
+}

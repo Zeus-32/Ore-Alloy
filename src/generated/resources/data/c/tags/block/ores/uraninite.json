@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_uraninite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_uraninite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_uraninite_ore", "required": false },
+    { "id": "ore_and_alloy:end_uraninite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_uraninite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_uraninite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_uraninite_ore", "required": false },
+    { "id": "ore_and_alloy:uraninite_ore", "required": false }
+  ]
+}

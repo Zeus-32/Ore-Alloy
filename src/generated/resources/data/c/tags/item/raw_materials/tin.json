@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:raw_cassiterite", "required": false },
+    { "id": "ore_and_alloy:raw_tin", "required": false }
+  ]
+}

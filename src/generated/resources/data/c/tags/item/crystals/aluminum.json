@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:aluminium_crystal", "required": false }
+  ]
+}

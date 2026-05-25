@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:raw_hematite", "required": false },
+    { "id": "ore_and_alloy:raw_iron", "required": false },
+    { "id": "ore_and_alloy:raw_limonite", "required": false },
+    { "id": "ore_and_alloy:raw_magnetite", "required": false }
+  ]
+}

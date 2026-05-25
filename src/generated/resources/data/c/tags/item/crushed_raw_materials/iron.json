@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:crushed_hematite", "required": false },
+    { "id": "ore_and_alloy:crushed_iron", "required": false },
+    { "id": "ore_and_alloy:crushed_limonite", "required": false },
+    { "id": "ore_and_alloy:crushed_magnetite", "required": false }
+  ]
+}

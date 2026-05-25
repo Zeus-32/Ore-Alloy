@@ -1,0 +1,1 @@
+eu.zunix.ore_and_alloy.integration.kubejs.OreAndAlloyKubeJSPlugin kubejs

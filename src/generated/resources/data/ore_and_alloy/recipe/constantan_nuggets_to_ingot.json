@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:constantan_nugget" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:constantan_ingot" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "ore_and_alloy:constantan_nugget" },
+    { "item": "ore_and_alloy:constantan_nugget" },
+    { "item": "ore_and_alloy:constantan_nugget" },
+    { "item": "ore_and_alloy:constantan_nugget" },
+    { "item": "ore_and_alloy:constantan_nugget" },
+    { "item": "ore_and_alloy:constantan_nugget" },
+    { "item": "ore_and_alloy:constantan_nugget" },
+    { "item": "ore_and_alloy:constantan_nugget" },
+    { "item": "ore_and_alloy:constantan_nugget" }
+  ],
+  "result": { "id": "ore_and_alloy:constantan_ingot", "count": 1 }
+}

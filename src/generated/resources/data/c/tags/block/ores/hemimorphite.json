@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_hemimorphite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_hemimorphite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_hemimorphite_ore", "required": false },
+    { "id": "ore_and_alloy:end_hemimorphite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_hemimorphite_ore", "required": false },
+    { "id": "ore_and_alloy:hemimorphite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_hemimorphite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_hemimorphite_ore", "required": false }
+  ]
+}

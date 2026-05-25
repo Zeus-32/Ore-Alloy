@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:gold_nugget" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:gold_ingot" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "ore_and_alloy:gold_nugget" },
+    { "item": "ore_and_alloy:gold_nugget" },
+    { "item": "ore_and_alloy:gold_nugget" },
+    { "item": "ore_and_alloy:gold_nugget" },
+    { "item": "ore_and_alloy:gold_nugget" },
+    { "item": "ore_and_alloy:gold_nugget" },
+    { "item": "ore_and_alloy:gold_nugget" },
+    { "item": "ore_and_alloy:gold_nugget" },
+    { "item": "ore_and_alloy:gold_nugget" }
+  ],
+  "result": { "id": "ore_and_alloy:gold_ingot", "count": 1 }
+}

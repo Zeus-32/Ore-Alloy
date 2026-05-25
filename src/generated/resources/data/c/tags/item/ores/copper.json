@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_bornite_ore", "required": false },
+    { "id": "ore_and_alloy:andesite_chalcopyrite_ore", "required": false },
+    { "id": "ore_and_alloy:andesite_malachite_ore", "required": false },
+    { "id": "ore_and_alloy:bornite_ore", "required": false },
+    { "id": "ore_and_alloy:chalcopyrite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_bornite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_chalcopyrite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_malachite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_bornite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_chalcopyrite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_malachite_ore", "required": false },
+    { "id": "ore_and_alloy:end_bornite_ore", "required": false },
+    { "id": "ore_and_alloy:end_chalcopyrite_ore", "required": false },
+    { "id": "ore_and_alloy:end_malachite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_bornite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_chalcopyrite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_malachite_ore", "required": false },
+    { "id": "ore_and_alloy:malachite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_bornite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_chalcopyrite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_malachite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_bornite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_chalcopyrite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_malachite_ore", "required": false }
+  ]
+}

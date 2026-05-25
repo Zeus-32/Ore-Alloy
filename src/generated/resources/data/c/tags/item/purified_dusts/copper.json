@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:copper_purified_dust", "required": false }
+  ]
+}

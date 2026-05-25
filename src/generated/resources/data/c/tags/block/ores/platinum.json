@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_platinum_ore", "required": false },
+    { "id": "ore_and_alloy:andesite_sperrylite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_platinum_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_sperrylite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_platinum_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_sperrylite_ore", "required": false },
+    { "id": "ore_and_alloy:end_platinum_ore", "required": false },
+    { "id": "ore_and_alloy:end_sperrylite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_platinum_ore", "required": false },
+    { "id": "ore_and_alloy:granite_sperrylite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_platinum_ore", "required": false },
+    { "id": "ore_and_alloy:nether_sperrylite_ore", "required": false },
+    { "id": "ore_and_alloy:platinum_ore", "required": false },
+    { "id": "ore_and_alloy:sperrylite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_platinum_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_sperrylite_ore", "required": false }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:red_alloy_shard", "required": false }
+  ]
+}

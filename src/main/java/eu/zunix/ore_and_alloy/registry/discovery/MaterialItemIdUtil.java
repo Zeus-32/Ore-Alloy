@@ -1,0 +1,123 @@
+package eu.zunix.ore_and_alloy.registry.discovery;
+
+import eu.zunix.ore_and_alloy.core.MaterialFormCatalog;
+import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
+import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
+import eu.zunix.ore_and_alloy.core.RawVariantCatalog;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+final class MaterialItemIdUtil {
+    private static final List<String> FORM_SUFFIXES = MaterialFormCatalog.FORM_SUFFIX_PARSE_ORDER;
+
+    private MaterialItemIdUtil() {}
+
+    static ParsedId parseItemId(String itemId) {
+        String lowered = itemId.toLowerCase(Locale.ROOT);
+        for (String form : MaterialFormCatalog.PREFIX_FORMS) {
+            String prefix = form + "_";
+            if (!lowered.startsWith(prefix)) continue;
+            if (lowered.length() <= prefix.length()) return null;
+            String material = lowered.substring(prefix.length());
+            if (material.isBlank()) return null;
+            return new ParsedId(normalizeMaterialForForm(material, form), form);
+        }
+
+        for (String form : FORM_SUFFIXES) {
+            String suffix = "_" + form;
+            if (!lowered.endsWith(suffix)) continue;
+            String material = lowered.substring(0, lowered.length() - suffix.length());
+            if (material.isBlank()) return null;
+            return new ParsedId(normalizeMaterialForForm(material, form), form);
+        }
+        var bareForm = MaterialItemOrder.bareItemForm(lowered);
+        if (bareForm.isPresent()) {
+            return new ParsedId(MaterialItemOrder.canonicalMaterialToken(lowered), bareForm.get());
+        }
+        return null;
+    }
+
+    static boolean isStandaloneMaterialItemId(String itemId) {
+        ParsedId parsed = parseItemId(itemId);
+        return parsed != null && eu.zunix.ore_and_alloy.registry.ModStandaloneItems.isStandaloneMaterialToken(parsed.material());
+    }
+
+    static String itemIdFor(String material, String form) {
+        String normalizedMaterial = material == null ? "" : material.toLowerCase(Locale.ROOT);
+        if (normalizedMaterial.isBlank()) return normalizedMaterial;
+        if (form == null || form.isBlank()) return normalizedMaterial;
+        String canonicalMaterial = MaterialItemOrder.canonicalMaterialToken(normalizedMaterial);
+        String preferredMaterial = MaterialItemOrder.preferredItemMaterialToken(canonicalMaterial);
+        if (MaterialItemOrder.bareItemForm(canonicalMaterial).map(form::equals).orElse(false)) {
+            return canonicalMaterial;
+        }
+        if ("raw".equals(form)) {
+            return RawMaterialMappings.primaryRawVariantForMaterial(canonicalMaterial)
+                    .map(variant -> "raw_" + variant)
+                    .orElse("raw_" + preferredMaterial);
+        }
+        if ("crushed".equals(form)) {
+            return RawMaterialMappings.primaryCrushedVariantForMaterial(canonicalMaterial)
+                    .map(variant -> "crushed_" + variant)
+                    .orElse("crushed_" + preferredMaterial);
+        }
+        return preferredMaterial + "_" + form;
+    }
+
+    static List<String> textureCandidates(String itemId, String material, String form) {
+        List<String> out = new ArrayList<>();
+        out.add("item/" + form + "/" + itemId);
+        out.add("item/" + form + "/" + material + "_" + form);
+        out.add("item/" + form + "/" + form + "_" + material);
+
+        if ("gem".equals(form)) {
+            out.add("item/gem/" + material);
+        }
+
+        if ("dirty_dust".equals(form)) {
+            out.add("item/dirty_dust/dirty_" + material + "_dust");
+            out.add("item/dirty_dust/" + material + "_dust");
+        }
+
+        if ("raw".equals(form)) {
+            out.add("item/raw_materials/" + itemId);
+            out.add("item/raw_materials/raw_" + material);
+            out.add("item/raw_materials/" + material + "_raw");
+        }
+
+        if ("crushed".equals(form)) {
+            out.add("item/crushed/" + itemId);
+            out.add("item/crushed/crushed_" + material);
+            out.add("item/crushed/crushed_raw_" + material);
+            out.add("item/crushed/" + material + "_crushed");
+        }
+
+        return out;
+    }
+
+    private static String normalizeMaterialForForm(String material, String form) {
+        if (material == null) return "";
+        String lowered = material.toLowerCase(Locale.ROOT);
+        if ("raw".equals(form)) {
+            return RawMaterialMappings.materialForRawVariant(lowered).orElse(lowered);
+        }
+        if ("crushed".equals(form)) {
+            if (lowered.startsWith("raw_") && lowered.length() > "raw_".length()) {
+                lowered = lowered.substring("raw_".length());
+            }
+            if (lowered.endsWith("_raw") && lowered.length() > "_raw".length()) {
+                lowered = lowered.substring(0, lowered.length() - "_raw".length());
+            }
+            lowered = RawMaterialMappings.materialForRawVariant(lowered).orElse(lowered);
+        }
+        if ("ore".equals(form)) {
+            lowered = RawVariantCatalog.stripOreMaterialPrefix(lowered);
+            lowered = RawMaterialMappings.materialForRawVariant(lowered).orElse(lowered);
+        }
+        return lowered;
+    }
+
+    record ParsedId(String material, String form) {}
+}

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_bauxite_ore", "required": false },
+    { "id": "ore_and_alloy:bauxite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_bauxite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_bauxite_ore", "required": false },
+    { "id": "ore_and_alloy:end_bauxite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_bauxite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_bauxite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_bauxite_ore", "required": false }
+  ]
+}

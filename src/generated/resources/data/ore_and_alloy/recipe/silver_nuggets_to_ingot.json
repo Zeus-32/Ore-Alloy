@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:silver_nugget" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:silver_ingot" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "ore_and_alloy:silver_nugget" },
+    { "item": "ore_and_alloy:silver_nugget" },
+    { "item": "ore_and_alloy:silver_nugget" },
+    { "item": "ore_and_alloy:silver_nugget" },
+    { "item": "ore_and_alloy:silver_nugget" },
+    { "item": "ore_and_alloy:silver_nugget" },
+    { "item": "ore_and_alloy:silver_nugget" },
+    { "item": "ore_and_alloy:silver_nugget" },
+    { "item": "ore_and_alloy:silver_nugget" }
+  ],
+  "result": { "id": "ore_and_alloy:silver_ingot", "count": 1 }
+}

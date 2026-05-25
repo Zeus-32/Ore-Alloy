@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_magnetite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_magnetite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_magnetite_ore", "required": false },
+    { "id": "ore_and_alloy:end_magnetite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_magnetite_ore", "required": false },
+    { "id": "ore_and_alloy:magnetite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_magnetite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_magnetite_ore", "required": false }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_hematite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_hematite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_hematite_ore", "required": false },
+    { "id": "ore_and_alloy:end_hematite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_hematite_ore", "required": false },
+    { "id": "ore_and_alloy:hematite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_hematite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_hematite_ore", "required": false }
+  ]
+}

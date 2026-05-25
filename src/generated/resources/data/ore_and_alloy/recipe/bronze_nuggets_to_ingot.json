@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:bronze_nugget" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:bronze_ingot" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "ore_and_alloy:bronze_nugget" },
+    { "item": "ore_and_alloy:bronze_nugget" },
+    { "item": "ore_and_alloy:bronze_nugget" },
+    { "item": "ore_and_alloy:bronze_nugget" },
+    { "item": "ore_and_alloy:bronze_nugget" },
+    { "item": "ore_and_alloy:bronze_nugget" },
+    { "item": "ore_and_alloy:bronze_nugget" },
+    { "item": "ore_and_alloy:bronze_nugget" },
+    { "item": "ore_and_alloy:bronze_nugget" }
+  ],
+  "result": { "id": "ore_and_alloy:bronze_ingot", "count": 1 }
+}

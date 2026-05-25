@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:platinum_nugget" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:platinum_ingot" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "ore_and_alloy:platinum_nugget" },
+    { "item": "ore_and_alloy:platinum_nugget" },
+    { "item": "ore_and_alloy:platinum_nugget" },
+    { "item": "ore_and_alloy:platinum_nugget" },
+    { "item": "ore_and_alloy:platinum_nugget" },
+    { "item": "ore_and_alloy:platinum_nugget" },
+    { "item": "ore_and_alloy:platinum_nugget" },
+    { "item": "ore_and_alloy:platinum_nugget" },
+    { "item": "ore_and_alloy:platinum_nugget" }
+  ],
+  "result": { "id": "ore_and_alloy:platinum_ingot", "count": 1 }
+}
