@@ -20,6 +20,7 @@ import eu.zunix.ore_and_alloy.registry.ModFluids;
 import eu.zunix.ore_and_alloy.registry.ModCreativeTabs;
 import eu.zunix.ore_and_alloy.registry.ModLootModifiers;
 import eu.zunix.ore_and_alloy.registry.ModOreBlocks;
+import eu.zunix.ore_and_alloy.registry.ModStorageBlocks;
 import eu.zunix.ore_and_alloy.worldgen.OAVeinWorldgenController;
 
 
@@ -41,6 +42,7 @@ public class OreAndAlloy {
 
         ModAttachments.ATTACHMENT_TYPES.register(modEventBus);
         ModOreBlocks.BLOCKS.register(modEventBus);
+        ModStorageBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         ModFluids.FLUID_TYPES.register(modEventBus);
         ModFluids.FLUIDS.register(modEventBus);
@@ -57,10 +59,14 @@ public class OreAndAlloy {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         LOGGER.info("Ore & Alloy common setup");
-        LOGGER.info("[{}] Startup config: custom_vein_worldgen_enabled={}, periodic_tooltips_enabled={}",
+        LOGGER.info("[{}] Startup config: custom_vein_worldgen_enabled={}, periodic_tooltips_enabled={}, unification_audit_enabled={}, strict_mode_enabled={}, strict_mode_fail_fast_enabled={}, snapshot_export_enabled={}",
                 MODID,
                 OAConfig.customVeinWorldgenEnabled(),
-                OAConfig.periodicTooltipsEnabled());
+                OAConfig.periodicTooltipsEnabled(),
+                OAConfig.unificationAuditEnabled(),
+                OAConfig.unificationStrictModeEnabled(),
+                OAConfig.unificationStrictModeFailFastEnabled(),
+                OAConfig.unificationSnapshotExportEnabled());
 
         RecipeInterceptor.register();
         VanillaTradeUnifier.register();

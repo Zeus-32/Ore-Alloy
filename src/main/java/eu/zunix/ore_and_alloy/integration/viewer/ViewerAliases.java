@@ -95,6 +95,13 @@ public final class ViewerAliases {
             if (!material.isBlank()) return Optional.of(new MaterialKey(normalizeMaterialForForm(material, token), token));
 
         }
+        String storageSuffix = "_block";
+        if (path.endsWith(storageSuffix) && path.length() > storageSuffix.length()) {
+            String material = path.substring(0, path.length() - storageSuffix.length());
+            if (!material.isBlank()) {
+                return Optional.of(new MaterialKey(MaterialItemOrder.canonicalMaterialToken(material), "block"));
+            }
+        }
         Optional<String> bareForm = MaterialItemOrder.bareItemForm(path);
         if (bareForm.isPresent()) {
             return Optional.of(new MaterialKey(MaterialItemOrder.canonicalMaterialToken(path), bareForm.get()));

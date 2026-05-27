@@ -93,6 +93,11 @@ final class ViewerAliasRuleEngine {
             "ore -> ore",
             "ore -> {material} ore",
 
+            "block -> block",
+            "block -> {material} block",
+            "block -> storage block",
+            "block -> {material} storage block",
+
             "raw -> raw",
             "raw -> raw {material}",
             "raw -> {material} raw"

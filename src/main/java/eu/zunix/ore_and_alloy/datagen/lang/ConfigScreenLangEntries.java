@@ -8,6 +8,10 @@ public final class ConfigScreenLangEntries {
     public static void append(Map<String, String> entries, String namespace) {
         entries.put(namespace + ".config.worldgen.custom_vein_worldgen_enabled", "Enable Custom Vein Worldgen");
         entries.put(namespace + ".config.tooltips.periodic_enabled", "Show Periodic Table Values Tooltip");
+        entries.put(namespace + ".config.unification.audit_report_enabled", "Enable Unification Audit Report");
+        entries.put(namespace + ".config.unification.strict_mode_enabled", "Enable Strict Unification Mode");
+        entries.put(namespace + ".config.unification.strict_mode_fail_fast_enabled", "Fail Fast in Strict Unification");
+        entries.put(namespace + ".config.unification.snapshot_export_enabled", "Enable Unification Snapshot Export");
 
         entries.put(namespace + ".config.screen.title", "Ore & Alloy Configuration");
         entries.put(namespace + ".config.screen.subtitle", "Machine Control");

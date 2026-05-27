@@ -33,10 +33,6 @@ public final class RecipeAliasMapBuilder {
     private static final Pattern INVALID_MATERIAL_CHARS = Pattern.compile("[^a-z0-9_]");
     private static final Pattern DUPLICATED_UNDERSCORES = Pattern.compile("_+");
 
-    private static final Comparator<Item> CANONICAL_ITEM_ORDER = Comparator
-            .comparingInt((Item item) -> namespacePriority(itemId(item).getNamespace()))
-            .thenComparing(item -> itemId(item).toString());
-
     private static final Comparator<MaterialAliasKey> MATERIAL_KEY_ORDER = Comparator
             .comparing(MaterialAliasKey::material)
             .thenComparing(MaterialAliasKey::form);
@@ -44,8 +40,14 @@ public final class RecipeAliasMapBuilder {
     private RecipeAliasMapBuilder() {}
 
     public static Map<Item, Item> buildAliasMap() {
+        return buildAliasAnalysis().aliasToCanonical();
+    }
+
+    public static RecipeAliasBuildResult buildAliasAnalysis() {
         Map<MaterialAliasKey, Set<Item>> groups = collectMaterialGroups();
         Map<Item, List<Item>> aliasCandidates = new IdentityHashMap<>();
+        Map<MaterialAliasKey, List<Item>> duplicateGroups = new LinkedHashMap<>();
+        Map<MaterialAliasKey, Item> canonicalByGroup = new LinkedHashMap<>();
 
         List<Map.Entry<MaterialAliasKey, Set<Item>>> groupEntries = new ArrayList<>(groups.entrySet());
         groupEntries.sort(Map.Entry.comparingByKey(MATERIAL_KEY_ORDER));
@@ -53,8 +55,12 @@ public final class RecipeAliasMapBuilder {
         for (Map.Entry<MaterialAliasKey, Set<Item>> entry : groupEntries) {
             List<Item> items = new ArrayList<>(entry.getValue());
             if (items.size() < 2) continue;
+            items.sort(Comparator.comparing(item -> itemId(item).toString()));
+
+            duplicateGroups.put(entry.getKey(), List.copyOf(items));
 
             Item canonical = selectCanonicalItem(entry.getKey(), items);
+            canonicalByGroup.put(entry.getKey(), canonical);
             for (Item item : items) {
                 if (item == canonical) continue;
                 aliasCandidates.computeIfAbsent(item, ignored -> new ArrayList<>()).add(canonical);
@@ -67,15 +73,28 @@ public final class RecipeAliasMapBuilder {
         Map<Item, Item> aliasToCanonical = new IdentityHashMap<>();
         for (Map.Entry<Item, List<Item>> entry : candidateEntries) {
             Item alias = entry.getKey();
-            Item canonical = entry.getValue().stream()
-                    .min(CANONICAL_ITEM_ORDER)
-                    .orElse(alias);
+            Item canonical = UnificationPriorityRules.pickBestCanonicalCandidate(entry.getValue());
+            if (canonical == Items.AIR) {
+                canonical = alias;
+            }
             if (canonical == alias) continue;
             if (isInternalOreAndAlloyAlias(alias, canonical)) continue;
             aliasToCanonical.put(alias, canonical);
         }
 
-        return aliasToCanonical;
+        Map<Item, List<Item>> canonicalCandidatesSnapshot = new IdentityHashMap<>();
+        for (Map.Entry<Item, List<Item>> entry : candidateEntries) {
+            List<Item> candidates = new ArrayList<>(entry.getValue());
+            candidates.sort(Comparator.comparing(item -> itemId(item).toString()));
+            canonicalCandidatesSnapshot.put(entry.getKey(), List.copyOf(candidates));
+        }
+
+        return new RecipeAliasBuildResult(
+                Map.copyOf(aliasToCanonical),
+                Collections.unmodifiableMap(duplicateGroups),
+                Collections.unmodifiableMap(canonicalByGroup),
+                Collections.unmodifiableMap(canonicalCandidatesSnapshot)
+        );
     }
 
     public static Map<Item, Item> buildAliasMapSnapshot() {
@@ -123,13 +142,13 @@ public final class RecipeAliasMapBuilder {
             }
 
             ResourceLocation id = itemId(item);
-            materialKeyFromPath(id).ifPresent(key -> groups.computeIfAbsent(key, ignored -> new LinkedHashSet<>()).add(item));
+            materialKeyFromItemId(id).ifPresent(key -> groups.computeIfAbsent(key, ignored -> new LinkedHashSet<>()).add(item));
         }
 
         return groups;
     }
 
-    private static Optional<MaterialAliasKey> materialKeyFromCommonTag(ResourceLocation tagId) {
+    public static Optional<MaterialAliasKey> materialKeyFromCommonTag(ResourceLocation tagId) {
         if (!COMMON_TAG_NAMESPACE.equals(tagId.getNamespace())) return Optional.empty();
 
         String path = tagId.getPath().toLowerCase(Locale.ROOT);
@@ -143,7 +162,7 @@ public final class RecipeAliasMapBuilder {
         return Optional.of(new MaterialAliasKey(form, normalizeMaterialForForm(material, form)));
     }
 
-    private static Optional<MaterialAliasKey> materialKeyFromPath(ResourceLocation id) {
+    public static Optional<MaterialAliasKey> materialKeyFromItemId(ResourceLocation id) {
         String path = normalizeMaterial(id.getPath());
         if (path.isBlank()) return Optional.empty();
 
@@ -165,6 +184,14 @@ public final class RecipeAliasMapBuilder {
             }
         }
 
+        String storageSuffix = "_block";
+        if (path.endsWith(storageSuffix) && path.length() > storageSuffix.length()) {
+            String material = normalizeMaterial(path.substring(0, path.length() - storageSuffix.length()));
+            if (!material.isBlank()) {
+                return Optional.of(new MaterialAliasKey("block", material));
+            }
+        }
+
         Optional<String> bareForm = MaterialItemOrder.bareItemForm(path);
         if (bareForm.isPresent()) {
             return Optional.of(new MaterialAliasKey(bareForm.get(), MaterialItemOrder.canonicalMaterialToken(path)));
@@ -178,16 +205,8 @@ public final class RecipeAliasMapBuilder {
     }
 
     private static Item selectCanonicalItem(MaterialAliasKey key, List<Item> items) {
-        String preferredPath = preferredCanonicalPath(key);
-        for (Item item : items) {
-            ResourceLocation id = itemId(item);
-            if (OreAndAlloy.MODID.equals(id.getNamespace()) && preferredPath.equals(id.getPath())) {
-                return item;
-            }
-        }
-
-        items.sort(CANONICAL_ITEM_ORDER);
-        return items.getFirst();
+        ResourceLocation preferred = ResourceLocation.fromNamespaceAndPath(OreAndAlloy.MODID, preferredCanonicalPath(key));
+        return UnificationPriorityRules.selectCanonicalItem(key, items, preferred.toString());
     }
 
     private static String preferredCanonicalPath(MaterialAliasKey key) {
@@ -209,12 +228,6 @@ public final class RecipeAliasMapBuilder {
                     .orElse("crushed_" + preferredMaterial);
         }
         return preferredMaterial + "_" + form;
-    }
-
-    private static int namespacePriority(String namespace) {
-        if (OreAndAlloy.MODID.equals(namespace)) return 0;
-        if ("minecraft".equals(namespace)) return 1;
-        return 2;
     }
 
     private static String normalizeMaterial(String raw) {

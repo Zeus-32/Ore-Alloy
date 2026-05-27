@@ -2,8 +2,13 @@ package eu.zunix.ore_and_alloy.integration;
 
 import com.mojang.logging.LogUtils;
 import eu.zunix.ore_and_alloy.OreAndAlloy;
+import eu.zunix.ore_and_alloy.config.OAConfig;
 import eu.zunix.ore_and_alloy.integration.recipe.RecipeAliasMapBuilder;
+import eu.zunix.ore_and_alloy.integration.recipe.RecipeAliasBuildResult;
 import eu.zunix.ore_and_alloy.integration.recipe.RecipeMutationEngine;
+import eu.zunix.ore_and_alloy.integration.recipe.UnificationAuditReporter;
+import eu.zunix.ore_and_alloy.integration.recipe.UnificationSnapshotWriter;
+import eu.zunix.ore_and_alloy.integration.recipe.UnificationStabilityGuard;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -56,9 +61,17 @@ public final class RecipeInterceptor {
     }
 
     private static void rewriteRecipes(RecipeManager recipeManager, String reason) {
-        Map<Item, Item> aliasToCanonical = RecipeAliasMapBuilder.buildAliasMap();
+        RecipeAliasBuildResult aliasBuild = RecipeAliasMapBuilder.buildAliasAnalysis();
+        Map<Item, Item> aliasToCanonical = aliasBuild.aliasToCanonical();
         aliasMapSnapshot = aliasToCanonical.isEmpty() ? Map.of() : Map.copyOf(aliasToCanonical);
         logCreatePressingAlias(aliasToCanonical, reason);
+        UnificationStabilityGuard.enforce(aliasBuild, reason);
+        if (OAConfig.unificationAuditEnabled()) {
+            UnificationAuditReporter.report(aliasBuild, reason);
+        }
+        if (OAConfig.unificationSnapshotExportEnabled()) {
+            UnificationSnapshotWriter.write(aliasBuild, reason);
+        }
         if (aliasToCanonical.isEmpty()) {
             LOGGER.info("[{}] No alias materials found during recipe unification ({}).", OreAndAlloy.MODID, reason);
             return;

@@ -7,11 +7,13 @@ import eu.zunix.ore_and_alloy.core.MaterialForm;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
 import eu.zunix.ore_and_alloy.core.MetalMaterial;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
+import eu.zunix.ore_and_alloy.integration.recipe.UnificationPriorityRules;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -126,6 +128,78 @@ public final class OreAndAlloyKubeJS {
 
     public static void setPeriodicTooltipsEnabled(boolean enabled) {
         OAConfig.setPeriodicTooltipsEnabledFromKubeJS(enabled);
+    }
+
+    public static boolean unificationAuditEnabled() {
+        return OAConfig.unificationAuditEnabled();
+    }
+
+    public static void setUnificationAuditEnabled(boolean enabled) {
+        OAConfig.setUnificationAuditEnabledFromKubeJS(enabled);
+    }
+
+    public static boolean unificationStrictModeEnabled() {
+        return OAConfig.unificationStrictModeEnabled();
+    }
+
+    public static void setUnificationStrictModeEnabled(boolean enabled) {
+        OAConfig.setUnificationStrictModeEnabledFromKubeJS(enabled);
+    }
+
+    public static boolean unificationStrictModeFailFastEnabled() {
+        return OAConfig.unificationStrictModeFailFastEnabled();
+    }
+
+    public static void setUnificationStrictModeFailFastEnabled(boolean enabled) {
+        OAConfig.setUnificationStrictModeFailFastEnabledFromKubeJS(enabled);
+    }
+
+    public static boolean unificationSnapshotExportEnabled() {
+        return OAConfig.unificationSnapshotExportEnabled();
+    }
+
+    public static void setUnificationSnapshotExportEnabled(boolean enabled) {
+        OAConfig.setUnificationSnapshotExportEnabledFromKubeJS(enabled);
+    }
+
+    public static void resetUnificationPriorityOverrides() {
+        UnificationPriorityRules.resetRuntimeOverrides();
+    }
+
+    public static void setUnificationGlobalNamespacePriority(String... namespaces) {
+        if (namespaces == null) {
+            UnificationPriorityRules.setGlobalNamespacePriority(List.of());
+            return;
+        }
+        UnificationPriorityRules.setGlobalNamespacePriority(List.of(namespaces));
+    }
+
+    public static void setUnificationModPriority(String modId, int priority) {
+        UnificationPriorityRules.setModPriority(modId, priority);
+    }
+
+    public static void clearUnificationModPriority(String modId) {
+        UnificationPriorityRules.clearModPriority(modId);
+    }
+
+    public static void setUnificationMaterialPreferredNamespace(String material, String modId) {
+        UnificationPriorityRules.setMaterialPreferredNamespace(material, modId);
+    }
+
+    public static void clearUnificationMaterialPreferredNamespace(String material) {
+        UnificationPriorityRules.clearMaterialPreferredNamespace(material);
+    }
+
+    public static void setUnificationCanonicalItem(String form, String material, String itemId) {
+        UnificationPriorityRules.setCanonicalItemOverride(form, material, itemId);
+    }
+
+    public static void clearUnificationCanonicalItem(String form, String material) {
+        UnificationPriorityRules.clearCanonicalItemOverride(form, material);
+    }
+
+    public static Map<String, Object> unificationPrioritySnapshot() {
+        return UnificationPriorityRules.snapshot();
     }
 
     private static Optional<MetalMaterial> findMetal(String material) {

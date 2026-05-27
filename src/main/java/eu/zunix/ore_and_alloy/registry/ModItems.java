@@ -28,13 +28,15 @@ public class ModItems {
             registerMaterialItem(id);
         }
         ModOreBlocks.registerRawVariantOres(discovered.itemIds(), ITEMS);
+        ModStorageBlocks.registerStorageBlocks(discovered.itemIds(), ITEMS);
         ModStandaloneItems.registerAll(ITEMS);
 
-        OreAndAlloy.LOGGER.info("[{}] Item registration source={} material_items={} ore_blocks={} standalone_items={}",
+        OreAndAlloy.LOGGER.info("[{}] Item registration source={} material_items={} ore_blocks={} storage_blocks={} standalone_items={}",
                 OreAndAlloy.MODID,
                 discovered.source(),
                 REGISTERED_MATERIAL_ITEMS.size(),
                 ModOreBlocks.allOreBlocksById().size(),
+                ModStorageBlocks.allStorageBlocksById().size(),
                 ModStandaloneItems.items().size());
     }
 

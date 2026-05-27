@@ -80,6 +80,23 @@ The following integrations are actively implemented as runtime features:
 ### In-game
 Settings are readily available through the native NeoForge mod configuration screen.
 
+### Config Keys (for pack maintainers)
+
+`startup`:
+- `worldgen.custom_vein_worldgen_enabled`
+
+`common`:
+- `tooltips.periodic_enabled`
+- `unification.audit_report_enabled`
+- `unification.strict_mode_enabled`
+- `unification.strict_mode_fail_fast_enabled`
+- `unification.snapshot_export_enabled`
+
+`strict_mode_enabled` enables stability checks for canonical unification targets.  
+`strict_mode_fail_fast_enabled` escalates strict-mode issues to startup/reload failure.  
+`snapshot_export_enabled` writes a structured runtime unification report to:
+- `<game_dir>/ore_and_alloy/unification_snapshot.json`
+
 ### KubeJS (Startup)
 Exposed startup bindings allow for deep script control:
 - `OreAndAlloy`
@@ -87,12 +104,51 @@ Exposed startup bindings allow for deep script control:
 - `OAForms`
 - `OAGems`
 
-**Example:**
+**Basic example:**
 ```javascript
 // kubejs/startup_scripts/ore_and_alloy.js
 OreAndAlloy.setCustomVeinWorldgenEnabled(true);
 OreAndAlloy.setPeriodicTooltipsEnabled(true);
 ```
+
+**Unification control example:**
+```javascript
+// Debug / QA toggles
+OreAndAlloy.setUnificationAuditEnabled(true);
+OreAndAlloy.setUnificationStrictModeEnabled(true);
+OreAndAlloy.setUnificationStrictModeFailFastEnabled(false);
+OreAndAlloy.setUnificationSnapshotExportEnabled(true);
+
+// Reset runtime priority overrides first
+OreAndAlloy.resetUnificationPriorityOverrides();
+
+// Global namespace order (first wins)
+OreAndAlloy.setUnificationGlobalNamespacePriority(
+  "ore_and_alloy",
+  "minecraft",
+  "create"
+);
+
+// Explicit mod priority override (lower = higher priority)
+OreAndAlloy.setUnificationModPriority("ore_and_alloy", 0);
+OreAndAlloy.setUnificationModPriority("minecraft", 10);
+
+// Per-material preferred namespace
+OreAndAlloy.setUnificationMaterialPreferredNamespace("steel", "ore_and_alloy");
+
+// Per material+form explicit canonical item
+OreAndAlloy.setUnificationCanonicalItem("plate", "iron", "ore_and_alloy:iron_plate");
+
+// Optional introspection
+console.info("O&A priority snapshot:", OreAndAlloy.unificationPrioritySnapshot());
+```
+
+### Practical Workflow
+1. Start with strict mode OFF, audit ON, snapshot export ON.
+2. Validate alias map output (`unification_snapshot.json`) and logs.
+3. Add KubeJS priority overrides only where needed.
+4. Enable strict mode.
+5. Enable fail-fast once the pack is stable.
 
 ## For Modpack Developers
 
@@ -101,6 +157,12 @@ If you maintain custom material definitions/assets, regenerate material data wit
 
 ```bash
 ./gradlew generateMaterialData
+```
+
+Run regression checks after unification-sensitive changes:
+
+```bash
+./gradlew test
 ```
 
 ## Installation

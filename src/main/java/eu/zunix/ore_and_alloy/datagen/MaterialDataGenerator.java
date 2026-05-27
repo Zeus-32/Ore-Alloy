@@ -7,6 +7,7 @@ import eu.zunix.ore_and_alloy.datagen.material.MaterialItemCollector;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialModelWriter;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialOreBlockWriter;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialRecipeWriter;
+import eu.zunix.ore_and_alloy.datagen.material.MaterialStorageBlockWriter;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialTagWriter;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialTrimWriter;
 import eu.zunix.ore_and_alloy.registry.ModStandaloneItems;
@@ -50,12 +51,19 @@ public final class MaterialDataGenerator {
             oreBlockWriter.writeLootTables(rawVariants);
             oreBlockWriter.writeBlockTags(rawVariants);
 
+            MaterialStorageBlockWriter storageBlockWriter = new MaterialStorageBlockWriter(OUT, NAMESPACE);
+            var storageBlockBaseForms = storageBlockWriter.collectStorageBlockBaseForms(materialItems);
+            storageBlockWriter.writeBlockstatesAndModels(storageBlockBaseForms);
+            storageBlockWriter.writeLootTables(storageBlockBaseForms);
+            storageBlockWriter.writeBlockTags(storageBlockBaseForms);
+
             OALangGenerator.write(
                     OUT.resolve(Path.of("assets", NAMESPACE, "lang", "en_us.json")),
                     NAMESPACE,
                     PROSPECTOR_ID,
                     materialItems,
                     rawVariants,
+                    storageBlockBaseForms,
                     standaloneItems
             );
 
@@ -67,6 +75,7 @@ public final class MaterialDataGenerator {
 
             MaterialRecipeWriter recipeWriter = new MaterialRecipeWriter(OUT, NAMESPACE);
             recipeWriter.writeCompactingRecipes(materialItems);
+            recipeWriter.writeStorageBlockRecipes(storageBlockBaseForms);
 
             LootModifierWriter lootModifierWriter = new LootModifierWriter(OUT, NAMESPACE, REDSTONE_LOOT_MODIFIER_ID);
             lootModifierWriter.writeGlobalLootModifiers();

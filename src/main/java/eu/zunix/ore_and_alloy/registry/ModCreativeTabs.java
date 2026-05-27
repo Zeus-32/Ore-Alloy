@@ -39,6 +39,7 @@ public final class ModCreativeTabs {
                         ModItems.prospector().ifPresent(item -> output.accept(item.value()));
 
                         appendOreBlockSets(output);
+                        appendStorageBlockItems(output);
                         appendMaterialItems(output);
                         appendStandaloneItems(output);
 
@@ -103,6 +104,37 @@ public final class ModCreativeTabs {
                 .toList();
         for (String blockId : remaining) {
             output.accept(oreItems.get(blockId).value());
+        }
+    }
+
+    private static void appendStorageBlockItems(CreativeModeTab.Output output) {
+        Map<String, DeferredItem<BlockItem>> storageItems = ModStorageBlocks.storageBlockItems();
+        Map<String, String> blockIdByMaterial = ModStorageBlocks.blockIdByMaterial();
+        if (storageItems.isEmpty() || blockIdByMaterial.isEmpty()) return;
+
+        List<String> materials = new ArrayList<>(blockIdByMaterial.keySet());
+        materials.sort(Comparator
+                .comparing((String material) -> MaterialItemOrder.preferredItemMaterialToken(material))
+                .thenComparing(Comparator.naturalOrder()));
+
+        Set<String> emitted = new LinkedHashSet<>();
+        for (String material : materials) {
+            String blockId = blockIdByMaterial.get(material);
+            if (blockId == null) continue;
+
+            DeferredItem<BlockItem> item = storageItems.get(blockId);
+            if (item == null) continue;
+
+            output.accept(item.value());
+            emitted.add(blockId);
+        }
+
+        List<String> remaining = storageItems.keySet().stream()
+                .filter(id -> !emitted.contains(id))
+                .sorted()
+                .toList();
+        for (String blockId : remaining) {
+            output.accept(storageItems.get(blockId).value());
         }
     }
 

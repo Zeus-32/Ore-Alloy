@@ -225,7 +225,12 @@ public final class OAConfigScreen extends Screen {
     }
 
     private void showKubeOverrideHint() {
-        if (OAConfig.hasKubeCustomVeinWorldgenOverride() || OAConfig.hasKubePeriodicTooltipsOverride()) {
+        if (OAConfig.hasKubeCustomVeinWorldgenOverride()
+                || OAConfig.hasKubePeriodicTooltipsOverride()
+                || OAConfig.hasKubeUnificationAuditOverride()
+                || OAConfig.hasKubeUnificationStrictModeOverride()
+                || OAConfig.hasKubeUnificationStrictModeFailFastOverride()
+                || OAConfig.hasKubeUnificationSnapshotExportOverride()) {
             statusMessage = Component.translatable(LANG + "status.kube_override").withStyle(ChatFormatting.GOLD);
             statusColor = 0xFFF1C35E;
         }

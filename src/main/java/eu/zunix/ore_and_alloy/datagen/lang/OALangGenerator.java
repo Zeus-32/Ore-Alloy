@@ -6,6 +6,7 @@ import eu.zunix.ore_and_alloy.core.MetalMaterial;
 import eu.zunix.ore_and_alloy.core.OreHostVariantCatalog;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
 import eu.zunix.ore_and_alloy.core.RawVariantCatalog;
+import eu.zunix.ore_and_alloy.core.StorageBlockCatalog;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialId;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialIdParser;
 import eu.zunix.ore_and_alloy.registry.ModStandaloneItems;
@@ -31,6 +32,7 @@ public final class OALangGenerator {
             String prospectorId,
             List<String> materialItems,
             List<String> rawVariants,
+            Map<String, String> storageBlockBaseForms,
             List<ModStandaloneItems.StandaloneItemDefinition> standaloneItems
     ) throws IOException {
         Map<String, String> entries = new LinkedHashMap<>();
@@ -54,6 +56,11 @@ public final class OALangGenerator {
                 entries.put("block." + namespace + "." + blockId, blockName);
             }
         }
+        for (String material : storageBlockBaseForms.keySet()) {
+            String blockId = StorageBlockCatalog.blockIdForMaterial(material);
+            String materialName = capitalizeWords(material.replace('_', ' '));
+            entries.put("block." + namespace + "." + blockId, materialName + " Block");
+        }
 
         for (MetalMaterial metal : MetalMaterial.values()) {
             String materialName = capitalizeWords(metal.materialName().replace('_', ' '));
@@ -65,6 +72,7 @@ public final class OALangGenerator {
 
         addTagLangEntries(entries, materialItems);
         addOreTagLangEntries(entries, rawVariants);
+        addStorageBlockTagLangEntries(entries, storageBlockBaseForms);
         writeJson(out, entries);
     }
 
@@ -172,6 +180,19 @@ public final class OALangGenerator {
             String label = capitalizeWords(material.replace('_', ' '));
             entries.put(tagLangKey("block", "c", "ores/" + material), label + " Ores");
             entries.put(tagLangKey("item", "c", "ores/" + material), label + " Ores");
+        }
+    }
+
+    private static void addStorageBlockTagLangEntries(Map<String, String> entries, Map<String, String> storageBlockBaseForms) {
+        if (storageBlockBaseForms.isEmpty()) return;
+
+        entries.put(tagLangKey("block", "c", "storage_blocks"), "Storage Blocks");
+        entries.put(tagLangKey("item", "c", "storage_blocks"), "Storage Blocks");
+
+        for (String material : storageBlockBaseForms.keySet()) {
+            String materialLabel = capitalizeWords(material.replace('_', ' '));
+            entries.put(tagLangKey("block", "c", "storage_blocks/" + material), materialLabel + " Storage Blocks");
+            entries.put(tagLangKey("item", "c", "storage_blocks/" + material), materialLabel + " Storage Blocks");
         }
     }
 
