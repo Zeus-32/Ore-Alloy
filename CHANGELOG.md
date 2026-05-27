@@ -70,8 +70,6 @@ All notable changes to this project are documented in this file.
 - Test runtime now includes JUnit Platform launcher support in Gradle.
 
 ### Notes
-- Storage block textures are expected at:
-  - `assets/ore_and_alloy/textures/block/storage/<material>_block.png`
 - Missing texture files intentionally render as missing texture (no fallback placeholder).
 
 ## [0.1.3-alpha] - 2026-05-26
