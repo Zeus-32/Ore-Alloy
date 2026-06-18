@@ -10,17 +10,18 @@ class RawMaterialMappingsTest {
     @Test
     void variantToMaterialLookupWorks() {
         assertEquals("aluminum", RawMaterialMappings.materialForRawVariant("bauxite").orElseThrow());
-        assertEquals("aluminum", RawMaterialMappings.materialForRawVariant("cryolite").orElseThrow());
         assertEquals("iron", RawMaterialMappings.materialForRawVariant("magnetite").orElseThrow());
+        assertEquals("copper", RawMaterialMappings.materialForRawVariant("chalcopyrite").orElseThrow());
+        assertEquals("copper", RawMaterialMappings.materialForRawVariant("copper").orElseThrow());
     }
 
     @Test
     void rawAndCrushedItemIdsFollowConfiguredVariants() {
-        List<String> aluminumRaw = RawMaterialMappings.rawItemIdsForMaterial("aluminum");
-        List<String> aluminumCrushed = RawMaterialMappings.crushedItemIdsForMaterial("aluminum");
+        List<String> copperRaw = RawMaterialMappings.rawItemIdsForMaterial("copper");
+        List<String> copperCrushed = RawMaterialMappings.crushedItemIdsForMaterial("copper");
 
-        assertEquals(List.of("raw_bauxite", "raw_cryolite"), aluminumRaw);
-        assertEquals(List.of("crushed_bauxite", "crushed_cryolite"), aluminumCrushed);
+        assertEquals(List.of("raw_chalcopyrite", "raw_malachite", "raw_bornite", "raw_copper"), copperRaw);
+        assertEquals(List.of("crushed_chalcopyrite", "crushed_malachite", "crushed_bornite", "crushed_copper"), copperCrushed);
     }
 
     @Test

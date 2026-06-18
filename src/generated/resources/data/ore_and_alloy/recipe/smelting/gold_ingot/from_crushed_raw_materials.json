@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:gold_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:crushed_raw_materials/gold" }
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "group": "gold_ingot",
+  "ingredient": { "tag": "c:crushed_raw_materials/gold" },
+  "result": { "id": "ore_and_alloy:gold_ingot" },
+  "experience": 1.0,
+  "cookingtime": 200
+}

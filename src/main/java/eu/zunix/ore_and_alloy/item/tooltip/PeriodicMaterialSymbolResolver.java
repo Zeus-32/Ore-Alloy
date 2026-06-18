@@ -4,7 +4,6 @@ import eu.zunix.ore_and_alloy.core.MaterialFormCatalog;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
 import eu.zunix.ore_and_alloy.core.RawVariantCatalog;
-import eu.zunix.ore_and_alloy.registry.ModStandaloneItems;
 
 import java.util.List;
 import java.util.Locale;
@@ -34,20 +33,16 @@ public final class PeriodicMaterialSymbolResolver {
             Map.entry("chromium", "Cr"),
             Map.entry("platinum", "Pt"),
             Map.entry("iridium", "Ir"),
-            Map.entry("diamond", "C"),
-            Map.entry("coal", "C"),
-            Map.entry("silicon", "Si"),
-            Map.entry("lithium", "Li"),
             Map.entry("antimony", "Sb"),
-            Map.entry("lapis", "La"),
+            Map.entry("lithium", "Li"),
+            Map.entry("silicon", "Si"),
+            Map.entry("tungsten", "W"),
             Map.entry("brass", "Cu3Zn2"),
             Map.entry("bronze", "Cu3Sn"),
             Map.entry("electrum", "AuAg"),
             Map.entry("invar", "Fe2Ni"),
             Map.entry("constantan", "Cu55Ni45"),
-            Map.entry("steel", "FeC"),
-            Map.entry("stainless_steel", "FeCrNi"),
-            Map.entry("wrought_iron", "FeC")
+            Map.entry("steel", "FeC")
     );
 
     private PeriodicMaterialSymbolResolver() {}
@@ -64,10 +59,6 @@ public final class PeriodicMaterialSymbolResolver {
     private static String extractMaterialToken(String itemPath) {
         if (itemPath == null || itemPath.isBlank()) return "";
         String id = itemPath.toLowerCase(Locale.ROOT);
-
-        if (id.startsWith("molten_") && id.endsWith("_bucket") && id.length() > "molten__bucket".length()) {
-            return id.substring("molten_".length(), id.length() - "_bucket".length());
-        }
 
         if (id.startsWith("crushed_raw_") && id.length() > "crushed_raw_".length()) {
             String token = id.substring("crushed_raw_".length());
@@ -102,7 +93,7 @@ public final class PeriodicMaterialSymbolResolver {
             return id;
         }
 
-        return ModStandaloneItems.materialTokenForItemId(id).orElse("");
+        return "";
     }
 
     private static String generalSymbol(String materialToken) {

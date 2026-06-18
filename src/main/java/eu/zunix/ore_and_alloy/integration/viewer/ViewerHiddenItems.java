@@ -21,7 +21,6 @@ public final class ViewerHiddenItems {
 
     public static Set<ResourceLocation> resolveHiddenItemIds() {
         LinkedHashSet<ResourceLocation> hiddenIds = new LinkedHashSet<>();
-
         List<Map.Entry<Item, Item>> aliasEntries = RecipeInterceptor.buildAliasMapSnapshot().entrySet().stream()
                 .sorted(Comparator.comparing(entry -> BuiltInRegistries.ITEM.getKey(entry.getKey()).toString()))
                 .toList();

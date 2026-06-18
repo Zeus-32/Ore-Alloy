@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:stainless_steel_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:dusts/stainless_steel" }
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "group": "stainless_steel_ingot",
+  "ingredient": { "tag": "c:dusts/stainless_steel" },
+  "result": { "id": "ore_and_alloy:stainless_steel_ingot" },
+  "experience": 0.7,
+  "cookingtime": 200
+}

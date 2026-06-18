@@ -9,18 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 final class ViewerAliasRuleEngine {
-    private static final List<String> ITEM_ALIAS_RULES = List.of(
-            "prospector -> ore scanner",
-            "prospector -> prospecting",
-            "prospector -> vein scanner"
-    );
-
-    private static final List<String> MOLTEN_BUCKET_ALIAS_RULES = List.of(
-            "{material}",
-            "molten {material}",
-            "liquid {material}",
-            "{material} fluid"
-    );
+    private static final List<String> ITEM_ALIAS_RULES = List.of();
 
     private static final List<String> FORM_ALIAS_RULES = List.of(
             "* -> {material}",
@@ -36,59 +25,19 @@ final class ViewerAliasRuleEngine {
             "plate -> sheet",
             "plate -> {material} sheet",
 
-            "sheet -> sheet",
-            "sheet -> {material} sheet",
-            "sheet -> plate",
-            "sheet -> {material} plate",
-
             "rod -> rod",
             "rod -> {material} rod",
-
-            "long_rod -> long rod",
-            "long_rod -> {material} long rod",
-
-            "gem -> gem",
-            "gem -> {material} gem",
-
-            "crystal -> crystal",
-            "crystal -> {material} crystal",
 
             "dust -> dust",
             "dust -> {material} dust",
 
-            "dirty_dust -> dirty dust",
-            "dirty_dust -> {material} dirty dust",
-            "dirty_dust -> {material} impure dust",
-
-            "purified_dust -> purified dust",
-            "purified_dust -> {material} purified dust",
-            "purified_dust -> {material} clean dust",
-
-            "clump -> clump",
-            "clump -> {material} clump",
-
-            "shard -> shard",
-            "shard -> {material} shard",
-
             "gear -> gear",
             "gear -> {material} gear",
-
-            "bolt -> bolt",
-            "bolt -> {material} bolt",
-
-            "screw -> screw",
-            "screw -> {material} screw",
 
             "crushed -> crushed",
             "crushed -> crushed {material}",
             "crushed -> {material} crushed",
             "crushed -> crushed raw {material}",
-
-            "ring -> ring",
-            "ring -> {material} ring",
-
-            "spring -> spring",
-            "spring -> {material} spring",
 
             "ore -> ore",
             "ore -> {material} ore",
@@ -117,20 +66,6 @@ final class ViewerAliasRuleEngine {
             if (!rule.get().selector().equals(itemPath)) continue;
             aliases.add(resolveTemplate(rule.get().template(), "", ""));
         }
-    }
-
-    static void addMoltenBucketAliases(String materialToken, Set<String> aliases) {
-        String materialLabel = toDisplayName(materialToken);
-        for (String template : MOLTEN_BUCKET_ALIAS_RULES) {
-            aliases.add(resolveTemplate(template, materialLabel, ""));
-        }
-
-        synonymFor(materialToken).ifPresent(synonym -> {
-            String synonymLabel = toDisplayName(synonym);
-            for (String template : MOLTEN_BUCKET_ALIAS_RULES) {
-                aliases.add(resolveTemplate(template, synonymLabel, ""));
-            }
-        });
     }
 
     static void addFormAliases(String formToken, String materialToken, Set<String> aliases) {

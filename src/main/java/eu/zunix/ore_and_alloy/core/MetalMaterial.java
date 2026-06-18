@@ -2,6 +2,7 @@ package eu.zunix.ore_and_alloy.core;
 
 import java.util.EnumSet;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -23,12 +24,24 @@ public enum MetalMaterial {
     PLATINUM(oreMetalForms()),
     IRIDIUM(oreMetalForms()),
 
+    ANTIMONY(processedMetalForms()),
     STEEL(processedMetalForms()),
+    STAINLESS_STEEL(processedMetalForms()),
     BRASS(processedMetalForms()),
     BRONZE(processedMetalForms()),
+    CUPRONICKEL(processedMetalForms()),
     ELECTRUM(processedMetalForms()),
     INVAR(processedMetalForms()),
-    CONSTANTAN(processedMetalForms());
+    CONSTANTAN(processedMetalForms()),
+    WROUGHT_IRON(processedMetalForms()),
+    ENDERIUM(processedMetalForms()),
+    LITHIUM(processedMetalForms()),
+    LUMIUM(processedMetalForms()),
+    NAQUADAH(processedMetalForms()),
+    RED_ALLOY(processedMetalForms()),
+    SOUL_INFUSED(processedMetalForms()),
+    TUNGSTEN(processedMetalForms()),
+    SILICON(EnumSet.of(MaterialForm.INGOT));
 
     private final Set<MaterialForm> forms;
 
@@ -45,11 +58,17 @@ public enum MetalMaterial {
     }
 
     public String materialName() {
-        return name().toLowerCase(Locale.ROOT);
+        return MaterialItemOrder.canonicalMaterialToken(name().toLowerCase(Locale.ROOT));
     }
 
-    public String moltenFluidPath() {
-        return "molten_" + materialName();
+    public static Optional<MetalMaterial> fromToken(String token) {
+        String canonical = MaterialItemOrder.canonicalMaterialToken(token);
+        for (MetalMaterial material : values()) {
+            if (material.materialName().equals(canonical)) {
+                return Optional.of(material);
+            }
+        }
+        return Optional.empty();
     }
 
     private static Set<MaterialForm> processedMetalForms() {
@@ -58,18 +77,8 @@ public enum MetalMaterial {
                 MaterialForm.PLATE,
                 MaterialForm.NUGGET,
                 MaterialForm.ROD,
-                MaterialForm.LONG_ROD,
                 MaterialForm.GEAR,
-                MaterialForm.BOLT,
-                MaterialForm.SCREW,
-                MaterialForm.RING,
-                MaterialForm.SPRING,
-                MaterialForm.DUST,
-                MaterialForm.DIRTY_DUST,
-                MaterialForm.PURIFIED_DUST,
-                MaterialForm.CLUMP,
-                MaterialForm.SHARD,
-                MaterialForm.CRYSTAL
+                MaterialForm.DUST
         );
     }
 

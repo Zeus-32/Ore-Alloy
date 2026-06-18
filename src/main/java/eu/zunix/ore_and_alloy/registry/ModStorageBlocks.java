@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.PoweredBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -67,20 +66,11 @@ public final class ModStorageBlocks {
             return vanillaBlock;
         }
 
-        if ("gem".equals(baseForm)) {
-            return Blocks.DIAMOND_BLOCK;
-        }
-        if ("dust".equals(baseForm)) {
-            return Blocks.REDSTONE_BLOCK;
-        }
         return Blocks.IRON_BLOCK;
     }
 
     private static Block createStorageBlock(String blockId, Block baseBlock) {
         BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(baseBlock).requiresCorrectToolForDrops();
-        if ("redstone_block".equals(blockId)) {
-            return new PoweredBlock(properties);
-        }
         return new Block(properties);
     }
 }

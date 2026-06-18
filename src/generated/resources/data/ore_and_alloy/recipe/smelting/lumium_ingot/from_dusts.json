@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:lumium_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:dusts/lumium" }
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "group": "lumium_ingot",
+  "ingredient": { "tag": "c:dusts/lumium" },
+  "result": { "id": "ore_and_alloy:lumium_ingot" },
+  "experience": 0.7,
+  "cookingtime": 200
+}

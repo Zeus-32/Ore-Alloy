@@ -5,6 +5,7 @@ import eu.zunix.ore_and_alloy.core.MaterialFormCatalog;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
 import eu.zunix.ore_and_alloy.core.RawVariantCatalog;
+import eu.zunix.ore_and_alloy.integration.IntegrationMaterialRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -159,6 +160,10 @@ public final class RecipeAliasMapBuilder {
         String material = normalizeMaterial(path.substring(split + 1));
         String form = MaterialFormCatalog.FORM_BY_TAG_BUCKET.get(bucket);
         if (form == null || material.isBlank()) return Optional.empty();
+        if (!IntegrationMaterialRegistry.isMaterialEnabled(material)) return Optional.empty();
+        if ("raw".equals(form) || "crushed".equals(form)) {
+            return Optional.empty();
+        }
         return Optional.of(new MaterialAliasKey(form, normalizeMaterialForForm(material, form)));
     }
 
@@ -173,21 +178,25 @@ public final class RecipeAliasMapBuilder {
             if (path.endsWith(suffix) && path.length() > suffix.length()) {
                 String material = normalizeMaterial(path.substring(0, path.length() - suffix.length()));
                 material = normalizeMaterialForForm(material, canonicalForm);
-                if (!material.isBlank()) return Optional.of(new MaterialAliasKey(canonicalForm, material));
+                if (!material.isBlank() && IntegrationMaterialRegistry.isMaterialEnabled(material)) {
+                    return Optional.of(new MaterialAliasKey(canonicalForm, material));
+                }
             }
 
             String prefix = form + "_";
             if (path.startsWith(prefix) && path.length() > prefix.length()) {
                 String material = normalizeMaterial(path.substring(prefix.length()));
                 material = normalizeMaterialForForm(material, canonicalForm);
-                if (!material.isBlank()) return Optional.of(new MaterialAliasKey(canonicalForm, material));
+                if (!material.isBlank() && IntegrationMaterialRegistry.isMaterialEnabled(material)) {
+                    return Optional.of(new MaterialAliasKey(canonicalForm, material));
+                }
             }
         }
 
         String storageSuffix = "_block";
         if (path.endsWith(storageSuffix) && path.length() > storageSuffix.length()) {
             String material = normalizeMaterial(path.substring(0, path.length() - storageSuffix.length()));
-            if (!material.isBlank()) {
+            if (!material.isBlank() && IntegrationMaterialRegistry.isMaterialEnabled(material)) {
                 return Optional.of(new MaterialAliasKey("block", material));
             }
         }
@@ -206,7 +215,7 @@ public final class RecipeAliasMapBuilder {
 
     private static Item selectCanonicalItem(MaterialAliasKey key, List<Item> items) {
         ResourceLocation preferred = ResourceLocation.fromNamespaceAndPath(OreAndAlloy.MODID, preferredCanonicalPath(key));
-        return UnificationPriorityRules.selectCanonicalItem(key, items, preferred.toString());
+        return UnificationPriorityRules.selectCanonicalItem(items, preferred.toString());
     }
 
     private static String preferredCanonicalPath(MaterialAliasKey key) {
@@ -243,9 +252,6 @@ public final class RecipeAliasMapBuilder {
 
     private static String normalizeMaterialForForm(String material, String form) {
         String out = material;
-        if ("raw".equals(form)) {
-            out = RawMaterialMappings.materialForRawVariant(out).orElse(out);
-        }
         if ("crushed".equals(form)) {
             if (out.startsWith("raw_") && out.length() > "raw_".length()) {
                 out = out.substring("raw_".length());
@@ -253,7 +259,6 @@ public final class RecipeAliasMapBuilder {
             if (out.endsWith("_raw") && out.length() > "_raw".length()) {
                 out = out.substring(0, out.length() - "_raw".length());
             }
-            out = RawMaterialMappings.materialForRawVariant(out).orElse(out);
         }
         if ("ore".equals(form)) {
             out = normalizeOreMaterialToken(out);

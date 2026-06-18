@@ -3,6 +3,7 @@
   "values": [
     { "id": "ore_and_alloy:crushed_bornite", "required": false },
     { "id": "ore_and_alloy:crushed_chalcopyrite", "required": false },
+    { "id": "ore_and_alloy:crushed_copper", "required": false },
     { "id": "ore_and_alloy:crushed_malachite", "required": false }
   ]
 }

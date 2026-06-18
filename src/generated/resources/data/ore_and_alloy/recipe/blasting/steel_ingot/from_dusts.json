@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:steel_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:dusts/steel" }
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "steel_ingot",
+  "ingredient": { "tag": "c:dusts/steel" },
+  "result": { "id": "ore_and_alloy:steel_ingot" },
+  "experience": 0.7,
+  "cookingtime": 100
+}

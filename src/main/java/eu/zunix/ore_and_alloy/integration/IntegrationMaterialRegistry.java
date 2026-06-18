@@ -1,6 +1,5 @@
 package eu.zunix.ore_and_alloy.integration;
 
-import eu.zunix.ore_and_alloy.core.GemMaterial;
 import eu.zunix.ore_and_alloy.core.MaterialForm;
 import eu.zunix.ore_and_alloy.core.MetalMaterial;
 
@@ -17,14 +16,12 @@ public final class IntegrationMaterialRegistry {
         return isMetalEnabled(material);
     }
 
-    public static boolean shouldRegister(GemMaterial material, MaterialForm form) {
-        return isGemEnabled(material);
-    }
-
     public static boolean isMetalEnabled(MetalMaterial material) {
-        if (isForceAllEnabled()) return true;
+        if (material == null) return false;
+        if (Boolean.getBoolean(FORCE_ALL_PROPERTY)) return true;
+        if (MaterialActivationRequests.isRequested(material)) return true;
         if (IntegrationMaterialProviders.VANILLA_METALS.contains(material)) return true;
-        if (!MOD_LIST.available()) return isDatagenIncludeAllEnabled();
+        if (!MOD_LIST.available()) return Boolean.getBoolean(DATAGEN_INCLUDE_ALL_PROPERTY);
 
         Set<String> providers = IntegrationMaterialProviders.METAL_PROVIDER_MODS.getOrDefault(material, Set.of());
         for (String modId : providers) {
@@ -33,23 +30,10 @@ public final class IntegrationMaterialRegistry {
         return false;
     }
 
-    public static boolean isGemEnabled(GemMaterial material) {
-        if (isForceAllEnabled()) return true;
-        if (IntegrationMaterialProviders.VANILLA_GEMS.contains(material)) return true;
-        if (!MOD_LIST.available()) return isDatagenIncludeAllEnabled();
-
-        Set<String> providers = IntegrationMaterialProviders.GEM_PROVIDER_MODS.getOrDefault(material, Set.of());
-        for (String modId : providers) {
-            if (MOD_LIST.isLoaded(modId)) return true;
-        }
-        return false;
+    public static boolean isMaterialEnabled(String materialToken) {
+        return MetalMaterial.fromToken(materialToken)
+                .map(IntegrationMaterialRegistry::isMetalEnabled)
+                .orElse(false);
     }
 
-    private static boolean isForceAllEnabled() {
-        return Boolean.parseBoolean(System.getProperty(FORCE_ALL_PROPERTY, "false"));
-    }
-
-    private static boolean isDatagenIncludeAllEnabled() {
-        return Boolean.parseBoolean(System.getProperty(DATAGEN_INCLUDE_ALL_PROPERTY, "false"));
-    }
 }

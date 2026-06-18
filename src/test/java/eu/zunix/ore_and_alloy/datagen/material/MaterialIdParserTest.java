@@ -22,26 +22,20 @@ class MaterialIdParserTest {
     }
 
     @Test
-    void parseOreHostVariantsAndBareForms() {
+    void parseOreHostVariantsAndRejectBareIds() {
         MaterialId ore = MaterialIdParser.parseItemId("deepslate_magnetite_ore");
         assertEquals("iron", ore.material());
         assertEquals("ore", ore.form());
 
-        MaterialId gem = MaterialIdParser.parseItemId("diamond");
-        assertEquals("diamond", gem.material());
-        assertEquals("gem", gem.form());
-
-        MaterialId dust = MaterialIdParser.parseItemId("redstone");
-        assertEquals("redstone", dust.material());
-        assertEquals("dust", dust.form());
+        assertThrows(IllegalArgumentException.class, () -> MaterialIdParser.parseItemId("iron"));
     }
 
     @Test
-    void itemIdForRespectsPreferredRawAndBareForms() {
+    void itemIdForRespectsPreferredRawAndMetalForms() {
         assertEquals("raw_bauxite", MaterialIdParser.itemIdFor("aluminum", "raw"));
         assertEquals("crushed_bauxite", MaterialIdParser.itemIdFor("aluminum", "crushed"));
-        assertEquals("redstone", MaterialIdParser.itemIdFor("redstone", "dust"));
-        assertEquals("diamond", MaterialIdParser.itemIdFor("diamond", "gem"));
+        assertEquals("iron_dust", MaterialIdParser.itemIdFor("iron", "dust"));
+        assertEquals("copper_plate", MaterialIdParser.itemIdFor("copper", "plate"));
     }
 
     @Test
@@ -49,11 +43,12 @@ class MaterialIdParserTest {
         assertEquals("raw_bauxite", MaterialIdParser.deriveItemIdFromTextureFile("raw", "bauxite"));
         assertEquals("raw_bauxite", MaterialIdParser.deriveItemIdFromTextureFile("raw_materials", "raw_bauxite"));
         assertEquals("crushed_bauxite", MaterialIdParser.deriveItemIdFromTextureFile("crushed", "crushed_raw_bauxite"));
-        assertEquals("iron_dirty_dust", MaterialIdParser.deriveItemIdFromTextureFile("dirty_dust", "dirty_iron_dust"));
+        assertEquals("iron_rod", MaterialIdParser.deriveItemIdFromTextureFile("rod", "rod_iron"));
     }
 
     @Test
     void invalidIdsThrow() {
         assertThrows(IllegalArgumentException.class, () -> MaterialIdParser.parseItemId("invalid_material_id_without_form"));
+        assertThrows(IllegalArgumentException.class, () -> MaterialIdParser.parseItemId("iron_dirty_dust"));
     }
 }

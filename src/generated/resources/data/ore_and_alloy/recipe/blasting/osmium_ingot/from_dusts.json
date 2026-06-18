@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:osmium_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:dusts/osmium" }
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "osmium_ingot",
+  "ingredient": { "tag": "c:dusts/osmium" },
+  "result": { "id": "ore_and_alloy:osmium_ingot" },
+  "experience": 0.7,
+  "cookingtime": 100
+}

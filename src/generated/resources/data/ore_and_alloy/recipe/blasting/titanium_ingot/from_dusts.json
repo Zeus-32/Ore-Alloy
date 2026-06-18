@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:titanium_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:dusts/titanium" }
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "titanium_ingot",
+  "ingredient": { "tag": "c:dusts/titanium" },
+  "result": { "id": "ore_and_alloy:titanium_ingot" },
+  "experience": 0.7,
+  "cookingtime": 100
+}

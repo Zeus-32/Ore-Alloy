@@ -1,6 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    { "id": "ore_and_alloy:gold_spring", "required": false }
-  ]
-}

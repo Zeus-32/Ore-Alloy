@@ -15,32 +15,11 @@ import java.util.Set;
 public final class MaterialTrimWriter {
     private static final List<TrimBridgeDefinition> VANILLA_TRIM_BRIDGES = List.of(
             new TrimBridgeDefinition(
-                    "quartz",
-                    List.of("quartz"),
-                    0.1F,
-                    "#E3D4C4",
-                    Map.of()
-            ),
-            new TrimBridgeDefinition(
                     "iron",
                     List.of("iron_ingot"),
                     0.2F,
                     "#ECECEC",
                     Map.of("minecraft:iron", "iron_darker")
-            ),
-            new TrimBridgeDefinition(
-                    "netherite",
-                    List.of("netherite_ingot"),
-                    0.3F,
-                    "#625859",
-                    Map.of("minecraft:netherite", "netherite_darker")
-            ),
-            new TrimBridgeDefinition(
-                    "redstone",
-                    List.of("redstone"),
-                    0.4F,
-                    "#971607",
-                    Map.of()
             ),
             new TrimBridgeDefinition(
                     "copper",
@@ -55,34 +34,6 @@ public final class MaterialTrimWriter {
                     0.6F,
                     "#DEB12D",
                     Map.of("minecraft:gold", "gold_darker")
-            ),
-            new TrimBridgeDefinition(
-                    "emerald",
-                    List.of("emerald"),
-                    0.7F,
-                    "#11A036",
-                    Map.of()
-            ),
-            new TrimBridgeDefinition(
-                    "diamond",
-                    List.of("diamond"),
-                    0.8F,
-                    "#6EECD2",
-                    Map.of("minecraft:diamond", "diamond_darker")
-            ),
-            new TrimBridgeDefinition(
-                    "lapis",
-                    List.of("lapis", "lapis_lazuli"),
-                    0.9F,
-                    "#416E97",
-                    Map.of()
-            ),
-            new TrimBridgeDefinition(
-                    "amethyst",
-                    List.of("amethyst_shard", "amethyst"),
-                    1.0F,
-                    "#9A5CC6",
-                    Map.of()
             )
     );
 

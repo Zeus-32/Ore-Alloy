@@ -1,6 +1,5 @@
 package eu.zunix.ore_and_alloy.integration;
 
-import eu.zunix.ore_and_alloy.core.GemMaterial;
 import eu.zunix.ore_and_alloy.core.MetalMaterial;
 
 import java.util.Collections;
@@ -18,18 +17,7 @@ final class IntegrationMaterialProviders {
             MetalMaterial.COPPER
     );
 
-    static final Set<GemMaterial> VANILLA_GEMS = EnumSet.of(
-            GemMaterial.COAL,
-            GemMaterial.DIAMOND,
-            GemMaterial.EMERALD,
-            GemMaterial.LAPIS,
-            GemMaterial.QUARTZ,
-            GemMaterial.AMETHYST,
-            GemMaterial.REDSTONE
-    );
-
     static final Map<MetalMaterial, Set<String>> METAL_PROVIDER_MODS = buildMetalProviders();
-    static final Map<GemMaterial, Set<String>> GEM_PROVIDER_MODS = buildGemProviders();
 
     private IntegrationMaterialProviders() {}
 
@@ -50,30 +38,34 @@ final class IntegrationMaterialProviders {
         map.put(MetalMaterial.PLATINUM, set("thermal", "alltheores", "techreborn", "gtceu"));
         map.put(MetalMaterial.IRIDIUM, set("techreborn", "gtceu", "modern_industrialization"));
 
+        map.put(MetalMaterial.ANTIMONY, set("gtceu", "modern_industrialization"));
         map.put(MetalMaterial.STEEL, set("immersiveengineering", "mekanism", "ad_astra", "pneumaticcraft", "createaddition"));
+        map.put(MetalMaterial.STAINLESS_STEEL, set("gtceu", "modern_industrialization", "techreborn"));
         map.put(MetalMaterial.BRASS, set("create", "thermal", "alltheores"));
         map.put(MetalMaterial.BRONZE, set("mekanism", "thermal", "alltheores", "techreborn", "gtceu"));
+        map.put(MetalMaterial.CUPRONICKEL, set("immersiveengineering", "gtceu", "modern_industrialization"));
         map.put(MetalMaterial.ELECTRUM, set("thermal", "immersiveengineering", "alltheores", "techreborn", "gtceu"));
         map.put(MetalMaterial.INVAR, set("thermal", "alltheores", "techreborn", "gtceu"));
         map.put(MetalMaterial.CONSTANTAN, set("immersiveengineering", "alltheores", "techreborn"));
+        map.put(MetalMaterial.WROUGHT_IRON, set("gtceu", "modern_industrialization"));
+        map.put(MetalMaterial.ENDERIUM, set("thermal"));
+        map.put(MetalMaterial.LITHIUM, set("mekanism", "techreborn", "gtceu", "modern_industrialization"));
+        map.put(MetalMaterial.LUMIUM, set("thermal"));
+        map.put(MetalMaterial.NAQUADAH, set("gtceu"));
+        map.put(MetalMaterial.RED_ALLOY, set("projectred_core", "gtceu"));
+        map.put(MetalMaterial.SOUL_INFUSED, set("thermal"));
+        map.put(MetalMaterial.TUNGSTEN, set("techreborn", "gtceu", "modern_industrialization"));
+        map.put(MetalMaterial.SILICON, set("mekanism", "ae2", "enderio", "gtceu"));
 
-        return Collections.unmodifiableMap(map);
-    }
-
-    private static Map<GemMaterial, Set<String>> buildGemProviders() {
-        Map<GemMaterial, Set<String>> map = new EnumMap<>(GemMaterial.class);
-        map.put(GemMaterial.SAPPHIRE, set("projectred_core", "thermal", "alltheores"));
-        map.put(GemMaterial.RUBY, set("projectred_core", "thermal", "alltheores"));
         return Collections.unmodifiableMap(map);
     }
 
     private static Set<String> set(String... values) {
-        if (values.length == 0) return Set.of();
         Set<String> out = new LinkedHashSet<>(values.length);
         for (String value : values) {
             if (value == null) continue;
-            String trimmed = value.trim().toLowerCase(Locale.ROOT);
-            if (!trimmed.isEmpty()) out.add(trimmed);
+            String normalized = value.trim().toLowerCase(Locale.ROOT);
+            if (!normalized.isEmpty()) out.add(normalized);
         }
         return Set.copyOf(out);
     }

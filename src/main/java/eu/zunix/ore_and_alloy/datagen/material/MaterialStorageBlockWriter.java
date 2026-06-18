@@ -132,10 +132,7 @@ public final class MaterialStorageBlockWriter {
     }
 
     private static boolean isBeaconBaseMaterial(String material) {
-        return "iron".equals(material)
-                || "gold".equals(material)
-                || "diamond".equals(material)
-                || "emerald".equals(material);
+        return "iron".equals(material) || "gold".equals(material);
     }
 
     private static void writeTag(Path path, List<String> values) throws IOException {

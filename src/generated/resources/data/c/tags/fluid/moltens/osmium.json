@@ -1,6 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    { "id": "ore_and_alloy:molten_osmium", "required": false }
-  ]
-}

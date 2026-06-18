@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:cobalt_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:dusts/cobalt" }
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "group": "cobalt_ingot",
+  "ingredient": { "tag": "c:dusts/cobalt" },
+  "result": { "id": "ore_and_alloy:cobalt_ingot" },
+  "experience": 0.7,
+  "cookingtime": 200
+}

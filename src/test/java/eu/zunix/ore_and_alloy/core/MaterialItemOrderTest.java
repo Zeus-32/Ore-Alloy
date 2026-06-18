@@ -11,12 +11,16 @@ class MaterialItemOrderTest {
         assertEquals("aluminum", MaterialItemOrder.canonicalMaterialToken("aluminium"));
         assertEquals("cupronickel", MaterialItemOrder.canonicalMaterialToken("cuppronickel"));
         assertEquals("chromium", MaterialItemOrder.canonicalMaterialToken("chrome"));
+        assertEquals("wrought_iron", MetalMaterial.WROUGHT_IRON.materialName());
+        assertEquals("antimony", MetalMaterial.ANTIMONY.materialName());
+        assertEquals("stainless_steel", MetalMaterial.STAINLESS_STEEL.materialName());
+        assertEquals("silicon", MetalMaterial.SILICON.materialName());
     }
 
     @Test
-    void bareFormsResolveForVanillaLikeIds() {
-        assertEquals("gem", MaterialItemOrder.bareItemForm("diamond").orElseThrow());
-        assertEquals("dust", MaterialItemOrder.bareItemForm("redstone").orElseThrow());
+    void bareFormsAreNotUsedForMetalMaterials() {
+        assertTrue(MaterialItemOrder.bareItemForm("iron").isEmpty());
+        assertTrue(MaterialItemOrder.bareItemForm("copper").isEmpty());
     }
 
     @Test

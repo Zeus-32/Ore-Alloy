@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:brass_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:dusts/brass" }
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "brass_ingot",
+  "ingredient": { "tag": "c:dusts/brass" },
+  "result": { "id": "ore_and_alloy:brass_ingot" },
+  "experience": 0.7,
+  "cookingtime": 100
+}

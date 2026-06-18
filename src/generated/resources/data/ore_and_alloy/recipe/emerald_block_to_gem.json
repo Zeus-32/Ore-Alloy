@@ -1,9 +1,0 @@
-{
-  "neoforge:conditions": [
-    { "type": "neoforge:item_exists", "item": "ore_and_alloy:emerald" },
-    { "type": "neoforge:item_exists", "item": "ore_and_alloy:emerald_block" }
-  ],
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [ { "item": "ore_and_alloy:emerald_block" } ],
-  "result": { "id": "ore_and_alloy:emerald", "count": 9 }
-}

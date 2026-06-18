@@ -16,6 +16,9 @@ final class MaterialItemIdUtil {
 
     static ParsedId parseItemId(String itemId) {
         String lowered = itemId.toLowerCase(Locale.ROOT);
+        if (isRemovedLegacyFormId(lowered)) {
+            return null;
+        }
         for (String form : MaterialFormCatalog.PREFIX_FORMS) {
             String prefix = form + "_";
             if (!lowered.startsWith(prefix)) continue;
@@ -37,11 +40,6 @@ final class MaterialItemIdUtil {
             return new ParsedId(MaterialItemOrder.canonicalMaterialToken(lowered), bareForm.get());
         }
         return null;
-    }
-
-    static boolean isStandaloneMaterialItemId(String itemId) {
-        ParsedId parsed = parseItemId(itemId);
-        return parsed != null && eu.zunix.ore_and_alloy.registry.ModStandaloneItems.isStandaloneMaterialToken(parsed.material());
     }
 
     static String itemIdFor(String material, String form) {
@@ -71,15 +69,6 @@ final class MaterialItemIdUtil {
         out.add("item/" + form + "/" + itemId);
         out.add("item/" + form + "/" + material + "_" + form);
         out.add("item/" + form + "/" + form + "_" + material);
-
-        if ("gem".equals(form)) {
-            out.add("item/gem/" + material);
-        }
-
-        if ("dirty_dust".equals(form)) {
-            out.add("item/dirty_dust/dirty_" + material + "_dust");
-            out.add("item/dirty_dust/" + material + "_dust");
-        }
 
         if ("raw".equals(form)) {
             out.add("item/raw_materials/" + itemId);
@@ -117,6 +106,12 @@ final class MaterialItemIdUtil {
             lowered = RawMaterialMappings.materialForRawVariant(lowered).orElse(lowered);
         }
         return lowered;
+    }
+
+    private static boolean isRemovedLegacyFormId(String itemId) {
+        return itemId.endsWith("_dirty_dust")
+                || itemId.endsWith("_purified_dust")
+                || itemId.endsWith("_long_rod");
     }
 
     record ParsedId(String material, String form) {}

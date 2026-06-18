@@ -1,6 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    { "id": "ore_and_alloy:redstone_spring", "required": false }
-  ]
-}

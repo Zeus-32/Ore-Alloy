@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:copper_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:crushed_raw_materials/copper" }
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "copper_ingot",
+  "ingredient": { "tag": "c:crushed_raw_materials/copper" },
+  "result": { "id": "ore_and_alloy:copper_ingot" },
+  "experience": 0.7,
+  "cookingtime": 100
+}

@@ -1,22 +1,22 @@
 package eu.zunix.ore_and_alloy.registry.discovery;
 
-import eu.zunix.ore_and_alloy.OreAndAlloy;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
-import eu.zunix.ore_and_alloy.registry.ModStandaloneItems;
+import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
+import eu.zunix.ore_and_alloy.integration.IntegrationMaterialRegistry;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 final class MaterialManifestReader {
     private static final Pattern VALID_ITEM_ID = Pattern.compile("[a-z0-9_]+");
+    private static final Pattern JSON_STRING = Pattern.compile("\"([a-z0-9_]+)\"");
 
     private final String manifestPath;
 
@@ -29,24 +29,35 @@ final class MaterialManifestReader {
         if (stream == null) return List.of();
 
         Set<String> ids = new TreeSet<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String trimmed = line.trim().toLowerCase(Locale.ROOT);
-                if (trimmed.isEmpty() || trimmed.startsWith("#")) continue;
+        try (stream) {
+            String json = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+            Matcher matcher = JSON_STRING.matcher(json);
+            while (matcher.find()) {
+                String trimmed = matcher.group(1).toLowerCase(Locale.ROOT);
                 if (!VALID_ITEM_ID.matcher(trimmed).matches()) {
-                    OreAndAlloy.LOGGER.warn("[{}] Ignoring invalid material item id in manifest: {}",
-                            OreAndAlloy.MODID, trimmed);
                     continue;
                 }
-                if (MaterialItemIdUtil.isStandaloneMaterialItemId(trimmed) || ModStandaloneItems.isStandaloneItemId(trimmed)) {
+                MaterialItemIdUtil.ParsedId parsed = MaterialItemIdUtil.parseItemId(trimmed);
+                if (parsed == null || !IntegrationMaterialRegistry.isMaterialEnabled(parsed.material())) {
+                    continue;
+                }
+                if (isRawVariantForm(parsed.form())
+                        && !RawMaterialMappings.isConfiguredRawVariant(variantToken(trimmed, parsed.form()))) {
                     continue;
                 }
                 ids.add(trimmed);
             }
         } catch (IOException ex) {
-            OreAndAlloy.LOGGER.warn("[{}] Failed to read {}: {}", OreAndAlloy.MODID, manifestPath, ex.getMessage());
         }
         return MaterialItemOrder.sorted(ids);
+    }
+
+    private static boolean isRawVariantForm(String form) {
+        return "raw".equals(form) || "crushed".equals(form);
+    }
+
+    private static String variantToken(String itemId, String form) {
+        String prefix = form + "_";
+        return itemId.startsWith(prefix) ? itemId.substring(prefix.length()) : "";
     }
 }

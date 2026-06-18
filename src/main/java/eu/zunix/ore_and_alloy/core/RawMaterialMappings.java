@@ -30,6 +30,10 @@ public final class RawMaterialMappings {
         return Optional.ofNullable(MATERIAL_BY_RAW_VARIANT.get(normalized));
     }
 
+    public static boolean isConfiguredRawVariant(String rawVariantToken) {
+        return MATERIAL_BY_RAW_VARIANT.containsKey(normalize(rawVariantToken));
+    }
+
     public static List<String> rawItemIdsForMaterial(String materialToken) {
         String normalizedMaterial = normalize(materialToken);
         List<String> variants = rawVariantsForMaterial(normalizedMaterial);
@@ -72,7 +76,7 @@ public final class RawMaterialMappings {
         put(out, "aluminium", "bauxite", "cryolite");
         put(out, "chromium", "chromite");
         put(out, "cobalt", "cobaltite");
-        put(out, "copper", "chalcopyrite", "malachite", "bornite");
+        put(out, "copper", "chalcopyrite", "malachite", "bornite", "copper");
         put(out, "gold", "gold", "sylvanite");
         put(out, "iridium", "iridium");
         put(out, "iron", "iron", "hematite", "magnetite", "limonite");
@@ -85,16 +89,6 @@ public final class RawMaterialMappings {
         put(out, "titanium", "titanium");
         put(out, "uranium", "uranium", "uraninite");
         put(out, "zinc", "sphalerite", "hemimorphite");
-
-        put(out, "amethyst", "amethyst_shard");
-        put(out, "coal", "coal");
-        put(out, "diamond", "diamond");
-        put(out, "emerald", "emerald");
-        put(out, "lapis", "lapis_lazuli");
-        put(out, "quartz", "quartz");
-        put(out, "redstone", "redstone");
-        put(out, "ruby", "ruby");
-        put(out, "sapphire", "sapphire");
 
         return Map.copyOf(out);
     }

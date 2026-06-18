@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:constantan_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:dusts/constantan" }
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "group": "constantan_ingot",
+  "ingredient": { "tag": "c:dusts/constantan" },
+  "result": { "id": "ore_and_alloy:constantan_ingot" },
+  "experience": 0.7,
+  "cookingtime": 200
+}

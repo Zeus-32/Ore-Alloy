@@ -12,12 +12,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class StorageBlockCatalog {
-    private static final List<String> BASE_FORM_PRIORITY = List.of("ingot", "gem", "dust");
-    private static final Set<String> STORAGE_BLOCK_BLACKLIST = Set.of(
-            "amethyst",
-            "quartz"
-    );
-
+    private static final List<String> BASE_FORM_PRIORITY = List.of("ingot", "dust");
     private StorageBlockCatalog() {}
 
     public static Map<String, String> collectStorageBlockBaseForms(Collection<String> materialItemIds) {
@@ -39,9 +34,6 @@ public final class StorageBlockCatalog {
 
         Map<String, String> out = new LinkedHashMap<>();
         for (String material : materials) {
-            if (STORAGE_BLOCK_BLACKLIST.contains(material)) {
-                continue;
-            }
             Set<String> forms = formsByMaterial.getOrDefault(material, Set.of());
             for (String candidate : BASE_FORM_PRIORITY) {
                 if (forms.contains(candidate)) {

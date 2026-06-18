@@ -144,8 +144,13 @@ public final class MaterialOreBlockWriter {
 
         writeTag(commonBlockTagsRoot.resolve("ores.json"), oreBlockIds);
         writeTag(commonItemTagsRoot.resolve("ores.json"), oreItemIds);
-        writeTag(minecraftBlockTagsRoot.resolve(Path.of("mineable", "pickaxe.json")), oreBlockIds);
-        writeTag(minecraftBlockTagsRoot.resolve("needs_stone_tool.json"), oreBlockIds);
+
+        LinkedHashSet<String> mineablePickaxe = new LinkedHashSet<>(oreBlockIds);
+        List<String> mineablePickaxeSorted = new ArrayList<>(mineablePickaxe);
+        mineablePickaxeSorted.sort(String::compareTo);
+
+        writeTag(minecraftBlockTagsRoot.resolve(Path.of("mineable", "pickaxe.json")), mineablePickaxeSorted);
+        writeTag(minecraftBlockTagsRoot.resolve("needs_stone_tool.json"), mineablePickaxeSorted);
     }
 
     private static List<String> oreBlockIdsForRawVariant(String rawVariant) {
@@ -242,9 +247,6 @@ public final class MaterialOreBlockWriter {
     }
 
     private BufferedImage loadOverlayReferenceBase(String material) throws IOException {
-        if ("quartz".equals(material)) {
-            return loadHostBaseTemplate(OreHostVariantCatalog.hostByToken("nether"));
-        }
         return loadStoneTemplate();
     }
 

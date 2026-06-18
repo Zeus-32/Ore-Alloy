@@ -19,17 +19,7 @@ public final class MaterialItemOrder {
     private static final Map<String, String> PREFERRED_ITEM_MATERIAL_TOKENS = Map.ofEntries(
             Map.entry("aluminum", "aluminium")
     );
-    private static final Map<String, String> BARE_ITEM_FORMS = Map.ofEntries(
-            Map.entry("diamond", "gem"),
-            Map.entry("emerald", "gem"),
-            Map.entry("lapis", "gem"),
-            Map.entry("quartz", "gem"),
-            Map.entry("amethyst", "gem"),
-            Map.entry("sapphire", "gem"),
-            Map.entry("ruby", "gem"),
-            Map.entry("coal", "gem"),
-            Map.entry("redstone", "dust")
-    );
+    private static final Map<String, String> BARE_ITEM_FORMS = Map.of();
 
     private static final Map<String, Integer> FORM_RANK = buildFormRank();
     private static final List<String> PARSE_SUFFIXES = MaterialFormCatalog.FORM_SUFFIX_PARSE_ORDER;
@@ -96,10 +86,6 @@ public final class MaterialItemOrder {
             return new ParsedId(canonicalMaterialToken(lowered), bareForm.get());
         }
         return null;
-    }
-
-    public static boolean isBareGemId(String itemId) {
-        return bareItemForm(itemId).map("gem"::equals).orElse(false);
     }
 
     public static Optional<String> bareItemForm(String itemId) {

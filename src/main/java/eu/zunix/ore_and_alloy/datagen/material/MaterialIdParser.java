@@ -14,6 +14,9 @@ public final class MaterialIdParser {
 
     public static MaterialId parseItemId(String id) {
         String lowered = id.toLowerCase(Locale.ROOT);
+        if (isRemovedLegacyFormId(lowered)) {
+            throw new IllegalArgumentException("Removed material form id: " + id);
+        }
         for (String prefixForm : MaterialFormCatalog.PREFIX_FORMS) {
             String prefix = prefixForm + "_";
             if (!lowered.startsWith(prefix) || lowered.length() <= prefix.length()) continue;
@@ -66,34 +69,6 @@ public final class MaterialIdParser {
         if ("single".equals(normalizedForm)) {
             return textureId;
         }
-        if ("gem".equals(normalizedForm)) {
-            return textureId;
-        }
-
-        if ("dirty_dust".equals(normalizedForm)) {
-            if (textureId.endsWith("_dirty_dust")) return textureId;
-            if (textureId.startsWith("dirty_") && textureId.endsWith("_dust") && textureId.length() > "dirty__dust".length()) {
-                String material = textureId.substring("dirty_".length(), textureId.length() - "_dust".length());
-                return material.isBlank() ? "" : material + "_dirty_dust";
-            }
-            if (textureId.endsWith("_dust") && textureId.length() > 5) {
-                String material = textureId.substring(0, textureId.length() - "_dust".length());
-                return material + "_dirty_dust";
-            }
-        }
-
-        if ("purified_dust".equals(normalizedForm)) {
-            if (textureId.endsWith("_purified_dust")) return textureId;
-            if (textureId.startsWith("purified_") && textureId.endsWith("_dust") && textureId.length() > "purified__dust".length()) {
-                String material = textureId.substring("purified_".length(), textureId.length() - "_dust".length());
-                return material.isBlank() ? "" : material + "_purified_dust";
-            }
-            if (textureId.endsWith("_dust") && textureId.length() > 5) {
-                String material = textureId.substring(0, textureId.length() - "_dust".length());
-                return material + "_purified_dust";
-            }
-        }
-
         if (PREFIX_RAW.equals(normalizedForm)) {
             if (textureId.startsWith("raw_") && textureId.length() > "raw_".length()) {
                 return "raw_" + textureId.substring("raw_".length());
@@ -152,11 +127,17 @@ public final class MaterialIdParser {
         if ("ore".equals(form)) {
             lowered = normalizeOreMaterialToken(lowered);
         }
-        return lowered;
+        return MaterialItemOrder.canonicalMaterialToken(lowered);
     }
 
     private static String normalizeOreMaterialToken(String materialToken) {
         String out = RawVariantCatalog.stripOreMaterialPrefix(materialToken);
         return RawMaterialMappings.materialForRawVariant(out).orElse(out);
+    }
+
+    private static boolean isRemovedLegacyFormId(String itemId) {
+        return itemId.endsWith("_dirty_dust")
+                || itemId.endsWith("_purified_dust")
+                || itemId.endsWith("_long_rod");
     }
 }

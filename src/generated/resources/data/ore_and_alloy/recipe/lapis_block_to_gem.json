@@ -1,9 +1,0 @@
-{
-  "neoforge:conditions": [
-    { "type": "neoforge:item_exists", "item": "ore_and_alloy:lapis" },
-    { "type": "neoforge:item_exists", "item": "ore_and_alloy:lapis_block" }
-  ],
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [ { "item": "ore_and_alloy:lapis_block" } ],
-  "result": { "id": "ore_and_alloy:lapis", "count": 9 }
-}

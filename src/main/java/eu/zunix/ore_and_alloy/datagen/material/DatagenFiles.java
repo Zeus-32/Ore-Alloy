@@ -19,7 +19,7 @@ public final class DatagenFiles {
         deleteTreeIfExists(outRoot.resolve(Path.of("assets", namespace, "blockstates")));
         deleteTreeIfExists(outRoot.resolve(Path.of("assets", namespace, "textures")));
         deleteTreeIfExists(outRoot.resolve(Path.of("assets", namespace, "lang")));
-        deleteTreeIfExists(outRoot.resolve(Path.of("assets", namespace, "material_items.txt")));
+        deleteTreeIfExists(outRoot.resolve(Path.of("assets", namespace, "material_items.json")));
         deleteTreeIfExists(outRoot.resolve(Path.of("data", "c", "tags", "item")));
         deleteTreeIfExists(outRoot.resolve(Path.of("data", "c", "tags", "fluid")));
         deleteTreeIfExists(outRoot.resolve(Path.of("data", "c", "tags", "block")));
@@ -27,6 +27,10 @@ public final class DatagenFiles {
         deleteTreeIfExists(outRoot.resolve(Path.of("data", "c", "tags", "fluids")));
         deleteTreeIfExists(outRoot.resolve(Path.of("data", "minecraft", "tags", "block")));
         deleteTreeIfExists(outRoot.resolve(Path.of("data", "minecraft", "tags", "item")));
+        deleteTreeIfExists(outRoot.resolve(Path.of("data", "minecraft", "recipe")));
+        deleteTreeIfExists(outRoot.resolve(Path.of("data", "minecraft", "recipes")));
+        deleteTreeIfExists(outRoot.resolve(Path.of("data", "create", "recipe")));
+        deleteTreeIfExists(outRoot.resolve(Path.of("data", "create", "recipes")));
         deleteTreeIfExists(outRoot.resolve(Path.of("data", namespace, "recipe")));
         deleteTreeIfExists(outRoot.resolve(Path.of("data", namespace, "recipes")));
         deleteTreeIfExists(outRoot.resolve(Path.of("data", namespace, "loot_table", "blocks")));

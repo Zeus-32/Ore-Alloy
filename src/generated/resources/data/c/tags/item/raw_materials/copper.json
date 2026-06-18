@@ -3,6 +3,7 @@
   "values": [
     { "id": "ore_and_alloy:raw_bornite", "required": false },
     { "id": "ore_and_alloy:raw_chalcopyrite", "required": false },
+    { "id": "ore_and_alloy:raw_copper", "required": false },
     { "id": "ore_and_alloy:raw_malachite", "required": false }
   ]
 }

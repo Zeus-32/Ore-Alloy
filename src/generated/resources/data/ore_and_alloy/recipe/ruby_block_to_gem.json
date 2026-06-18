@@ -1,9 +1,0 @@
-{
-  "neoforge:conditions": [
-    { "type": "neoforge:item_exists", "item": "ore_and_alloy:ruby" },
-    { "type": "neoforge:item_exists", "item": "ore_and_alloy:ruby_block" }
-  ],
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [ { "item": "ore_and_alloy:ruby_block" } ],
-  "result": { "id": "ore_and_alloy:ruby", "count": 9 }
-}

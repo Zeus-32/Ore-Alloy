@@ -1,6 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    { "id": "ore_and_alloy:enderium_purified_dust", "required": false }
-  ]
-}

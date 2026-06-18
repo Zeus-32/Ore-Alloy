@@ -1,6 +1,5 @@
 package eu.zunix.ore_and_alloy.integration;
 
-import eu.zunix.ore_and_alloy.OreAndAlloy;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.Item;
@@ -35,10 +34,6 @@ public final class VanillaTradeUnifier {
             wrapped += wrapListings(listings, aliasMap);
         }
 
-        if (wrapped > 0) {
-            OreAndAlloy.LOGGER.info("[{}] Wrapped {} villager trade listings for unification ({})",
-                    OreAndAlloy.MODID, wrapped, event.getType());
-        }
     }
 
     private static void onWandererTrades(WandererTradesEvent event) {
@@ -50,10 +45,6 @@ public final class VanillaTradeUnifier {
         int wrapped = 0;
         wrapped += wrapListings(event.getGenericTrades(), aliasMap);
         wrapped += wrapListings(event.getRareTrades(), aliasMap);
-        if (wrapped > 0) {
-            OreAndAlloy.LOGGER.info("[{}] Wrapped {} wandering trader listings for unification",
-                    OreAndAlloy.MODID, wrapped);
-        }
     }
 
     private static int wrapListings(List<VillagerTrades.ItemListing> listings, Map<Item, Item> aliasMap) {

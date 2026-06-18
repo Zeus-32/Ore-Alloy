@@ -4,10 +4,6 @@
   "package": "eu.zunix.ore_and_alloy.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "EnchantmentMenuLapisSlotMixin",
-    "EnchantmentMenuQuickMoveMixin",
-    "FireworkStarRecipeMixin",
-    "MinecartFurnaceCoalMixin",
     "PiglinAiGoldNuggetMixin",
     "ItemPredicateAliasMixin"
   ],

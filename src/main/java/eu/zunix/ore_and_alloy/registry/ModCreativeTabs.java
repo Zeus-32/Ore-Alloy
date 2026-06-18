@@ -5,178 +5,120 @@ import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
 import eu.zunix.ore_and_alloy.core.OreHostVariantCatalog;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
 import eu.zunix.ore_and_alloy.core.RawVariantCatalog;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.BlockItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 public final class ModCreativeTabs {
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, OreAndAlloy.MODID);
-    private static final Comparator<String> CREATIVE_MATERIAL_ITEM_COMPARATOR = Comparator
-            .comparingInt(ModCreativeTabs::creativeFormRank)
-            .thenComparing(ModCreativeTabs::creativeMaterialSortKey)
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS =
+            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, OreAndAlloy.MODID);
+
+    private static final Comparator<String> MATERIAL_COMPARATOR = Comparator
+            .comparingInt(ModCreativeTabs::formRank)
+            .thenComparing(ModCreativeTabs::materialSortKey)
             .thenComparing(Comparator.naturalOrder());
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB = CREATIVE_TABS.register("main", () ->
-            CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + OreAndAlloy.MODID + ".main"))
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MATERIALS_TAB =
+            CREATIVE_TABS.register("materials", () -> CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup." + OreAndAlloy.MODID + ".materials"))
                     .icon(ModCreativeTabs::tabIcon)
                     .displayItems((parameters, output) -> {
-                        ModItems.prospector().ifPresent(item -> output.accept(item.value()));
-
-                        appendOreBlockSets(output);
-                        appendStorageBlockItems(output);
+                        appendOreBlocks(output);
+                        appendStorageBlocks(output);
                         appendMaterialItems(output);
-                        appendStandaloneItems(output);
-
-                        ModFluids.allMolten().values().stream()
-                                .map(set -> set.bucket().value())
-                                .sorted(Comparator.comparing(item -> BuiltInRegistries.ITEM.getKey(item).toString()))
-                                .forEach(output::accept);
                     })
-                    .build()
-    );
+                    .build());
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB = MATERIALS_TAB;
+
+    private ModCreativeTabs() {}
 
     private static ItemStack tabIcon() {
-        return ModItems.prospector()
-                .map(item -> new ItemStack(item.value()))
-                .orElseGet(() -> ModItems.standaloneItems().values().stream()
-                        .findFirst()
-                        .map(item -> new ItemStack(item.value()))
-                        .orElseGet(() -> ModItems.materialItems().values().stream()
-                        .findFirst()
-                        .map(item -> new ItemStack(item.value()))
-                        .orElseGet(() -> new ItemStack(Items.IRON_INGOT))));
-    }
-
-    private static int creativeFormRank(String itemId) {
-        return MaterialItemOrder.formToken(itemId)
-                .map(MaterialItemOrder::formTokenRank)
-                .orElse(Integer.MAX_VALUE);
-    }
-
-    private static String creativeMaterialSortKey(String itemId) {
-        String canonical = MaterialItemOrder.materialPart(itemId);
-        return MaterialItemOrder.preferredItemMaterialToken(canonical);
+        DeferredItem<Item> ironIngot = ModItems.materialItems().get("iron_ingot");
+        return ironIngot == null ? new ItemStack(Items.IRON_INGOT) : new ItemStack(ironIngot.value());
     }
 
     private static void appendMaterialItems(CreativeModeTab.Output output) {
-        List<String> itemIds = new ArrayList<>(ModItems.materialItems().keySet());
-        itemIds.sort(CREATIVE_MATERIAL_ITEM_COMPARATOR);
-        for (String id : itemIds) {
+        List<String> ids = new ArrayList<>(ModItems.materialItems().keySet());
+        ids.sort(MATERIAL_COMPARATOR);
+        for (String id : ids) {
             output.accept(ModItems.materialItems().get(id).value());
         }
     }
 
-    private static void appendOreBlockSets(CreativeModeTab.Output output) {
-        Map<String, DeferredItem<BlockItem>> oreItems = ModOreBlocks.oreBlockItems();
-        if (oreItems.isEmpty()) return;
-
+    private static void appendOreBlocks(CreativeModeTab.Output output) {
+        Map<String, DeferredItem<BlockItem>> items = ModOreBlocks.oreBlockItems();
         Set<String> emitted = new LinkedHashSet<>();
-        for (String rawVariant : orderedRawVariantsForCreativeTab()) {
+
+        for (String rawVariant : orderedRawVariants()) {
             for (OreHostVariantCatalog.HostVariant host : OreHostVariantCatalog.hostVariants()) {
-                String blockId = host.blockId(rawVariant);
-                DeferredItem<BlockItem> item = oreItems.get(blockId);
+                String id = host.blockId(rawVariant);
+                DeferredItem<BlockItem> item = items.get(id);
                 if (item == null) continue;
-
                 output.accept(item.value());
-                emitted.add(blockId);
+                emitted.add(id);
             }
         }
 
-        List<String> remaining = oreItems.keySet().stream()
+        items.keySet().stream()
                 .filter(id -> !emitted.contains(id))
                 .sorted()
-                .toList();
-        for (String blockId : remaining) {
-            output.accept(oreItems.get(blockId).value());
-        }
+                .map(items::get)
+                .forEach(item -> output.accept(item.value()));
     }
 
-    private static void appendStorageBlockItems(CreativeModeTab.Output output) {
-        Map<String, DeferredItem<BlockItem>> storageItems = ModStorageBlocks.storageBlockItems();
-        Map<String, String> blockIdByMaterial = ModStorageBlocks.blockIdByMaterial();
-        if (storageItems.isEmpty() || blockIdByMaterial.isEmpty()) return;
-
-        List<String> materials = new ArrayList<>(blockIdByMaterial.keySet());
-        materials.sort(Comparator
-                .comparing((String material) -> MaterialItemOrder.preferredItemMaterialToken(material))
-                .thenComparing(Comparator.naturalOrder()));
-
-        Set<String> emitted = new LinkedHashSet<>();
-        for (String material : materials) {
-            String blockId = blockIdByMaterial.get(material);
-            if (blockId == null) continue;
-
-            DeferredItem<BlockItem> item = storageItems.get(blockId);
-            if (item == null) continue;
-
-            output.accept(item.value());
-            emitted.add(blockId);
-        }
-
-        List<String> remaining = storageItems.keySet().stream()
-                .filter(id -> !emitted.contains(id))
-                .sorted()
-                .toList();
-        for (String blockId : remaining) {
-            output.accept(storageItems.get(blockId).value());
-        }
+    private static void appendStorageBlocks(CreativeModeTab.Output output) {
+        Map<String, DeferredItem<BlockItem>> items = ModStorageBlocks.storageBlockItems();
+        ModStorageBlocks.blockIdByMaterial().entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
+                .map(items::get)
+                .filter(java.util.Objects::nonNull)
+                .forEach(item -> output.accept(item.value()));
     }
 
-    private static List<String> orderedRawVariantsForCreativeTab() {
-        List<String> discoveredRawVariants = RawVariantCatalog.collectRawVariants(ModItems.materialItems().keySet());
-        Map<String, List<String>> variantsByMaterial = new LinkedHashMap<>();
-
-        for (String rawVariant : discoveredRawVariants) {
+    private static List<String> orderedRawVariants() {
+        List<String> discovered = RawVariantCatalog.collectRawVariants(ModItems.materialItems().keySet());
+        Map<String, List<String>> byMaterial = new LinkedHashMap<>();
+        for (String rawVariant : discovered) {
             String material = RawMaterialMappings.materialForRawVariant(rawVariant).orElse(rawVariant);
-            String canonicalMaterial = MaterialItemOrder.canonicalMaterialToken(material);
-            variantsByMaterial.computeIfAbsent(canonicalMaterial, ignored -> new ArrayList<>()).add(rawVariant);
+            byMaterial.computeIfAbsent(MaterialItemOrder.canonicalMaterialToken(material), ignored -> new ArrayList<>())
+                    .add(rawVariant);
         }
 
-        List<String> materials = new ArrayList<>(variantsByMaterial.keySet());
-        materials.sort(Comparator.comparing(material -> MaterialItemOrder.preferredItemMaterialToken(material)));
-
-        List<String> out = new ArrayList<>(discoveredRawVariants.size());
-        for (String material : materials) {
-            List<String> discoveredForMaterial = variantsByMaterial.getOrDefault(material, List.of());
-            Set<String> remaining = new LinkedHashSet<>(discoveredForMaterial);
-
-            for (String preferredVariant : RawMaterialMappings.rawVariantsForMaterial(material)) {
-                if (remaining.remove(preferredVariant)) {
-                    out.add(preferredVariant);
-                }
+        List<String> out = new ArrayList<>(discovered.size());
+        byMaterial.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry -> {
+            Set<String> remaining = new LinkedHashSet<>(entry.getValue());
+            for (String preferred : RawMaterialMappings.rawVariantsForMaterial(entry.getKey())) {
+                if (remaining.remove(preferred)) out.add(preferred);
             }
-
-            List<String> extras = new ArrayList<>(remaining);
-            extras.sort(String::compareTo);
-            out.addAll(extras);
-        }
-
+            remaining.stream().sorted().forEach(out::add);
+        });
         return out;
     }
 
-    private static void appendStandaloneItems(CreativeModeTab.Output output) {
-        List<String> standaloneIds = new ArrayList<>(ModItems.standaloneItems().keySet());
-        standaloneIds.sort(String::compareTo);
-        for (String id : standaloneIds) {
-            output.accept(ModItems.standaloneItems().get(id).value());
-        }
+    private static int formRank(String id) {
+        return MaterialItemOrder.formToken(id)
+                .map(MaterialItemOrder::formTokenRank)
+                .orElse(Integer.MAX_VALUE);
     }
 
-    private ModCreativeTabs() {}
+    private static String materialSortKey(String id) {
+        return MaterialItemOrder.preferredItemMaterialToken(MaterialItemOrder.materialPart(id));
+    }
 }

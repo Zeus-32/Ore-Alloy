@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "ore_and_alloy:block/ore/deepslate_coal_ore"
-  }
-}

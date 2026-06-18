@@ -1,6 +1,5 @@
 package eu.zunix.ore_and_alloy.datagen.material;
 
-import eu.zunix.ore_and_alloy.core.MetalMaterial;
 import eu.zunix.ore_and_alloy.core.MaterialFormCatalog;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
 
@@ -52,23 +51,6 @@ public final class MaterialTagWriter {
         writeVanillaCompatibilityItemTags(materialItems);
     }
 
-    public void writeMoltenFluidTags() throws IOException {
-        Path tagsRoot = outRoot.resolve(Path.of("data", "c", "tags", "fluid"));
-        List<String> moltenFluids = new ArrayList<>();
-
-        for (MetalMaterial metal : MetalMaterial.values()) {
-            String fluidId = namespace + ":" + metal.moltenFluidPath();
-            moltenFluids.add(fluidId);
-
-            String material = metal.materialName();
-            writeTagFile(tagsRoot.resolve(Path.of("molten", material + ".json")), List.of(fluidId));
-            writeTagFile(tagsRoot.resolve(Path.of("moltens", material + ".json")), List.of(fluidId));
-        }
-
-        writeTagFile(tagsRoot.resolve("molten.json"), moltenFluids);
-        writeTagFile(tagsRoot.resolve("moltens.json"), moltenFluids);
-    }
-
     private static void writeTagFile(Path path, List<String> values) throws IOException {
         Files.createDirectories(path.getParent());
         StringBuilder sb = new StringBuilder();
@@ -85,15 +67,9 @@ public final class MaterialTagWriter {
     private void writeVanillaCompatibilityItemTags(List<String> materialItems) throws IOException {
         Path minecraftItemTagsRoot = outRoot.resolve(Path.of("data", "minecraft", "tags", "item"));
 
-        if (materialItems.contains("coal")) {
-            writeTagFile(minecraftItemTagsRoot.resolve("coals.json"), List.of(namespace + ":coal"));
-        }
-
         List<String> beaconPayments = new ArrayList<>();
         addIfPresent(beaconPayments, materialItems, "iron_ingot");
         addIfPresent(beaconPayments, materialItems, "gold_ingot");
-        addIfPresent(beaconPayments, materialItems, "diamond");
-        addIfPresent(beaconPayments, materialItems, "emerald");
         if (!beaconPayments.isEmpty()) {
             writeTagFile(minecraftItemTagsRoot.resolve("beacon_payment_items.json"), beaconPayments);
         }

@@ -2,14 +2,12 @@ package eu.zunix.ore_and_alloy.datagen.lang;
 
 import eu.zunix.ore_and_alloy.core.MaterialFormCatalog;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
-import eu.zunix.ore_and_alloy.core.MetalMaterial;
 import eu.zunix.ore_and_alloy.core.OreHostVariantCatalog;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
 import eu.zunix.ore_and_alloy.core.RawVariantCatalog;
 import eu.zunix.ore_and_alloy.core.StorageBlockCatalog;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialId;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialIdParser;
-import eu.zunix.ore_and_alloy.registry.ModStandaloneItems;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -29,24 +27,17 @@ public final class OALangGenerator {
     public static void write(
             Path out,
             String namespace,
-            String prospectorId,
             List<String> materialItems,
             List<String> rawVariants,
-            Map<String, String> storageBlockBaseForms,
-            List<ModStandaloneItems.StandaloneItemDefinition> standaloneItems
+            Map<String, String> storageBlockBaseForms
     ) throws IOException {
         Map<String, String> entries = new LinkedHashMap<>();
 
-        entries.put("item." + namespace + "." + prospectorId, "Prospector");
-        entries.put("itemGroup." + namespace + ".main", "Ore & Alloy");
-        ConfigScreenLangEntries.append(entries, namespace);
+        entries.put("itemGroup." + namespace + ".materials", "Ore & Alloy: Materials");
         IntegrationLangEntries.append(entries, namespace);
 
         for (String name : materialItems) {
             entries.put("item." + namespace + "." + name, displayNameFromId(name));
-        }
-        for (ModStandaloneItems.StandaloneItemDefinition item : standaloneItems) {
-            entries.put("item." + namespace + "." + item.id(), item.displayName());
         }
         for (String rawVariant : rawVariants) {
             String rawName = capitalizeWords(rawVariant.replace('_', ' '));
@@ -60,14 +51,6 @@ public final class OALangGenerator {
             String blockId = StorageBlockCatalog.blockIdForMaterial(material);
             String materialName = capitalizeWords(material.replace('_', ' '));
             entries.put("block." + namespace + "." + blockId, materialName + " Block");
-        }
-
-        for (MetalMaterial metal : MetalMaterial.values()) {
-            String materialName = capitalizeWords(metal.materialName().replace('_', ' '));
-            String moltenPath = metal.moltenFluidPath();
-
-            entries.put("item." + namespace + "." + moltenPath + "_bucket", "Molten " + materialName + " Bucket");
-            entries.put("fluid_type." + namespace + "." + moltenPath, "Molten " + materialName);
         }
 
         addTagLangEntries(entries, materialItems);
@@ -93,21 +76,9 @@ public final class OALangGenerator {
             case "ingot" -> "Ingot";
             case "nugget" -> "Nugget";
             case "dust" -> "Dust";
-            case "dirty_dust" -> "Dirty Dust";
-            case "purified_dust" -> "Purified Dust";
-            case "gem" -> "";
             case "plate" -> "Plate";
-            case "sheet" -> "Sheet";
             case "rod" -> "Rod";
-            case "long_rod" -> "Long Rod";
             case "gear" -> "Gear";
-            case "clump" -> "Clump";
-            case "shard" -> "Shard";
-            case "crystal" -> "Crystal";
-            case "ring" -> "Ring";
-            case "spring" -> "Spring";
-            case "bolt" -> "Bolt";
-            case "screw" -> "Screw";
             case "crushed" -> "Crushed";
             case "ore" -> "Ore";
             case "raw" -> "Raw";
@@ -146,16 +117,6 @@ public final class OALangGenerator {
                 String materialLabel = capitalizeWords(material.replace('_', ' '));
                 entries.put(tagLangKey("item", "c", bucket + "/" + material), materialLabel + " " + bucketLabel);
             }
-        }
-
-        entries.put(tagLangKey("fluid", "c", "molten"), "Molten Fluids");
-        entries.put(tagLangKey("fluid", "c", "moltens"), "Molten Fluids");
-
-        for (MetalMaterial metal : MetalMaterial.values()) {
-            String material = metal.materialName();
-            String materialLabel = capitalizeWords(material.replace('_', ' '));
-            entries.put(tagLangKey("fluid", "c", "molten/" + material), "Molten " + materialLabel);
-            entries.put(tagLangKey("fluid", "c", "moltens/" + material), "Molten " + materialLabel);
         }
     }
 

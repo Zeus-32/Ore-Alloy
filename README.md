@@ -1,176 +1,109 @@
 # Ore & Alloy
 
-![NeoForge](https://img.shields.io/badge/NeoForge-1.21.1-orange?style=for-the-badge)
-![License](https://img.shields.io/badge/License-Custom_ARR_/_MIT-blue?style=for-the-badge)
-![Website](https://img.shields.io/badge/Website-zunix.eu-green?style=for-the-badge)
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-62B47A?style=flat-square)](https://www.minecraft.net/)
+[![NeoForge](https://img.shields.io/badge/NeoForge-21.1.229+-E68A2E?style=flat-square)](https://neoforged.net/)
+[![Version](https://img.shields.io/badge/version-1.0.0-4C8BF5?style=flat-square)](CHANGELOG.md)
+[![License](https://img.shields.io/badge/code-MIT-blue?style=flat-square)](LICENCE.md)
 
-Ore & Alloy is a unification framework for modern tech modpacks.
+Ore & Alloy is a focused material registry and enforced unification foundation for NeoForge modpacks.
 
-Its core idea is simple: **one material language for the entire pack**.  
-If ten mods add ten incompatible versions of the same resource, progression becomes noise. Ore & Alloy turns that noise into a single, predictable production grammar.
+It provides canonical ores, raw and crushed materials, ingots, nuggets, dusts, plates, rods, gears, and storage blocks. The core mod keeps material identity and recipes consistent without requiring scripts or configuration.
 
-## Why It Exists
+## Core behavior
 
-Most large tech packs eventually hit the same structural problems:
-- Duplicated materials.
-- Recipe chains that do not agree on processing forms.
-- Machine outputs that diverge depending on the source mod.
-- Viewer clutter (JEI/EMI) that hides actual progression.
+- Iron, gold, and copper are always available.
+- Additional materials activate only when a known provider mod is installed.
+- Ore, raw, and crushed variants are defined centrally by `RawMaterialMappings`.
+- Shared `c:` tags keep equivalent materials interoperable.
+- Recipe inputs and outputs are rewritten to the canonical Ore & Alloy representation.
+- Conflicting foreign recipes are removed when an equivalent canonical recipe exists.
+- Duplicate external entries are hidden in JEI and EMI.
+- Periodic material symbols are shown directly in item tooltips.
 
-Ore & Alloy is built as an infrastructure layer to eliminate this fragmentation, ensuring that modpack design decisions matter more than workaround recipes.
+Material activation is automatic and cannot be changed through KubeJS or config files.
 
-## GregTech Inspiration
+## Supported materials
 
-This project is inspired by GregTech mainly in these areas:
-- **Multi-ore resource model:** one material can exist through multiple ore/raw source variants.
-- **High crafting/processing complexity:** deeper machine and crafting chains instead of one-step outputs.
-- **Form-driven progression:** material forms are treated as real production stages, not cosmetic duplicates.
-- **Worldgen as progression axis:** ore vein layout matters for planning extraction and logistics.
+The texture catalog is the authoritative supported-material list. Iron, gold, and copper are always active. Every other material is activated when at least one listed provider mod is installed.
 
-Ore & Alloy is not a GregTech clone. The goal is to bring this design direction to NeoForge packs with practical compatibility and maintainable tooling.
+| Material | Type | Raw/ore variants | Provider mods |
+|---|---|---|---|
+| Iron | Metal | `iron`, `hematite`, `magnetite`, `limonite` | Minecraft |
+| Gold | Metal | `gold`, `sylvanite` | Minecraft |
+| Copper | Metal | `chalcopyrite`, `malachite`, `bornite`, `copper` | Minecraft |
+| Tin | Metal | `cassiterite`, `tin` | Mekanism, Thermal, AllTheOres, Tech Reborn, GTCEu |
+| Lead | Metal | `galena`, `lead` | Mekanism, Thermal, AllTheOres, Tech Reborn, GTCEu |
+| Silver | Metal | `silver` | Thermal, AllTheOres, Tech Reborn, GTCEu |
+| Nickel | Metal | `pentlandite`, `garnierite` | Thermal, AllTheOres, Tech Reborn, GTCEu |
+| Zinc | Metal | `sphalerite`, `hemimorphite` | Create, AllTheOres, Thermal, Tech Reborn, GTCEu |
+| Aluminium | Metal | `bauxite`, `cryolite` | Immersive Engineering, AllTheOres, Tech Reborn, GTCEu |
+| Osmium | Metal | `osmium` | Mekanism |
+| Uranium | Metal | `uranium`, `uraninite` | Mekanism, Immersive Engineering, Powah, Big Reactors, Bigger Reactors |
+| Cobalt | Metal | `cobaltite` | Tinkers' Construct, AllTheOres, GTCEu |
+| Titanium | Metal | `titanium` | Ad Astra, Tech Reborn, GTCEu, Modern Industrialization |
+| Chromium | Metal | `chromite` | Tech Reborn, GTCEu, Modern Industrialization |
+| Platinum | Metal | `platinum`, `sperrylite` | Thermal, AllTheOres, Tech Reborn, GTCEu |
+| Iridium | Metal | `iridium` | Tech Reborn, GTCEu, Modern Industrialization |
+| Antimony | Metal | — | GTCEu, Modern Industrialization |
+| Lithium | Metal | — | Mekanism, Tech Reborn, GTCEu, Modern Industrialization |
+| Tungsten | Metal | — | Tech Reborn, GTCEu, Modern Industrialization |
+| Silicon | Material | — | Mekanism, Applied Energistics 2, Ender IO, GTCEu |
+| Steel | Alloy | — | Immersive Engineering, Mekanism, Ad Astra, PneumaticCraft, Create Crafts & Additions |
+| Stainless Steel | Alloy | — | GTCEu, Modern Industrialization, Tech Reborn |
+| Brass | Alloy | — | Create, Thermal, AllTheOres |
+| Bronze | Alloy | — | Mekanism, Thermal, AllTheOres, Tech Reborn, GTCEu |
+| Cupronickel | Alloy | — | Immersive Engineering, GTCEu, Modern Industrialization |
+| Electrum | Alloy | — | Thermal, Immersive Engineering, AllTheOres, Tech Reborn, GTCEu |
+| Invar | Alloy | — | Thermal, AllTheOres, Tech Reborn, GTCEu |
+| Constantan | Alloy | — | Immersive Engineering, AllTheOres, Tech Reborn |
+| Wrought Iron | Alloy | — | GTCEu, Modern Industrialization |
+| Enderium | Alloy | — | Thermal |
+| Lumium | Alloy | — | Thermal |
+| Naquadah | Alloy | — | GTCEu |
+| Red Alloy | Alloy | — | ProjectRed, GTCEu |
+| Soul Infused | Alloy | — | Thermal |
 
-O&A custom vein worldgen is optional and can be toggled in config (including KubeJS startup config), so packs can switch between custom and default generation.
+The catalog contains 34 material names. Ore-bearing metals provide ore, raw, crushed, ingot, nugget, dust, plate, rod, gear, and storage-block forms. Processed materials provide the forms for which textures exist; silicon currently provides an ingot only.
 
-## Conceptual Model
+## KubeJS registration
 
-Ore & Alloy treats materials as **systems**, not isolated items.
+Ore & Alloy 1.0.0 does not expose a KubeJS registration API. Material activation is determined during mod startup from the installed provider mods, before startup scripts can safely add registry entries.
 
-Each material exposes a controlled set of forms (ore variants, raw/crushed, dust chains, ingot lines, mechanical components, and fluids). Recipes are unified strictly toward canonical outputs.  
-As a result, automation planning remains coherent whether the processing block comes from Vanilla, Create, or any other tech mod.
+The former API shown below is intentionally unavailable in 1.0.0:
 
-## Core Features
-
-- **Runtime Unification:** Forcing recipes, inputs, and outputs toward canonical O&A materials.
-- **Data-Driven Registration:** Easy material and form registration.
-- **Extended Form Coverage:** Comprehensive handling of items, components, ore variants, and molten forms.
-- **Custom Worldgen:** Optional vein generation with JEI integration.
-- **Viewer Cleanup:** Strategic JEI/EMI duplicate-hiding while preserving usable recipes.
-- **Vanilla Hooks:** Compatibility bridges for hardcoded edge-cases (brewing, trades, alias compatibility).
-- **Extensive Configuration:** Adjustable via in-game menus or KubeJS startup scripts.
-- **Datagen Pipeline:** Automated synchronization of assets and generated data.
-
-## Mod Integrations
-
-The following integrations are actively implemented as runtime features:
-
-- **JEI** (Optional Client): Item hiding, alias search terms, and a custom vein info category.
-- **EMI** (Optional Client): Item hiding and alias search terms.
-- **KubeJS** (Optional): Startup bindings for config, material, and form access.
-- **Vanilla Minecraft**: Behavior unification hooks (interactions, brewing, trades).
-- **Create**: Recipe unification that rewrites compatible outputs (e.g., `create:iron_sheet` defaults to the canonical O&A iron plate).
-
-*Other mod-specific recipe integrations will be added progressively and documented here.*
-
-## Texture Preview
-
-### Ore Hosts & Overlays
-|                                     Stone Host                                      |                                       Deepslate Host                                        | Bauxite Overlay |
-|:-----------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:| :---: |
-| ![Stone Host](src/main/resources/assets/ore_and_alloy/textures/block/ore/stone.png) | ![Deepslate Host](src/main/resources/assets/ore_and_alloy/textures/block/ore/deepslate.png) | ![Bauxite Layer](src/main/resources/assets/ore_and_alloy/textures/block/ore/bauxite.png) |
-|             *Standard overworld generation.* |                                  *Deepslate ore variants.*                                  | *Overlay for composing variants.* |
-
-### Processed Forms
-| Iron Ingot | Iron Plate | Copper Dust |
-| :---: | :---: | :---: |
-| ![Iron Ingot](src/main/resources/assets/ore_and_alloy/textures/item/ingot/iron_ingot.png) | ![Iron Plate](src/main/resources/assets/ore_and_alloy/textures/item/plate/iron_plate.png) | ![Copper Dust](src/main/resources/assets/ore_and_alloy/textures/item/dust/copper_dust.png) |
-| *Canonical base metal form.* | *Processed mechanical form.* | *Pulverized processing stage.* |
-
-## Configuration
-
-### In-game
-Settings are readily available through the native NeoForge mod configuration screen.
-
-### Config Keys (for pack maintainers)
-
-`startup`:
-- `worldgen.custom_vein_worldgen_enabled`
-
-`common`:
-- `tooltips.periodic_enabled`
-- `unification.audit_report_enabled`
-- `unification.strict_mode_enabled`
-- `unification.strict_mode_fail_fast_enabled`
-- `unification.snapshot_export_enabled`
-
-`strict_mode_enabled` enables stability checks for canonical unification targets.  
-`strict_mode_fail_fast_enabled` escalates strict-mode issues to startup/reload failure.  
-`snapshot_export_enabled` writes a structured runtime unification report to:
-- `<game_dir>/ore_and_alloy/unification_snapshot.json`
-
-### KubeJS (Startup)
-Exposed startup bindings allow for deep script control:
-- `OreAndAlloy`
-- `OAMetals`
-- `OAForms`
-- `OAGems`
-
-**Basic example:**
-```javascript
-// kubejs/startup_scripts/ore_and_alloy.js
-OreAndAlloy.setCustomVeinWorldgenEnabled(true);
-OreAndAlloy.setPeriodicTooltipsEnabled(true);
+```js
+// Not supported in Ore & Alloy 1.0.0:
+// OreAndAlloy.register('wrought_iron')
 ```
 
-**Unification control example:**
-```javascript
-// Debug / QA toggles
-OreAndAlloy.setUnificationAuditEnabled(true);
-OreAndAlloy.setUnificationStrictModeEnabled(true);
-OreAndAlloy.setUnificationStrictModeFailFastEnabled(false);
-OreAndAlloy.setUnificationSnapshotExportEnabled(true);
+Do not use this snippet in a modpack; it is included only to make the removed behavior explicit.
 
-// Reset runtime priority overrides first
-OreAndAlloy.resetUnificationPriorityOverrides();
+## Scope
 
-// Global namespace order (first wins)
-OreAndAlloy.setUnificationGlobalNamespacePriority(
-  "ore_and_alloy",
-  "minecraft",
-  "create"
-);
+Ore & Alloy intentionally contains only the common material layer.
 
-// Explicit mod priority override (lower = higher priority)
-OreAndAlloy.setUnificationModPriority("ore_and_alloy", 0);
-OreAndAlloy.setUnificationModPriority("minecraft", 10);
+The core mod does not include:
 
-// Per-material preferred namespace
-OreAndAlloy.setUnificationMaterialPreferredNamespace("steel", "ore_and_alloy");
+- World generation
+- Machines or processing chains
+- Mod-specific machine recipes
+- Tools, armor, workstations, or prospectors
+- Molten fluids
+- KubeJS integration
+- User configuration
 
-// Per material+form explicit canonical item
-OreAndAlloy.setUnificationCanonicalItem("plate", "iron", "ore_and_alloy:iron_plate");
+Worldgen and machine compatibility should be supplied by dedicated addon mods.
 
-// Optional introspection
-console.info("O&A priority snapshot:", OreAndAlloy.unificationPrioritySnapshot());
-```
+## Optional integrations
 
-### Practical Workflow
-1. Start with strict mode OFF, audit ON, snapshot export ON.
-2. Validate alias map output (`unification_snapshot.json`) and logs.
-3. Add KubeJS priority overrides only where needed.
-4. Enable strict mode.
-5. Enable fail-fast once the pack is stable.
+- [JEI](https://www.curseforge.com/minecraft/mc-mods/jei): duplicate hiding and material aliases
+- [EMI](https://www.curseforge.com/minecraft/mc-mods/emi): duplicate hiding and material aliases
 
-## For Modpack Developers
+Neither viewer is required to run Ore & Alloy.
 
-Ore & Alloy should be treated as a pack infrastructure layer.  
-If you maintain custom material definitions/assets, regenerate material data with:
+## License
 
-```bash
-./gradlew generateMaterialData
-```
+- Source code: MIT
+- Art and other assets: All Rights Reserved
 
-Run regression checks after unification-sensitive changes:
-
-```bash
-./gradlew test
-```
-
-## Installation
-
-1. Install [NeoForge 1.21.1](https://neoforged.net/).
-2. Download the latest Ore & Alloy release.
-3. Place the `.jar` into your `mods` folder.
-
-## Licensing Note
-
-Code and assets use a split licensing model (MIT for code, ARR for art/assets).
+See [LICENCE.md](LICENCE.md).

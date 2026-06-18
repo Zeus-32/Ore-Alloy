@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:invar_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:dusts/invar" }
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "invar_ingot",
+  "ingredient": { "tag": "c:dusts/invar" },
+  "result": { "id": "ore_and_alloy:invar_ingot" },
+  "experience": 0.7,
+  "cookingtime": 100
+}

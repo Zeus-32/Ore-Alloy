@@ -11,11 +11,8 @@ import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionBrewing;
-import net.minecraft.world.item.alchemy.Potions;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
-import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.Map;
@@ -28,7 +25,6 @@ public final class VanillaBehaviorUnifier {
     public static void register() {
         NeoForge.EVENT_BUS.addListener(VanillaBehaviorUnifier::onEntityInteract);
         NeoForge.EVENT_BUS.addListener(VanillaBehaviorUnifier::onAnvilUpdate);
-        NeoForge.EVENT_BUS.addListener(VanillaBehaviorUnifier::onRegisterBrewingRecipes);
     }
 
     private static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
@@ -106,33 +102,6 @@ public final class VanillaBehaviorUnifier {
         event.setOutput(output);
         event.setMaterialCost(materialCount);
         event.setCost(Math.max(1L, materialCount + renameCost));
-    }
-
-    private static void onRegisterBrewingRecipes(RegisterBrewingRecipesEvent event) {
-        Item canonicalRedstone = VanillaItemAliasResolver.canonicalFor(Items.REDSTONE);
-        if (canonicalRedstone == Items.REDSTONE) {
-            return;
-        }
-
-        PotionBrewing.Builder builder = event.getBuilder();
-        addRedstoneMix(builder, Potions.WATER, Potions.MUNDANE, canonicalRedstone);
-        addRedstoneMix(builder, Potions.NIGHT_VISION, Potions.LONG_NIGHT_VISION, canonicalRedstone);
-        addRedstoneMix(builder, Potions.INVISIBILITY, Potions.LONG_INVISIBILITY, canonicalRedstone);
-        addRedstoneMix(builder, Potions.FIRE_RESISTANCE, Potions.LONG_FIRE_RESISTANCE, canonicalRedstone);
-        addRedstoneMix(builder, Potions.LEAPING, Potions.LONG_LEAPING, canonicalRedstone);
-        addRedstoneMix(builder, Potions.SLOWNESS, Potions.LONG_SLOWNESS, canonicalRedstone);
-        addRedstoneMix(builder, Potions.TURTLE_MASTER, Potions.LONG_TURTLE_MASTER, canonicalRedstone);
-        addRedstoneMix(builder, Potions.SWIFTNESS, Potions.LONG_SWIFTNESS, canonicalRedstone);
-        addRedstoneMix(builder, Potions.WATER_BREATHING, Potions.LONG_WATER_BREATHING, canonicalRedstone);
-        addRedstoneMix(builder, Potions.POISON, Potions.LONG_POISON, canonicalRedstone);
-        addRedstoneMix(builder, Potions.REGENERATION, Potions.LONG_REGENERATION, canonicalRedstone);
-        addRedstoneMix(builder, Potions.STRENGTH, Potions.LONG_STRENGTH, canonicalRedstone);
-        addRedstoneMix(builder, Potions.WEAKNESS, Potions.LONG_WEAKNESS, canonicalRedstone);
-        addRedstoneMix(builder, Potions.SLOW_FALLING, Potions.LONG_SLOW_FALLING, canonicalRedstone);
-    }
-
-    private static void addRedstoneMix(PotionBrewing.Builder builder, net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> from, net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> to, Item redstoneItem) {
-        builder.addMix(from, redstoneItem, to);
     }
 
     private static int applyMaterialRepair(ItemStack stack, int maxMaterials) {

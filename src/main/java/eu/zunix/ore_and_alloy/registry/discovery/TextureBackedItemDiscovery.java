@@ -1,7 +1,6 @@
 package eu.zunix.ore_and_alloy.registry.discovery;
 
 import eu.zunix.ore_and_alloy.OreAndAlloy;
-import eu.zunix.ore_and_alloy.core.GemMaterial;
 import eu.zunix.ore_and_alloy.core.MaterialForm;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
 import eu.zunix.ore_and_alloy.core.MetalMaterial;
@@ -20,16 +19,6 @@ final class TextureBackedItemDiscovery {
                 String name = String.format("%s_%s",
                         metal.name().toLowerCase(Locale.ROOT),
                         form.name().toLowerCase(Locale.ROOT));
-                if (hasBackedTexture(name)) {
-                    ids.add(name);
-                }
-            }
-        }
-
-        for (GemMaterial gem : GemMaterial.values()) {
-            for (MaterialForm form : gem.getForms()) {
-                String material = gem.name().toLowerCase(Locale.ROOT);
-                String name = MaterialItemIdUtil.itemIdFor(material, form.name().toLowerCase(Locale.ROOT));
                 if (hasBackedTexture(name)) {
                     ids.add(name);
                 }

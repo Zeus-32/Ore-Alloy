@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:uranium_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:dusts/uranium" }
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "uranium_ingot",
+  "ingredient": { "tag": "c:dusts/uranium" },
+  "result": { "id": "ore_and_alloy:uranium_ingot" },
+  "experience": 0.7,
+  "cookingtime": 100
+}

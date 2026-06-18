@@ -30,8 +30,7 @@ final class ModListAccessor {
     boolean isLoaded(String modId) {
         if (!available()) return false;
         try {
-            Object loaded = isLoadedMethod.invoke(modListInstance, modId);
-            return loaded instanceof Boolean b && b;
+            return Boolean.TRUE.equals(isLoadedMethod.invoke(modListInstance, modId));
         } catch (Throwable ignored) {
             return false;
         }

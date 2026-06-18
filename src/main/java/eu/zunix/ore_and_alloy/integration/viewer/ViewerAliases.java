@@ -56,27 +56,10 @@ public final class ViewerAliases {
         LinkedHashSet<String> aliases = new LinkedHashSet<>();
         ViewerAliasRuleEngine.addItemAliases(normalizedPath, aliases);
 
-        Optional<MoltenBucketKey> molten = parseMoltenBucket(normalizedPath);
-        if (molten.isPresent()) {
-            ViewerAliasRuleEngine.addMoltenBucketAliases(molten.get().material(), aliases);
-            return Collections.unmodifiableSet(aliases);
-        }
-
         parseMaterialKey(normalizedPath).ifPresent(material ->
                 ViewerAliasRuleEngine.addFormAliases(material.formToken(), material.material(), aliases));
 
         return Collections.unmodifiableSet(aliases);
-    }
-
-    private static Optional<MoltenBucketKey> parseMoltenBucket(String path) {
-        String prefix = "molten_";
-        String suffix = "_bucket";
-        if (!path.startsWith(prefix) || !path.endsWith(suffix) || path.length() <= prefix.length() + suffix.length()) {
-            return Optional.empty();
-        }
-
-        String material = path.substring(prefix.length(), path.length() - suffix.length());
-        return material.isBlank() ? Optional.empty() : Optional.of(new MoltenBucketKey(material));
     }
 
     private static Optional<MaterialKey> parseMaterialKey(String path) {
@@ -141,6 +124,4 @@ public final class ViewerAliases {
     }
 
     private record MaterialKey(String material, String formToken) {}
-
-    private record MoltenBucketKey(String material) {}
 }
