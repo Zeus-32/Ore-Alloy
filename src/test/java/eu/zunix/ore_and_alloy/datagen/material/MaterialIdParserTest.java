@@ -28,6 +28,9 @@ class MaterialIdParserTest {
         assertEquals("ore", ore.form());
 
         assertThrows(IllegalArgumentException.class, () -> MaterialIdParser.parseItemId("iron"));
+        MaterialId silicon = MaterialIdParser.parseItemId("silicon");
+        assertEquals("silicon", silicon.material());
+        assertEquals("silicon", silicon.form());
     }
 
     @Test
@@ -36,6 +39,7 @@ class MaterialIdParserTest {
         assertEquals("crushed_bauxite", MaterialIdParser.itemIdFor("aluminum", "crushed"));
         assertEquals("iron_dust", MaterialIdParser.itemIdFor("iron", "dust"));
         assertEquals("copper_plate", MaterialIdParser.itemIdFor("copper", "plate"));
+        assertEquals("silicon", MaterialIdParser.itemIdFor("silicon", "silicon"));
     }
 
     @Test

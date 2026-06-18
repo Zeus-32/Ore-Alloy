@@ -24,7 +24,6 @@
     { "id": "ore_and_alloy:osmium_ingot", "required": false },
     { "id": "ore_and_alloy:platinum_ingot", "required": false },
     { "id": "ore_and_alloy:red_alloy_ingot", "required": false },
-    { "id": "ore_and_alloy:silicon_ingot", "required": false },
     { "id": "ore_and_alloy:silver_ingot", "required": false },
     { "id": "ore_and_alloy:soul_infused_ingot", "required": false },
     { "id": "ore_and_alloy:stainless_steel_ingot", "required": false },

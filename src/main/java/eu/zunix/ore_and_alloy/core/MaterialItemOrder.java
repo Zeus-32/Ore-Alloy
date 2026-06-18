@@ -19,7 +19,9 @@ public final class MaterialItemOrder {
     private static final Map<String, String> PREFERRED_ITEM_MATERIAL_TOKENS = Map.ofEntries(
             Map.entry("aluminum", "aluminium")
     );
-    private static final Map<String, String> BARE_ITEM_FORMS = Map.of();
+    private static final Map<String, String> BARE_ITEM_FORMS = Map.of(
+            "silicon", "silicon"
+    );
 
     private static final Map<String, Integer> FORM_RANK = buildFormRank();
     private static final List<String> PARSE_SUFFIXES = MaterialFormCatalog.FORM_SUFFIX_PARSE_ORDER;

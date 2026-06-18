@@ -15,7 +15,8 @@ public final class MaterialFormCatalog {
             "nugget",
             "plate",
             "rod",
-            "gear"
+            "gear",
+            "silicon"
     );
 
     public static final List<String> PREFIX_FORMS = List.of("crushed", "raw");
@@ -34,7 +35,8 @@ public final class MaterialFormCatalog {
             Map.entry("crushed", "crushed_raw_materials"),
             Map.entry("ore", "ores"),
             Map.entry("raw", "raw_materials"),
-            Map.entry("block", "storage_blocks")
+            Map.entry("block", "storage_blocks"),
+            Map.entry("silicon", "silicon")
     );
 
     public static final Map<String, String> FORM_BY_TAG_BUCKET = Map.ofEntries(
@@ -51,7 +53,8 @@ public final class MaterialFormCatalog {
             Map.entry("ores", "ore"),
             Map.entry("raw_materials", "raw"),
             Map.entry("raws", "raw"),
-            Map.entry("storage_blocks", "block")
+            Map.entry("storage_blocks", "block"),
+            Map.entry("silicon", "silicon")
     );
 
     public static final Set<String> HANDHELD_FORMS = Set.of("rod");

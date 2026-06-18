@@ -16,9 +16,9 @@ final class TextureBackedItemDiscovery {
 
         for (MetalMaterial metal : MetalMaterial.values()) {
             for (MaterialForm form : metal.getForms()) {
-                String name = String.format("%s_%s",
-                        metal.name().toLowerCase(Locale.ROOT),
-                        form.name().toLowerCase(Locale.ROOT));
+                String material = metal.name().toLowerCase(Locale.ROOT);
+                String formToken = form.name().toLowerCase(Locale.ROOT);
+                String name = MaterialItemIdUtil.itemIdFor(material, formToken);
                 if (hasBackedTexture(name)) {
                     ids.add(name);
                 }

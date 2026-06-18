@@ -66,6 +66,11 @@ final class MaterialItemIdUtil {
 
     static List<String> textureCandidates(String itemId, String material, String form) {
         List<String> out = new ArrayList<>();
+        if (MaterialItemOrder.bareItemForm(itemId).map(form::equals).orElse(false)) {
+            out.add("item/" + itemId);
+            out.add("item/" + form + "/" + itemId);
+            return out;
+        }
         out.add("item/" + form + "/" + itemId);
         out.add("item/" + form + "/" + material + "_" + form);
         out.add("item/" + form + "/" + form + "_" + material);

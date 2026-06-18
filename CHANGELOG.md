@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.0.3] - 2026-06-18
+
+### Bug Fix
+- Replaced `ore_and_alloy:silicon_ingot` with the canonical bare item `ore_and_alloy:silicon`.
+- Silicon now uses the common `c:silicon` tag and can replace equivalent silicon items from other mods.
+- Removed silicon ingot recipes, ingot tags, and the automatically generated silicon storage block.
+
+## [1.0.2] - 2026-06-18
+
+### Quick Fix
+- Fixed single-form materials such as silicon incorrectly gaining untextured metal forms.
+- Added Create Crafts & Additions as an Electrum provider so its Electrum recipes unify to Ore & Alloy.
+
 ## [1.0.1] - 2026-06-18
 
 ### KubeJS

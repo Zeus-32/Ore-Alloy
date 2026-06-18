@@ -31,6 +31,19 @@ public final class MaterialItemCollector {
         Path itemTextureRoot = mainResources.resolve(Path.of("assets", namespace, "textures", "item"));
         if (!Files.isDirectory(itemTextureRoot)) return List.of();
 
+        try (var files = Files.list(itemTextureRoot)) {
+            for (Path file : files.toList()) {
+                if (!Files.isRegularFile(file)) continue;
+                String fileName = file.getFileName().toString().toLowerCase(Locale.ROOT);
+                if (!fileName.endsWith(".png")) continue;
+
+                String itemId = fileName.substring(0, fileName.length() - 4);
+                if (MaterialItemOrder.bareItemForm(itemId).isPresent() && isKnownMetal(itemId)) {
+                    items.add(itemId);
+                }
+            }
+        }
+
         try (var dirs = Files.list(itemTextureRoot)) {
             for (Path dir : dirs.toList()) {
                 if (!Files.isDirectory(dir)) continue;

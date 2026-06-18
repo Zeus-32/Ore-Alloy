@@ -1,7 +1,9 @@
 package eu.zunix.ore_and_alloy.registry.discovery;
 
 import eu.zunix.ore_and_alloy.core.MaterialFormCatalog;
+import eu.zunix.ore_and_alloy.core.MaterialForm;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
+import eu.zunix.ore_and_alloy.core.MetalMaterial;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
 
 import java.util.LinkedHashMap;
@@ -37,9 +39,13 @@ final class GuaranteedMaterialSetBuilder {
             Set<String> forms = entry.getValue();
 
             if (forms.contains("ingot")) {
-                for (String form : MaterialFormCatalog.METAL_SET_FORMS) {
-                    out.add(MaterialItemIdUtil.itemIdFor(material, form));
-                }
+                MetalMaterial.fromToken(entry.getKey()).ifPresent(metal -> {
+                    for (MaterialForm form : metal.getForms()) {
+                        String formToken = form.name().toLowerCase(java.util.Locale.ROOT);
+                        if ("ore".equals(formToken) || "raw".equals(formToken) || "crushed".equals(formToken)) continue;
+                        out.add(MaterialItemIdUtil.itemIdFor(material, formToken));
+                    }
+                });
             }
             if (forms.contains("raw") && !RawMaterialMappings.rawVariantsForMaterial(material).isEmpty()) {
                 out.addAll(RawMaterialMappings.rawItemIdsForMaterial(material));

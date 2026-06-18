@@ -27,4 +27,15 @@ class GuaranteedMaterialSetBuilderTest {
         assertFalse(items.contains("raw_legacy_copper"));
         assertFalse(items.contains("crushed_legacy_copper"));
     }
+
+    @Test
+    void singleFormMaterialsDoNotGainMissingTextureForms() {
+        List<String> items = new GuaranteedMaterialSetBuilder().withGuaranteedForms(List.of("silicon"));
+
+        assertTrue(items.contains("silicon"));
+        assertFalse(items.contains("silicon_ingot"));
+        assertFalse(items.contains("silicon_plate"));
+        assertFalse(items.contains("silicon_dust"));
+        assertFalse(items.contains("silicon_gear"));
+    }
 }

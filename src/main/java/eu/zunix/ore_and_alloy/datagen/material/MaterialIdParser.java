@@ -66,6 +66,9 @@ public final class MaterialIdParser {
     public static String deriveItemIdFromTextureFile(String form, String textureId) {
         String normalizedForm = normalizeFormFolder(form);
 
+        if (MaterialItemOrder.bareItemForm(textureId).map(normalizedForm::equals).orElse(false)) {
+            return textureId;
+        }
         if ("single".equals(normalizedForm)) {
             return textureId;
         }

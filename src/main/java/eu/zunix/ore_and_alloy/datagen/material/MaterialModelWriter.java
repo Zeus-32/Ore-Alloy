@@ -39,8 +39,11 @@ public final class MaterialModelWriter {
         MaterialId parsed = MaterialIdParser.parseItemId(itemName);
         boolean handheld = MaterialFormCatalog.HANDHELD_FORMS.contains(parsed.form());
         String parent = handheld ? "item/handheld" : "item/generated";
+        boolean bareItem = eu.zunix.ore_and_alloy.core.MaterialItemOrder.bareItemForm(itemName).isPresent();
         String textureFolder = "raw".equals(parsed.form()) ? "raw_materials" : parsed.form();
-        String texture = namespace + ":item/" + textureFolder + "/" + itemName;
+        String texture = bareItem
+                ? namespace + ":item/" + itemName
+                : namespace + ":item/" + textureFolder + "/" + itemName;
 
         Path out = outRoot.resolve(Path.of("assets", namespace, "models", "item", itemName + ".json"));
         DatagenFiles.writeText(out, "{"

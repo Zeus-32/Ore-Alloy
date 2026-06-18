@@ -10,7 +10,8 @@ public enum MaterialForm {
     GEAR(false),
     CRUSHED(false),
     ORE(false),
-    RAW(false);
+    RAW(false),
+    SILICON(false);
 
     private final boolean handheld;
 

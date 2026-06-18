@@ -24,7 +24,6 @@
     { "id": "ore_and_alloy:osmium_block", "required": false },
     { "id": "ore_and_alloy:platinum_block", "required": false },
     { "id": "ore_and_alloy:red_alloy_block", "required": false },
-    { "id": "ore_and_alloy:silicon_block", "required": false },
     { "id": "ore_and_alloy:silver_block", "required": false },
     { "id": "ore_and_alloy:soul_infused_block", "required": false },
     { "id": "ore_and_alloy:stainless_steel_block", "required": false },

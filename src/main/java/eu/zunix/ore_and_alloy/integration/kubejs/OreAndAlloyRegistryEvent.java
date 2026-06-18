@@ -6,4 +6,7 @@ public final class OreAndAlloyRegistryEvent {
     public boolean reg(Object material) {
         return MaterialActivationRequests.request(material);
     }
+    public boolean register(Object material) {
+        return MaterialActivationRequests.request(material);
+    }
 }

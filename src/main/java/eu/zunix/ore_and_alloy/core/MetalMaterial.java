@@ -41,7 +41,7 @@ public enum MetalMaterial {
     RED_ALLOY(processedMetalForms()),
     SOUL_INFUSED(processedMetalForms()),
     TUNGSTEN(processedMetalForms()),
-    SILICON(EnumSet.of(MaterialForm.INGOT));
+    SILICON(EnumSet.of(MaterialForm.SILICON));
 
     private final Set<MaterialForm> forms;
 

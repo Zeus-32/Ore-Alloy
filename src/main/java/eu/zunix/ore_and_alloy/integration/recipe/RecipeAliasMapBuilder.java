@@ -154,7 +154,14 @@ public final class RecipeAliasMapBuilder {
 
         String path = tagId.getPath().toLowerCase(Locale.ROOT);
         int split = path.indexOf('/');
-        if (split <= 0 || split >= path.length() - 1) return Optional.empty();
+        if (split < 0) {
+            Optional<String> bareForm = MaterialItemOrder.bareItemForm(path);
+            if (bareForm.isEmpty() || !IntegrationMaterialRegistry.isMaterialEnabled(path)) {
+                return Optional.empty();
+            }
+            return Optional.of(new MaterialAliasKey(bareForm.get(), MaterialItemOrder.canonicalMaterialToken(path)));
+        }
+        if (split == 0 || split >= path.length() - 1) return Optional.empty();
 
         String bucket = path.substring(0, split);
         String material = normalizeMaterial(path.substring(split + 1));

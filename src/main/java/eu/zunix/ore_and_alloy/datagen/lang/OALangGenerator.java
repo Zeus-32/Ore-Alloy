@@ -82,6 +82,7 @@ public final class OALangGenerator {
             case "crushed" -> "Crushed";
             case "ore" -> "Ore";
             case "raw" -> "Raw";
+            case "silicon" -> "";
             default -> capitalizeWords(parsed.form().replace('_', ' '));
         };
         if (formNice.isBlank()) return material;
@@ -102,6 +103,10 @@ public final class OALangGenerator {
             MaterialId parsed = MaterialIdParser.parseItemId(itemName);
             String bucket = MaterialFormCatalog.TAG_BUCKET_BY_FORM.get(parsed.form());
             if (bucket == null) continue;
+            if (MaterialItemOrder.bareItemForm(itemName).isPresent()) {
+                materialsByBucket.computeIfAbsent(bucket, ignored -> new LinkedHashSet<>());
+                continue;
+            }
             materialsByBucket.computeIfAbsent(bucket, ignored -> new LinkedHashSet<>()).add(parsed.material());
         }
 

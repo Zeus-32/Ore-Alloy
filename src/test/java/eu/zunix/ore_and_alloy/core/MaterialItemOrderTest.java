@@ -21,6 +21,7 @@ class MaterialItemOrderTest {
     void bareFormsAreNotUsedForMetalMaterials() {
         assertTrue(MaterialItemOrder.bareItemForm("iron").isEmpty());
         assertTrue(MaterialItemOrder.bareItemForm("copper").isEmpty());
+        assertEquals("silicon", MaterialItemOrder.bareItemForm("silicon").orElseThrow());
     }
 
     @Test
