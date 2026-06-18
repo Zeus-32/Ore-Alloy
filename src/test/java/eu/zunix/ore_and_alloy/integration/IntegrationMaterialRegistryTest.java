@@ -12,6 +12,7 @@ class IntegrationMaterialRegistryTest {
     void clearProperties() {
         System.clearProperty("ore_and_alloy.register_all");
         System.clearProperty("ore_and_alloy.datagen.include_all");
+        MaterialActivationRequests.resetForTests();
     }
 
     @Test
@@ -27,5 +28,12 @@ class IntegrationMaterialRegistryTest {
     void datagenCanStillGenerateAssetsForTheWholeCatalog() {
         System.setProperty("ore_and_alloy.datagen.include_all", "true");
         assertTrue(IntegrationMaterialRegistry.isMetalEnabled(MetalMaterial.ALUMINUM));
+    }
+
+    @Test
+    void startupRequestActivatesKnownMaterialWithoutProviderMod() {
+        assertTrue(MaterialActivationRequests.request("aluminium"));
+        assertTrue(IntegrationMaterialRegistry.isMetalEnabled(MetalMaterial.ALUMINUM));
+        assertTrue(MaterialActivationRequests.requestedMaterials().contains("aluminum"));
     }
 }

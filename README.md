@@ -2,7 +2,7 @@
 
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-62B47A?style=flat-square)](https://www.minecraft.net/)
 [![NeoForge](https://img.shields.io/badge/NeoForge-21.1.229+-E68A2E?style=flat-square)](https://neoforged.net/)
-[![Version](https://img.shields.io/badge/version-1.0.0-4C8BF5?style=flat-square)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.0.1-4C8BF5?style=flat-square)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/code-MIT-blue?style=flat-square)](LICENCE.md)
 
 Ore & Alloy is a focused material registry and enforced unification foundation for NeoForge modpacks.
@@ -20,7 +20,7 @@ It provides canonical ores, raw and crushed materials, ingots, nuggets, dusts, p
 - Duplicate external entries are hidden in JEI and EMI.
 - Periodic material symbols are shown directly in item tooltips.
 
-Material activation is automatic and cannot be changed through KubeJS or config files.
+Material activation is automatic from installed provider mods. KubeJS startup scripts can explicitly activate additional supported materials.
 
 ## Supported materials
 
@@ -67,16 +67,27 @@ The catalog contains 34 material names. Ore-bearing metals provide ore, raw, cru
 
 ## KubeJS registration
 
-Ore & Alloy 1.0.0 does not expose a KubeJS registration API. Material activation is determined during mod startup from the installed provider mods, before startup scripts can safely add registry entries.
-
-The former API shown below is intentionally unavailable in 1.0.0:
+KubeJS is optional. To activate materials manually, place a script in `kubejs/startup_scripts/`.
 
 ```js
-// Not supported in Ore & Alloy 1.0.0:
-// OreAndAlloy.register('wrought_iron')
+OreAndAlloy.registry(event => {
+    event.reg(aluminium)
+})
 ```
 
-Do not use this snippet in a modpack; it is included only to make the removed behavior explicit.
+Multiple materials can be requested in the same callback:
+
+```js
+OreAndAlloy.registry(event => {
+    event.reg(aluminium)
+    event.reg(antimony)
+    event.reg(wrought_iron)
+})
+```
+
+Every material name from the supported-material table is available as a global startup-script constant. Quoted names such as `event.reg('aluminium')` are also accepted.
+
+Registration runs only during startup. Changes require a full game restart; `/reload` cannot modify item or block registries. Unknown material names produce a startup-script error.
 
 ## Scope
 
@@ -89,7 +100,6 @@ The core mod does not include:
 - Mod-specific machine recipes
 - Tools, armor, workstations, or prospectors
 - Molten fluids
-- KubeJS integration
 - User configuration
 
 Worldgen and machine compatibility should be supplied by dedicated addon mods.
@@ -98,6 +108,7 @@ Worldgen and machine compatibility should be supplied by dedicated addon mods.
 
 - [JEI](https://www.curseforge.com/minecraft/mc-mods/jei): duplicate hiding and material aliases
 - [EMI](https://www.curseforge.com/minecraft/mc-mods/emi): duplicate hiding and material aliases
+- [KubeJS](https://www.curseforge.com/minecraft/mc-mods/kubejs): optional startup material activation
 
 Neither viewer is required to run Ore & Alloy.
 

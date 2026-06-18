@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.0.1] - 2026-06-18
+
+### KubeJS
+- Added optional startup-script material activation.
+- Added the `OreAndAlloy.registry(event => { ... })` DSL.
+- Added `event.reg(material)` with validation, alias normalization, and duplicate handling.
+- Exposed all supported material names as startup-script constants, including `aluminium`, `antimony`, and `wrought_iron`.
+- Material requests are frozen before deferred item and block discovery; registry changes require a full restart.
+
 ## [1.0.0] - 2026-06-18
 
 First stable release of the architecture developed during the `0.2.1` cycle.
