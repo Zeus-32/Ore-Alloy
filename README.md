@@ -89,21 +89,6 @@ Every material name from the supported-material table is available as a global s
 
 Registration runs only during startup. Changes require a full game restart; `/reload` cannot modify item or block registries. Unknown material names produce a startup-script error.
 
-## Scope
-
-Ore & Alloy intentionally contains only the common material layer.
-
-The core mod does not include:
-
-- World generation
-- Machines or processing chains
-- Mod-specific machine recipes
-- Tools, armor, workstations, or prospectors
-- Molten fluids
-- User configuration
-
-Worldgen and machine compatibility should be supplied by dedicated addon mods.
-
 ## Optional integrations
 
 - [JEI](https://www.curseforge.com/minecraft/mc-mods/jei): duplicate hiding and material aliases
