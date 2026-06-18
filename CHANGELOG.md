@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.0.4] - 2026-06-18
+
+### Critical Fix
+- Added an explicit `ae2:silicon -> ore_and_alloy:silicon` unification alias independent of common tags.
+- Overrode AE2 silicon smelting and blasting outputs to produce canonical Ore & Alloy silicon.
+- Overrode the AE2 silicon-print Inscriber recipe to consume canonical Ore & Alloy silicon directly.
+
 ## [1.0.3] - 2026-06-18
 
 ### Bug Fix

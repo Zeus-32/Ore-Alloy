@@ -306,6 +306,61 @@ public final class MaterialRecipeWriter {
         }
 
         writeDisabledVanillaOreCookingRecipes(minecraftRecipesRoot);
+        writeAe2SiliconOverrides(materialItems);
+    }
+
+    private void writeAe2SiliconOverrides(List<String> materialItems) throws IOException {
+        if (!materialItems.contains("silicon")) return;
+
+        Path ae2RecipeRoot = outRoot.resolve(Path.of("data", "ae2", "recipe"));
+        String silicon = namespace + ":silicon";
+        String conditions = "  \"neoforge:conditions\": [\n"
+                + "    { \"type\": \"neoforge:mod_loaded\", \"modid\": \"ae2\" },\n"
+                + "    { \"type\": \"neoforge:item_exists\", \"item\": \"" + silicon + "\" }\n"
+                + "  ],\n";
+
+        String smelting = "{\n"
+                + conditions
+                + "  \"type\": \"minecraft:smelting\",\n"
+                + "  \"category\": \"misc\",\n"
+                + "  \"cookingtime\": 200,\n"
+                + "  \"experience\": 0.35,\n"
+                + "  \"ingredient\": { \"tag\": \"c:dusts/certus_quartz\" },\n"
+                + "  \"result\": { \"id\": \"" + silicon + "\", \"count\": 1 }\n"
+                + "}";
+        DatagenFiles.writeText(
+                ae2RecipeRoot.resolve(Path.of("smelting", "silicon_from_certus_quartz_dust.json")),
+                smelting
+        );
+
+        String blasting = "{\n"
+                + conditions
+                + "  \"type\": \"minecraft:blasting\",\n"
+                + "  \"category\": \"misc\",\n"
+                + "  \"cookingtime\": 100,\n"
+                + "  \"experience\": 0.35,\n"
+                + "  \"ingredient\": { \"tag\": \"c:dusts/certus_quartz\" },\n"
+                + "  \"result\": { \"id\": \"" + silicon + "\", \"count\": 1 }\n"
+                + "}";
+        DatagenFiles.writeText(
+                ae2RecipeRoot.resolve(Path.of("blasting", "silicon_from_certus_quartz_dust.json")),
+                blasting
+        );
+
+        String inscriber = "{\n"
+                + conditions
+                + "  \"type\": \"ae2:inscriber\",\n"
+                + "  \"ingredients\": {\n"
+                + "    \"middle\": { \"item\": \"" + silicon + "\" },\n"
+                + "    \"top\": { \"item\": \"ae2:silicon_press\" }\n"
+                + "  },\n"
+                + "  \"mode\": \"inscribe\",\n"
+                + "  \"result\": { \"id\": \"ae2:printed_silicon\", \"count\": 1 }\n"
+                + "}";
+        DatagenFiles.writeText(
+                ae2RecipeRoot.resolve(Path.of("inscriber", "silicon_print.json")),
+                inscriber
+        );
     }
 
     private static double smeltingExperience(String material) {

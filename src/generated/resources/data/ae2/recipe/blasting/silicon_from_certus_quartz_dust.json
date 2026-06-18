@@ -1,0 +1,12 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "ae2" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:silicon" }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.35,
+  "ingredient": { "tag": "c:dusts/certus_quartz" },
+  "result": { "id": "ore_and_alloy:silicon", "count": 1 }
+}

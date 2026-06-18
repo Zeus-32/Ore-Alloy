@@ -31,6 +31,8 @@ public final class DatagenFiles {
         deleteTreeIfExists(outRoot.resolve(Path.of("data", "minecraft", "recipes")));
         deleteTreeIfExists(outRoot.resolve(Path.of("data", "create", "recipe")));
         deleteTreeIfExists(outRoot.resolve(Path.of("data", "create", "recipes")));
+        deleteTreeIfExists(outRoot.resolve(Path.of("data", "ae2", "recipe")));
+        deleteTreeIfExists(outRoot.resolve(Path.of("data", "ae2", "recipes")));
         deleteTreeIfExists(outRoot.resolve(Path.of("data", namespace, "recipe")));
         deleteTreeIfExists(outRoot.resolve(Path.of("data", namespace, "recipes")));
         deleteTreeIfExists(outRoot.resolve(Path.of("data", namespace, "loot_table", "blocks")));

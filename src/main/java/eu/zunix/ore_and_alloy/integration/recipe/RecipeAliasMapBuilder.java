@@ -30,6 +30,10 @@ import java.util.regex.Pattern;
 
 public final class RecipeAliasMapBuilder {
     private static final String COMMON_TAG_NAMESPACE = "c";
+    private static final Map<ResourceLocation, ResourceLocation> EXPLICIT_ITEM_ALIASES = Map.of(
+            ResourceLocation.fromNamespaceAndPath("ae2", "silicon"),
+            ResourceLocation.fromNamespaceAndPath(OreAndAlloy.MODID, "silicon")
+    );
 
     private static final Pattern INVALID_MATERIAL_CHARS = Pattern.compile("[^a-z0-9_]");
     private static final Pattern DUPLICATED_UNDERSCORES = Pattern.compile("_+");
@@ -82,6 +86,7 @@ public final class RecipeAliasMapBuilder {
             if (isInternalOreAndAlloyAlias(alias, canonical)) continue;
             aliasToCanonical.put(alias, canonical);
         }
+        addExplicitItemAliases(aliasToCanonical);
 
         Map<Item, List<Item>> canonicalCandidatesSnapshot = new IdentityHashMap<>();
         for (Map.Entry<Item, List<Item>> entry : candidateEntries) {
@@ -96,6 +101,15 @@ public final class RecipeAliasMapBuilder {
                 Collections.unmodifiableMap(canonicalByGroup),
                 Collections.unmodifiableMap(canonicalCandidatesSnapshot)
         );
+    }
+
+    private static void addExplicitItemAliases(Map<Item, Item> aliasToCanonical) {
+        for (Map.Entry<ResourceLocation, ResourceLocation> entry : EXPLICIT_ITEM_ALIASES.entrySet()) {
+            Item alias = BuiltInRegistries.ITEM.get(entry.getKey());
+            Item canonical = BuiltInRegistries.ITEM.get(entry.getValue());
+            if (alias == Items.AIR || canonical == Items.AIR || alias == canonical) continue;
+            aliasToCanonical.put(alias, canonical);
+        }
     }
 
     public static Map<Item, Item> buildAliasMapSnapshot() {
