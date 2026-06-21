@@ -566,7 +566,6 @@
   "block.ore_and_alloy.nether_uranium_ore": "Nether Uranium Ore",
   "block.ore_and_alloy.end_uranium_ore": "End Uranium Ore",
   "block.ore_and_alloy.tuff_uranium_ore": "Tuff Uranium Ore",
-  "block.ore_and_alloy.tin_block": "Tin Block",
   "block.ore_and_alloy.invar_block": "Invar Block",
   "block.ore_and_alloy.brass_block": "Brass Block",
   "block.ore_and_alloy.constantan_block": "Constantan Block",
@@ -599,6 +598,7 @@
   "block.ore_and_alloy.lithium_block": "Lithium Block",
   "block.ore_and_alloy.iridium_block": "Iridium Block",
   "block.ore_and_alloy.steel_block": "Steel Block",
+  "block.ore_and_alloy.tin_block": "Tin Block",
   "tag.item.c.bolts": "Bolts",
   "tag.item.c.bolts.aluminum": "Aluminum Bolts",
   "tag.item.c.bolts.antimony": "Antimony Bolts",
@@ -980,8 +980,6 @@
   "tag.item.c.ores.zinc": "Zinc Ores",
   "tag.block.c.storage_blocks": "Storage Blocks",
   "tag.item.c.storage_blocks": "Storage Blocks",
-  "tag.block.c.storage_blocks.tin": "Tin Storage Blocks",
-  "tag.item.c.storage_blocks.tin": "Tin Storage Blocks",
   "tag.block.c.storage_blocks.invar": "Invar Storage Blocks",
   "tag.item.c.storage_blocks.invar": "Invar Storage Blocks",
   "tag.block.c.storage_blocks.brass": "Brass Storage Blocks",
@@ -1045,5 +1043,7 @@
   "tag.block.c.storage_blocks.iridium": "Iridium Storage Blocks",
   "tag.item.c.storage_blocks.iridium": "Iridium Storage Blocks",
   "tag.block.c.storage_blocks.steel": "Steel Storage Blocks",
-  "tag.item.c.storage_blocks.steel": "Steel Storage Blocks"
+  "tag.item.c.storage_blocks.steel": "Steel Storage Blocks",
+  "tag.block.c.storage_blocks.tin": "Tin Storage Blocks",
+  "tag.item.c.storage_blocks.tin": "Tin Storage Blocks"
 }
