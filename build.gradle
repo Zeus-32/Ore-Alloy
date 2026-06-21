@@ -141,11 +141,16 @@ publishing {
     publications {
         register('mavenJava', MavenPublication) {
             from components.java
+            groupId = project.mod_group_id
+            artifactId = project.mod_id
+            version = project.version
         }
     }
+
     repositories {
         maven {
-            url "file://${project.projectDir}/repo"
+            name = 'localProject'
+            url = uri("${project.projectDir}/repo")
         }
     }
 }
