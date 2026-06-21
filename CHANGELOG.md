@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.0.5] - 2026-06-21
+
+### Added
+- Added `bolt` and `screw` material forms for all supported metal and alloy materials.
+- Added generated item registrations, models, language entries, and common tags for `c:bolts`, `c:bolts/<material>`, `c:screws`, and `c:screws/<material>`.
+- Added recipe/viewer alias support for bolt and screw material forms.
+
+### Compatibility
+- Prepared Ore & Alloy 1.0.5 as the required dependency target for TGE Core material crafting recipes.
+
 ## [1.0.4] - 2026-06-18
 
 ### Critical Fix

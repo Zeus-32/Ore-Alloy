@@ -8,6 +8,8 @@ public enum MaterialForm {
     PLATE(false),
     ROD(true),
     GEAR(false),
+    BOLT(false),
+    SCREW(false),
     CRUSHED(false),
     ORE(false),
     RAW(false),

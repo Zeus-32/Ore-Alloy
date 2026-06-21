@@ -16,6 +16,8 @@ public final class MaterialFormCatalog {
             "plate",
             "rod",
             "gear",
+            "bolt",
+            "screw",
             "silicon"
     );
 
@@ -32,6 +34,8 @@ public final class MaterialFormCatalog {
             Map.entry("plate", "plates"),
             Map.entry("rod", "rods"),
             Map.entry("gear", "gears"),
+            Map.entry("bolt", "bolts"),
+            Map.entry("screw", "screws"),
             Map.entry("crushed", "crushed_raw_materials"),
             Map.entry("ore", "ores"),
             Map.entry("raw", "raw_materials"),
@@ -47,6 +51,8 @@ public final class MaterialFormCatalog {
             Map.entry("sheets", "plate"),
             Map.entry("rods", "rod"),
             Map.entry("gears", "gear"),
+            Map.entry("bolts", "bolt"),
+            Map.entry("screws", "screw"),
             Map.entry("crushed_raw_materials", "crushed"),
             Map.entry("crushed_materials", "crushed"),
             Map.entry("crusheds", "crushed"),
@@ -65,7 +71,9 @@ public final class MaterialFormCatalog {
             "plate",
             "rod",
             "dust",
-            "gear"
+            "gear",
+            "bolt",
+            "screw"
     );
 
     private MaterialFormCatalog() {}
