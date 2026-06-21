@@ -78,6 +78,8 @@ public enum MetalMaterial {
                 MaterialForm.NUGGET,
                 MaterialForm.ROD,
                 MaterialForm.GEAR,
+                MaterialForm.BOLT,
+                MaterialForm.SCREW,
                 MaterialForm.DUST
         );
     }

@@ -79,6 +79,8 @@ public final class OALangGenerator {
             case "plate" -> "Plate";
             case "rod" -> "Rod";
             case "gear" -> "Gear";
+            case "bolt" -> "Bolt";
+            case "screw" -> "Screw";
             case "crushed" -> "Crushed";
             case "ore" -> "Ore";
             case "raw" -> "Raw";

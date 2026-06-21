@@ -34,6 +34,12 @@ final class ViewerAliasRuleEngine {
             "gear -> gear",
             "gear -> {material} gear",
 
+            "bolt -> bolt",
+            "bolt -> {material} bolt",
+
+            "screw -> screw",
+            "screw -> {material} screw",
+
             "crushed -> crushed",
             "crushed -> crushed {material}",
             "crushed -> {material} crushed",
