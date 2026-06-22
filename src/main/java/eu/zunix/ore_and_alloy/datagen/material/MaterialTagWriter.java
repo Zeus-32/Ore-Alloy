@@ -33,7 +33,7 @@ public final class MaterialTagWriter {
 
             String itemId = namespace + ":" + itemName;
             topLevel.computeIfAbsent(bucket, ignored -> new ArrayList<>()).add(itemId);
-            if (MaterialItemOrder.bareItemForm(itemName).isPresent()) {
+            if ("silicon".equals(parsed.form()) && MaterialItemOrder.bareItemForm(itemName).isPresent()) {
                 continue;
             }
             String canonicalMaterial = MaterialItemOrder.canonicalMaterialToken(parsed.material());

@@ -14,7 +14,8 @@ final class IntegrationMaterialProviders {
     static final Set<MetalMaterial> VANILLA_METALS = EnumSet.of(
             MetalMaterial.IRON,
             MetalMaterial.GOLD,
-            MetalMaterial.COPPER
+            MetalMaterial.COPPER,
+            MetalMaterial.DIAMOND
     );
 
     static final Map<MetalMaterial, Set<String>> METAL_PROVIDER_MODS = buildMetalProviders();

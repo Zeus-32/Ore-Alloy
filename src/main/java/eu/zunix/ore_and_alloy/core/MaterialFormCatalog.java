@@ -18,7 +18,8 @@ public final class MaterialFormCatalog {
             "gear",
             "bolt",
             "screw",
-            "silicon"
+            "silicon",
+            "diamond"
     );
 
     public static final List<String> PREFIX_FORMS = List.of("crushed", "raw");
@@ -40,7 +41,8 @@ public final class MaterialFormCatalog {
             Map.entry("ore", "ores"),
             Map.entry("raw", "raw_materials"),
             Map.entry("block", "storage_blocks"),
-            Map.entry("silicon", "silicon")
+            Map.entry("silicon", "silicon"),
+            Map.entry("diamond", "gems")
     );
 
     public static final Map<String, String> FORM_BY_TAG_BUCKET = Map.ofEntries(
@@ -60,7 +62,8 @@ public final class MaterialFormCatalog {
             Map.entry("raw_materials", "raw"),
             Map.entry("raws", "raw"),
             Map.entry("storage_blocks", "block"),
-            Map.entry("silicon", "silicon")
+            Map.entry("silicon", "silicon"),
+            Map.entry("gems", "diamond")
     );
 
     public static final Set<String> HANDHELD_FORMS = Set.of("rod");

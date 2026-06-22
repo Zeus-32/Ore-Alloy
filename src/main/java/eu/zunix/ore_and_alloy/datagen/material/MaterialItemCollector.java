@@ -114,9 +114,33 @@ public final class MaterialItemCollector {
                     }
                 });
             }
+            if (forms.contains("diamond")) {
+                MetalMaterial.fromToken(entry.getKey()).ifPresent(metal -> {
+                    for (MaterialForm form : metal.getForms()) {
+                        String formToken = form.name().toLowerCase(Locale.ROOT);
+                        set.add(MaterialIdParser.itemIdFor(material, formToken));
+                    }
+                });
+            }
         }
 
         for (MetalMaterial metal : MetalMaterial.values()) {
+            boolean bareMaterial = false;
+            for (MaterialForm form : metal.getForms()) {
+                String formToken = form.name().toLowerCase(Locale.ROOT);
+                MaterialItemOrder.bareItemForm(metal.materialName())
+                        .filter(formToken::equals)
+                        .ifPresent(ignored -> set.add(MaterialIdParser.itemIdFor(metal.materialName(), formToken)));
+                if (MaterialItemOrder.bareItemForm(metal.materialName()).isPresent()) {
+                    bareMaterial = true;
+                }
+            }
+            if (bareMaterial) {
+                for (MaterialForm form : metal.getForms()) {
+                    String formToken = form.name().toLowerCase(Locale.ROOT);
+                    set.add(MaterialIdParser.itemIdFor(metal.materialName(), formToken));
+                }
+            }
             String material = preferredMaterialToken(preferredTokens, metal.materialName());
             if (metal.getForms().contains(MaterialForm.RAW)) {
                 set.addAll(RawMaterialMappings.rawItemIdsForMaterial(material));

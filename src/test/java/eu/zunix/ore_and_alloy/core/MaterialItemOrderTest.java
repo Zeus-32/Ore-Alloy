@@ -15,6 +15,7 @@ class MaterialItemOrderTest {
         assertEquals("antimony", MetalMaterial.ANTIMONY.materialName());
         assertEquals("stainless_steel", MetalMaterial.STAINLESS_STEEL.materialName());
         assertEquals("silicon", MetalMaterial.SILICON.materialName());
+        assertEquals("diamond", MetalMaterial.DIAMOND.materialName());
     }
 
     @Test
@@ -22,6 +23,7 @@ class MaterialItemOrderTest {
         assertTrue(MaterialItemOrder.bareItemForm("iron").isEmpty());
         assertTrue(MaterialItemOrder.bareItemForm("copper").isEmpty());
         assertEquals("silicon", MaterialItemOrder.bareItemForm("silicon").orElseThrow());
+        assertEquals("diamond", MaterialItemOrder.bareItemForm("diamond").orElseThrow());
     }
 
     @Test

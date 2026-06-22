@@ -32,7 +32,9 @@ public final class RecipeAliasMapBuilder {
     private static final String COMMON_TAG_NAMESPACE = "c";
     private static final Map<ResourceLocation, ResourceLocation> EXPLICIT_ITEM_ALIASES = Map.of(
             ResourceLocation.fromNamespaceAndPath("ae2", "silicon"),
-            ResourceLocation.fromNamespaceAndPath(OreAndAlloy.MODID, "silicon")
+            ResourceLocation.fromNamespaceAndPath(OreAndAlloy.MODID, "silicon"),
+            ResourceLocation.fromNamespaceAndPath("minecraft", "diamond"),
+            ResourceLocation.fromNamespaceAndPath(OreAndAlloy.MODID, "diamond")
     );
 
     private static final Pattern INVALID_MATERIAL_CHARS = Pattern.compile("[^a-z0-9_]");

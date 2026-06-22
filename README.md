@@ -2,7 +2,7 @@
 
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-62B47A?style=flat-square)](https://www.minecraft.net/)
 [![NeoForge](https://img.shields.io/badge/NeoForge-21.1.229+-E68A2E?style=flat-square)](https://neoforged.net/)
-[![Version](https://img.shields.io/badge/version-1.0.5-4C8BF5?style=flat-square)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.0.6-4C8BF5?style=flat-square)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/code-MIT-blue?style=flat-square)](LICENCE.md)
 
 Ore & Alloy is a focused material registry and enforced unification foundation for NeoForge modpacks.
@@ -48,6 +48,7 @@ The texture catalog is the authoritative supported-material list. Iron, gold, an
 | Lithium | Metal | — | Mekanism, Tech Reborn, GTCEu, Modern Industrialization |
 | Tungsten | Metal | — | Tech Reborn, GTCEu, Modern Industrialization |
 | Silicon | Material | — | Mekanism, Applied Energistics 2, Ender IO, GTCEu |
+| Diamond | Gem | — | Minecraft |
 | Steel | Alloy | — | Immersive Engineering, Mekanism, Ad Astra, PneumaticCraft, Create Crafts & Additions |
 | Stainless Steel | Alloy | — | GTCEu, Modern Industrialization, Tech Reborn |
 | Brass | Alloy | — | Create, Thermal, AllTheOres |
@@ -63,7 +64,7 @@ The texture catalog is the authoritative supported-material list. Iron, gold, an
 | Red Alloy | Alloy | — | ProjectRed, GTCEu |
 | Soul Infused | Alloy | — | Thermal |
 
-The catalog contains 34 material names. Ore-bearing metals provide ore, raw, crushed, ingot, nugget, dust, plate, rod, gear, bolt, screw, and storage-block forms. Silicon is registered as the bare item `ore_and_alloy:silicon` and unified through `c:silicon`; it is not an ingot and has no storage block.
+The catalog contains 35 material names. Ore-bearing metals provide ore, raw, crushed, ingot, nugget, dust, plate, rod, gear, bolt, screw, and storage-block forms. Silicon is registered as the bare item `ore_and_alloy:silicon` and unified through `c:silicon`; it is not an ingot and has no storage block. Diamond is registered as the bare item `ore_and_alloy:diamond` and unified through `c:gems/diamond`; it is not an ingot and has no storage block.
 
 ## KubeJS registration
 

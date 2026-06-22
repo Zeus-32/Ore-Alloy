@@ -41,7 +41,8 @@ public enum MetalMaterial {
     RED_ALLOY(processedMetalForms()),
     SOUL_INFUSED(processedMetalForms()),
     TUNGSTEN(processedMetalForms()),
-    SILICON(EnumSet.of(MaterialForm.SILICON));
+    SILICON(EnumSet.of(MaterialForm.SILICON)),
+    DIAMOND(gemMaterialForms());
 
     private final Set<MaterialForm> forms;
 
@@ -90,6 +91,17 @@ public enum MetalMaterial {
         forms.add(MaterialForm.ORE);
         forms.add(MaterialForm.RAW);
         return forms;
+    }
+
+    private static Set<MaterialForm> gemMaterialForms() {
+        return EnumSet.of(
+                MaterialForm.DIAMOND,
+                MaterialForm.PLATE,
+                MaterialForm.ROD,
+                MaterialForm.GEAR,
+                MaterialForm.BOLT,
+                MaterialForm.SCREW
+        );
     }
 
 }

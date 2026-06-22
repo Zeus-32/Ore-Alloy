@@ -10,6 +10,7 @@
     { "id": "ore_and_alloy:constantan_rod", "required": false },
     { "id": "ore_and_alloy:copper_rod", "required": false },
     { "id": "ore_and_alloy:cupronickel_rod", "required": false },
+    { "id": "ore_and_alloy:diamond_rod", "required": false },
     { "id": "ore_and_alloy:electrum_rod", "required": false },
     { "id": "ore_and_alloy:enderium_rod", "required": false },
     { "id": "ore_and_alloy:gold_rod", "required": false },

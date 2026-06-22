@@ -10,6 +10,7 @@
     { "id": "ore_and_alloy:constantan_bolt", "required": false },
     { "id": "ore_and_alloy:copper_bolt", "required": false },
     { "id": "ore_and_alloy:cupronickel_bolt", "required": false },
+    { "id": "ore_and_alloy:diamond_bolt", "required": false },
     { "id": "ore_and_alloy:electrum_bolt", "required": false },
     { "id": "ore_and_alloy:enderium_bolt", "required": false },
     { "id": "ore_and_alloy:gold_bolt", "required": false },
