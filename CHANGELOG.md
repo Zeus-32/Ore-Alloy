@@ -2,11 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
-## [1.0.7a] - Planned
+## [1.0.7-a] - 2026-06-22
 
-### Planned
-- Reserved for the future diamond material texture pass.
-- No texture assets are included in 1.0.6.
+### Changed
+- Edited ingot and plate textures. More texture updates and new materials will follow in future updates.
+- Gems now sort with ingots in the creative tab and shared material ordering.
+- Diamond crafting now uses the base gem item instead of diamond dust for nugget and storage-block conversions.
+- Periodic material tooltips can now resolve compatible material item IDs from other mods.
+
+### Fixed
+- Fixed duplicate item registration for block-backed material IDs such as ore and storage block items.
 
 ## [1.0.6] - 2026-06-22
 
