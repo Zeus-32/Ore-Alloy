@@ -6,6 +6,7 @@ import org.junit.jupiter.api.io.TempDir;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -50,5 +51,45 @@ class MaterialRecipeWriterTest {
         assertTrue(blasting.contains("\"id\": \"ore_and_alloy:silicon\""));
         assertTrue(inscriber.contains("\"item\": \"ore_and_alloy:silicon\""));
         assertFalse(smelting.contains("ae2:silicon\""));
+    }
+
+    @Test
+    void gemCompactingRecipesUseBareGemInsteadOfDust() throws Exception {
+        MaterialRecipeWriter writer = new MaterialRecipeWriter(tempDir, "ore_and_alloy");
+        writer.writeCompactingRecipes(List.of(
+                "diamond",
+                "diamond_dust",
+                "diamond_nugget"
+        ));
+
+        String fromNuggets = Files.readString(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/diamond/from_nuggets.json"));
+        String toNuggets = Files.readString(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/diamond_nugget/from_diamond.json"));
+
+        assertTrue(fromNuggets.contains("\"id\": \"ore_and_alloy:diamond\""));
+        assertTrue(toNuggets.contains("\"item\": \"ore_and_alloy:diamond\""));
+        assertFalse(Files.exists(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/diamond_dust/from_nuggets.json")));
+        assertFalse(Files.exists(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/diamond_nugget/from_dust.json")));
+    }
+
+    @Test
+    void gemStorageBlockRecipesUseBareGemInsteadOfDust() throws Exception {
+        MaterialRecipeWriter writer = new MaterialRecipeWriter(tempDir, "ore_and_alloy");
+        writer.writeStorageBlockRecipes(Map.of("diamond", "diamond"));
+
+        String fromGem = Files.readString(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/diamond_block/from_diamond.json"));
+        String fromBlock = Files.readString(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/diamond/from_block.json"));
+
+        assertTrue(fromGem.contains("\"item\": \"ore_and_alloy:diamond\""));
+        assertTrue(fromBlock.contains("\"id\": \"ore_and_alloy:diamond\""));
+        assertFalse(Files.exists(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/diamond_block/from_dust.json")));
+        assertFalse(Files.exists(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/diamond_dust/from_block.json")));
     }
 }

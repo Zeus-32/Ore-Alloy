@@ -21,6 +21,7 @@ public class ModItems {
         MaterialActivationRequests.freeze();
         MaterialItemDiscovery.DiscoveryResult discovered = MaterialItemDiscovery.discoverMaterialItems();
         for (String id : discovered.itemIds()) {
+            if (isBlockBackedItemId(id)) continue;
             registerMaterialItem(id);
         }
         ModOreBlocks.registerRawVariantOres(discovered.itemIds(), ITEMS);
@@ -39,5 +40,9 @@ public class ModItems {
 
     private static Item createMaterialItem(String id) {
         return new OAMaterialItem(id, new Item.Properties());
+    }
+
+    private static boolean isBlockBackedItemId(String id) {
+        return id.endsWith("_ore") || id.endsWith("_block");
     }
 }

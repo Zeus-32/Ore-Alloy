@@ -1,6 +1,5 @@
 package eu.zunix.ore_and_alloy.item;
 
-import eu.zunix.ore_and_alloy.OreAndAlloy;
 import eu.zunix.ore_and_alloy.item.tooltip.PeriodicMaterialSymbolResolver;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,8 +17,6 @@ public class PeriodicTooltip {
         if (event.getItemStack().isEmpty()) return;
 
         ResourceLocation id = BuiltInRegistries.ITEM.getKey(event.getItemStack().getItem());
-        if (!OreAndAlloy.MODID.equals(id.getNamespace())) return;
-
         Optional<String> formula = PeriodicMaterialSymbolResolver.resolve(id.getPath());
         if (formula.isEmpty()) return;
 

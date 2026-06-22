@@ -1,5 +1,7 @@
 package eu.zunix.ore_and_alloy.datagen.material;
 
+import eu.zunix.ore_and_alloy.core.MaterialFormCatalog;
+import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
 import eu.zunix.ore_and_alloy.core.StorageBlockCatalog;
 
@@ -41,18 +43,27 @@ public final class MaterialRecipeWriter {
         Set<String> materials = new LinkedHashSet<>();
         Set<String> materialsWithNugget = new LinkedHashSet<>();
         Set<String> materialsWithIngot = new LinkedHashSet<>();
+        Set<String> materialsWithBareBase = new LinkedHashSet<>();
         Set<String> materialsWithDust = new LinkedHashSet<>();
         for (String itemName : materialItems) {
             MaterialId parsed = MaterialIdParser.parseItemId(itemName);
             materials.add(parsed.material());
             if ("nugget".equals(parsed.form())) materialsWithNugget.add(parsed.material());
             if ("ingot".equals(parsed.form())) materialsWithIngot.add(parsed.material());
+            if (isBareGemForm(parsed.material(), parsed.form())) {
+                materialsWithBareBase.add(parsed.material());
+            }
             if ("dust".equals(parsed.form())) materialsWithDust.add(parsed.material());
         }
 
         for (String material : materials) {
             if (!materialsWithNugget.contains(material)) continue;
-            String compactedForm = materialsWithIngot.contains(material) ? "ingot" : materialsWithDust.contains(material) ? "dust" : "";
+            String compactedForm = compactedBaseForm(
+                    material,
+                    materialsWithIngot,
+                    materialsWithBareBase,
+                    materialsWithDust
+            );
             if (compactedForm.isBlank()) continue;
 
             String nuggetPath = MaterialIdParser.itemIdFor(material, "nugget");
@@ -87,6 +98,25 @@ public final class MaterialRecipeWriter {
                     + "}";
             DatagenFiles.writeText(i2n, json2);
         }
+    }
+
+    private static String compactedBaseForm(
+            String material,
+            Set<String> materialsWithIngot,
+            Set<String> materialsWithBareBase,
+            Set<String> materialsWithDust
+    ) {
+        if (materialsWithIngot.contains(material)) return "ingot";
+        if (materialsWithBareBase.contains(material)) {
+            return MaterialItemOrder.bareItemForm(material).orElse("");
+        }
+        if (materialsWithDust.contains(material)) return "dust";
+        return "";
+    }
+
+    private static boolean isBareGemForm(String material, String form) {
+        return MaterialItemOrder.bareItemForm(material).map(form::equals).orElse(false)
+                && "gems".equals(MaterialFormCatalog.TAG_BUCKET_BY_FORM.get(form));
     }
 
     private static String nuggetsToCompactedRecipeJson(String canonicalNugget, String fallbackVanillaNugget, String resultItem) {

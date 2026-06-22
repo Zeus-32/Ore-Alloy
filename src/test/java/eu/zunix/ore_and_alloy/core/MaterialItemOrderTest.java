@@ -44,4 +44,12 @@ class MaterialItemOrderTest {
         assertTrue(ore < raw);
         assertTrue(raw < crushed);
     }
+
+    @Test
+    void gemBareFormsSortWithIngots() {
+        assertEquals(
+                MaterialItemOrder.formTokenRank("ingot"),
+                MaterialItemOrder.formTokenRank("diamond")
+        );
+    }
 }

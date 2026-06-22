@@ -23,6 +23,7 @@ public final class MaterialItemOrder {
             "silicon", "silicon",
             "diamond", "diamond"
     );
+    private static final Set<String> INGOT_EQUIVALENT_FORMS = buildIngotEquivalentForms();
 
     private static final Map<String, Integer> FORM_RANK = buildFormRank();
     private static final List<String> PARSE_SUFFIXES = MaterialFormCatalog.FORM_SUFFIX_PARSE_ORDER;
@@ -57,7 +58,11 @@ public final class MaterialItemOrder {
 
     public static int formTokenRank(String formToken) {
         if (formToken == null) return Integer.MAX_VALUE;
-        return FORM_RANK.getOrDefault(normalize(formToken), Integer.MAX_VALUE);
+        String normalized = normalize(formToken);
+        if (INGOT_EQUIVALENT_FORMS.contains(normalized)) {
+            normalized = "ingot";
+        }
+        return FORM_RANK.getOrDefault(normalized, Integer.MAX_VALUE);
     }
 
     public static String canonicalMaterialToken(String material) {
@@ -112,6 +117,13 @@ public final class MaterialItemOrder {
             out.put(MaterialFormCatalog.FORM_ORDER.get(i), i);
         }
         return Map.copyOf(out);
+    }
+
+    private static Set<String> buildIngotEquivalentForms() {
+        return MaterialFormCatalog.TAG_BUCKET_BY_FORM.entrySet().stream()
+                .filter(entry -> "gems".equals(entry.getValue()))
+                .map(Map.Entry::getKey)
+                .collect(java.util.stream.Collectors.toUnmodifiableSet());
     }
 
     private static String normalize(String value) {
