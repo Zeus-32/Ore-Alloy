@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## [1.0.7-a] - 2026-06-22
+## [1.0.7-a_hotfix] - 2026-06-22
 
 ### Changed
 - Edited ingot and plate textures. More texture updates and new materials will follow in future updates.
@@ -12,6 +12,7 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 - Fixed duplicate item registration for block-backed material IDs such as ore and storage block items.
+- Fixed a world-creation crash on NeoForge builds that expose immutable villager trade lists.
 
 ## [1.0.6] - 2026-06-22
 

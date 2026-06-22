@@ -11,6 +11,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.event.village.WandererTradesEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -29,9 +30,8 @@ public final class VanillaTradeUnifier {
             return;
         }
 
-        int wrapped = 0;
-        for (List<VillagerTrades.ItemListing> listings : event.getTrades().values()) {
-            wrapped += wrapListings(listings, aliasMap);
+        for (var entry : event.getTrades().int2ObjectEntrySet()) {
+            entry.setValue(wrappedListings(entry.getValue(), aliasMap));
         }
 
     }
@@ -42,20 +42,37 @@ public final class VanillaTradeUnifier {
             return;
         }
 
-        int wrapped = 0;
-        wrapped += wrapListings(event.getGenericTrades(), aliasMap);
-        wrapped += wrapListings(event.getRareTrades(), aliasMap);
+        wrapListingsInPlace(event.getGenericTrades(), aliasMap);
+        wrapListingsInPlace(event.getRareTrades(), aliasMap);
     }
 
-    private static int wrapListings(List<VillagerTrades.ItemListing> listings, Map<Item, Item> aliasMap) {
-        int wrapped = 0;
-        for (int i = 0; i < listings.size(); i++) {
-            VillagerTrades.ItemListing listing = listings.get(i);
-            VillagerTrades.ItemListing delegate = listing instanceof UnifiedItemListing unified ? unified.delegate() : listing;
-            listings.set(i, new UnifiedItemListing(delegate, aliasMap));
-            wrapped++;
+    private static List<VillagerTrades.ItemListing> wrappedListings(
+            List<VillagerTrades.ItemListing> listings,
+            Map<Item, Item> aliasMap
+    ) {
+        List<VillagerTrades.ItemListing> wrapped = new ArrayList<>(listings.size());
+        for (VillagerTrades.ItemListing listing : listings) {
+            wrapped.add(wrappedListing(listing, aliasMap));
         }
         return wrapped;
+    }
+
+    private static void wrapListingsInPlace(List<VillagerTrades.ItemListing> listings, Map<Item, Item> aliasMap) {
+        for (int i = 0; i < listings.size(); i++) {
+            try {
+                listings.set(i, wrappedListing(listings.get(i), aliasMap));
+            } catch (UnsupportedOperationException ignored) {
+                return;
+            }
+        }
+    }
+
+    private static VillagerTrades.ItemListing wrappedListing(
+            VillagerTrades.ItemListing listing,
+            Map<Item, Item> aliasMap
+    ) {
+        VillagerTrades.ItemListing delegate = listing instanceof UnifiedItemListing unified ? unified.delegate() : listing;
+        return new UnifiedItemListing(delegate, aliasMap);
     }
 
     private static MerchantOffer unifyOffer(MerchantOffer offer, Map<Item, Item> aliasMap) {
