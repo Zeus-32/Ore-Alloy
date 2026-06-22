@@ -2,17 +2,28 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.0.8-a] - 2026-06-22
+
+### Added
+- Added Signalum, Rose Gold, and Pure Netherite materials.
+
+### Changed
+- Material provider detection now uses one shared known-provider mod list for non-vanilla materials and no longer includes GregTech/GTCEu.
+
 ## [1.0.7-a_hotfix] - 2026-06-22
+
+### Fixed
+- Fixed a world-creation crash on NeoForge builds that expose immutable villager trade lists.
+
+## [1.0.7-a] - 2026-06-22
 
 ### Changed
 - Edited ingot and plate textures. More texture updates and new materials will follow in future updates.
 - Gems now sort with ingots in the creative tab and shared material ordering.
 - Diamond crafting now uses the base gem item instead of diamond dust for nugget and storage-block conversions.
-- Periodic material tooltips can now resolve compatible material item IDs from other mods.
 
 ### Fixed
 - Fixed duplicate item registration for block-backed material IDs such as ore and storage block items.
-- Fixed a world-creation crash on NeoForge builds that expose immutable villager trade lists.
 
 ## [1.0.6] - 2026-06-22
 

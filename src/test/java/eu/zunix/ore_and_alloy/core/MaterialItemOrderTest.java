@@ -14,6 +14,8 @@ class MaterialItemOrderTest {
         assertEquals("wrought_iron", MetalMaterial.WROUGHT_IRON.materialName());
         assertEquals("antimony", MetalMaterial.ANTIMONY.materialName());
         assertEquals("stainless_steel", MetalMaterial.STAINLESS_STEEL.materialName());
+        assertEquals("rose_gold", MetalMaterial.ROSE_GOLD.materialName());
+        assertEquals("pure_netherite", MetalMaterial.PURE_NETHERITE.materialName());
         assertEquals("silicon", MetalMaterial.SILICON.materialName());
         assertEquals("diamond", MetalMaterial.DIAMOND.materialName());
     }

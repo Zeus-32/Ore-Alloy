@@ -125,21 +125,10 @@ public final class MaterialItemCollector {
         }
 
         for (MetalMaterial metal : MetalMaterial.values()) {
-            boolean bareMaterial = false;
             for (MaterialForm form : metal.getForms()) {
                 String formToken = form.name().toLowerCase(Locale.ROOT);
-                MaterialItemOrder.bareItemForm(metal.materialName())
-                        .filter(formToken::equals)
-                        .ifPresent(ignored -> set.add(MaterialIdParser.itemIdFor(metal.materialName(), formToken)));
-                if (MaterialItemOrder.bareItemForm(metal.materialName()).isPresent()) {
-                    bareMaterial = true;
-                }
-            }
-            if (bareMaterial) {
-                for (MaterialForm form : metal.getForms()) {
-                    String formToken = form.name().toLowerCase(Locale.ROOT);
-                    set.add(MaterialIdParser.itemIdFor(metal.materialName(), formToken));
-                }
+                if ("raw".equals(formToken) || "crushed".equals(formToken)) continue;
+                set.add(MaterialIdParser.itemIdFor(metal.materialName(), formToken));
             }
             String material = preferredMaterialToken(preferredTokens, metal.materialName());
             if (metal.getForms().contains(MaterialForm.RAW)) {

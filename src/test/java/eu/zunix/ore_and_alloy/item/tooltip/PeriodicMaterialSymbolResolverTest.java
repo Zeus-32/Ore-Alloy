@@ -39,7 +39,10 @@ class PeriodicMaterialSymbolResolverTest {
             Map.entry("enderium", "Pb3Pt"),
             Map.entry("lithium", "Li"),
             Map.entry("lumium", "SnAg4"),
+            Map.entry("signalum", "Cu3AgRs10"),
+            Map.entry("rose_gold", "AuCu"),
             Map.entry("naquadah", "Nq"),
+            Map.entry("pure_netherite", "Nr"),
             Map.entry("red_alloy", "FeRs4"),
             Map.entry("soul_infused", "Fe2NiSi3O6"),
             Map.entry("tungsten", "W"),
@@ -72,6 +75,17 @@ class PeriodicMaterialSymbolResolverTest {
         assertEquals("3SiO2", PeriodicMaterialSymbolResolver.resolve("soulsand_dust").orElseThrow());
         assertEquals("3SiO2", PeriodicMaterialSymbolResolver.resolve("soul_sand_dust").orElseThrow());
         assertEquals("Sn", PeriodicMaterialSymbolResolver.resolve("tin_dust").orElseThrow());
+    }
+
+    @Test
+    void pureNetheriteIsDistinctFromVanillaNetherite() {
+        assertEquals("AuNr", PeriodicMaterialSymbolResolver.resolve("netherite_ingot").orElseThrow());
+        assertEquals("Nr", PeriodicMaterialSymbolResolver.resolve("pure_netherite_ingot").orElseThrow());
+    }
+
+    @Test
+    void unknownMaterialsDoNotGetGeneratedFormulas() {
+        assertTrue(PeriodicMaterialSymbolResolver.resolve("unknownium_dust").isEmpty());
     }
 
     private static String itemIdFor(String materialName) {

@@ -15,7 +15,29 @@ final class IntegrationMaterialProviders {
             MetalMaterial.IRON,
             MetalMaterial.GOLD,
             MetalMaterial.COPPER,
-            MetalMaterial.DIAMOND
+            MetalMaterial.DIAMOND,
+            MetalMaterial.PURE_NETHERITE
+    );
+
+    private static final Set<String> COMMON_PROVIDER_MODS = set(
+            "mekanism",
+            "thermal",
+            "alltheores",
+            "techreborn",
+            "create",
+            "immersiveengineering",
+            "ad_astra",
+            "pneumaticcraft",
+            "createaddition",
+            "tconstruct",
+            "powah",
+            "bigreactors",
+            "biggerreactors",
+            "projectred_core",
+            "ae2",
+            "enderio",
+            "modern_industrialization",
+            "ftbmaterials"
     );
 
     static final Map<MetalMaterial, Set<String>> METAL_PROVIDER_MODS = buildMetalProviders();
@@ -25,38 +47,11 @@ final class IntegrationMaterialProviders {
     private static Map<MetalMaterial, Set<String>> buildMetalProviders() {
         Map<MetalMaterial, Set<String>> map = new EnumMap<>(MetalMaterial.class);
 
-        map.put(MetalMaterial.TIN, set("mekanism", "thermal", "alltheores", "techreborn", "gtceu", "ftbmaterials"));
-        map.put(MetalMaterial.LEAD, set("mekanism", "thermal", "alltheores", "techreborn", "gtceu", "ftbmaterials"));
-        map.put(MetalMaterial.SILVER, set("thermal", "alltheores", "techreborn", "gtceu", "ftbmaterials"));
-        map.put(MetalMaterial.NICKEL, set("thermal", "alltheores", "techreborn", "gtceu", "ftbmaterials"));
-        map.put(MetalMaterial.ZINC, set("create", "alltheores", "thermal", "techreborn", "gtceu", "ftbmaterials"));
-        map.put(MetalMaterial.ALUMINUM, set("immersiveengineering", "alltheores", "techreborn", "gtceu", "ftbmaterials"));
-        map.put(MetalMaterial.OSMIUM, set("mekanism", "ftbmaterials"));
-        map.put(MetalMaterial.URANIUM, set("mekanism", "immersiveengineering", "powah", "bigreactors", "biggerreactors", "ftbmaterials"));
-        map.put(MetalMaterial.COBALT, set("tconstruct", "alltheores", "gtceu", "ftbmaterials"));
-        map.put(MetalMaterial.TITANIUM, set("ad_astra", "techreborn", "gtceu", "modern_industrialization", "ftbmaterials"));
-        map.put(MetalMaterial.CHROME, set("techreborn", "gtceu", "modern_industrialization", "ftbmaterials"));
-        map.put(MetalMaterial.PLATINUM, set("thermal", "alltheores", "techreborn", "gtceu", "ftbmaterials"));
-        map.put(MetalMaterial.IRIDIUM, set("techreborn", "gtceu", "modern_industrialization", "ftbmaterials"));
-
-        map.put(MetalMaterial.ANTIMONY, set("gtceu", "modern_industrialization", "ftbmaterials"));
-        map.put(MetalMaterial.STEEL, set("immersiveengineering", "mekanism", "ad_astra", "pneumaticcraft", "createaddition", "ftbmaterials"));
-        map.put(MetalMaterial.STAINLESS_STEEL, set("gtceu", "modern_industrialization", "techreborn", "ftbmaterials"));
-        map.put(MetalMaterial.BRASS, set("create", "thermal", "alltheores", "ftbmaterials"));
-        map.put(MetalMaterial.BRONZE, set("mekanism", "thermal", "alltheores", "techreborn", "gtceu", "ftbmaterials"));
-        map.put(MetalMaterial.CUPRONICKEL, set("immersiveengineering", "gtceu", "modern_industrialization", "ftbmaterials"));
-        map.put(MetalMaterial.ELECTRUM, set("thermal", "immersiveengineering", "alltheores", "techreborn", "gtceu", "createaddition", "ftbmaterials"));
-        map.put(MetalMaterial.INVAR, set("thermal", "alltheores", "techreborn", "gtceu", "ftbmaterials"));
-        map.put(MetalMaterial.CONSTANTAN, set("immersiveengineering", "alltheores", "techreborn", "ftbmaterials"));
-        map.put(MetalMaterial.WROUGHT_IRON, set("gtceu", "modern_industrialization", "ftbmaterials"));
-        map.put(MetalMaterial.ENDERIUM, set("thermal", "ftbmaterials"));
-        map.put(MetalMaterial.LITHIUM, set("mekanism", "techreborn", "gtceu", "modern_industrialization", "ftbmaterials"));
-        map.put(MetalMaterial.LUMIUM, set("thermal", "ftbmaterials"));
-        map.put(MetalMaterial.NAQUADAH, set("gtceu", "ftbmaterials"));
-        map.put(MetalMaterial.RED_ALLOY, set("projectred_core", "gtceu", "ftbmaterials"));
-        map.put(MetalMaterial.SOUL_INFUSED, set("thermal", "ftbmaterials"));
-        map.put(MetalMaterial.TUNGSTEN, set("techreborn", "gtceu", "modern_industrialization", "ftbmaterials"));
-        map.put(MetalMaterial.SILICON, set("mekanism", "ae2", "enderio", "gtceu", "ftbmaterials"));
+        for (MetalMaterial material : MetalMaterial.values()) {
+            if (!VANILLA_METALS.contains(material)) {
+                map.put(material, COMMON_PROVIDER_MODS);
+            }
+        }
 
         return Collections.unmodifiableMap(map);
     }

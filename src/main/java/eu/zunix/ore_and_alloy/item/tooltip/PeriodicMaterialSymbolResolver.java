@@ -9,14 +9,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 public final class PeriodicMaterialSymbolResolver {
-    private static final Pattern SPLIT_TOKENS = Pattern.compile("[_\\-\\s]+");
     private static final List<String> FORM_TOKENS = MaterialFormCatalog.FORM_SUFFIX_PARSE_ORDER;
     private static final Map<String, String> MATERIAL_ALIASES = Map.ofEntries(
-            Map.entry("soulsand", "soul_sand"),
-            Map.entry("redstone", "redstone")
+            Map.entry("soulsand", "soul_sand")
     );
 
     private static final Map<String, String> MATERIAL_FORMULAS = Map.ofEntries(
@@ -53,7 +50,11 @@ public final class PeriodicMaterialSymbolResolver {
             Map.entry("wrought_iron", "Fe"),
             Map.entry("enderium", "Pb3Pt"),
             Map.entry("lumium", "SnAg4"),
+            Map.entry("signalum", "Cu3AgRs10"),
+            Map.entry("rose_gold", "AuCu"),
             Map.entry("naquadah", "Nq"),
+            Map.entry("netherite", "AuNr"),
+            Map.entry("pure_netherite", "Nr"),
             Map.entry("redstone", "Rs"),
             Map.entry("red_alloy", "FeRs4"),
             Map.entry("soul_sand", "3SiO2"),
@@ -66,9 +67,7 @@ public final class PeriodicMaterialSymbolResolver {
         String material = extractMaterialToken(itemPath);
         if (material.isBlank()) return Optional.empty();
         String canonical = canonicalMaterialToken(material);
-        String explicit = MATERIAL_FORMULAS.get(canonical);
-        if (explicit != null && !explicit.isBlank()) return Optional.of(explicit);
-        return Optional.of(generalSymbol(canonical));
+        return Optional.ofNullable(MATERIAL_FORMULAS.get(canonical)).filter(formula -> !formula.isBlank());
     }
 
     private static String canonicalMaterialToken(String material) {
@@ -116,32 +115,4 @@ public final class PeriodicMaterialSymbolResolver {
         return "";
     }
 
-    private static String generalSymbol(String materialToken) {
-        String[] tokens = SPLIT_TOKENS.split(materialToken);
-        if (tokens.length == 0) return materialToken;
-
-        String first = tokens[0];
-        if (tokens.length == 1) {
-            if (first.length() == 1) {
-                return first.toUpperCase(Locale.ROOT);
-            }
-            if (first.length() >= 2) {
-                return first.substring(0, 1).toUpperCase(Locale.ROOT) + first.substring(1, 2).toLowerCase(Locale.ROOT);
-            }
-        }
-
-        StringBuilder out = new StringBuilder(2);
-        for (String token : tokens) {
-            if (token.isBlank()) continue;
-            out.append(Character.toUpperCase(token.charAt(0)));
-            if (out.length() >= 2) break;
-        }
-
-        if (out.length() == 0) {
-            return materialToken.length() >= 2
-                    ? materialToken.substring(0, 2).toUpperCase(Locale.ROOT)
-                    : materialToken.toUpperCase(Locale.ROOT);
-        }
-        return out.toString();
-    }
 }

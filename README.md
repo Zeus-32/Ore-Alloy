@@ -2,7 +2,7 @@
 
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-62B47A?style=flat-square)](https://www.minecraft.net/)
 [![NeoForge](https://img.shields.io/badge/NeoForge-21.1.229+-E68A2E?style=flat-square)](https://neoforged.net/)
-[![Version](https://img.shields.io/badge/version-1.0.7--a_hotfix-4C8BF5?style=flat-square)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.0.8--a-4C8BF5?style=flat-square)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/code-MIT-blue?style=flat-square)](LICENCE.md)
 
 Ore & Alloy is a focused material registry and enforced unification foundation for NeoForge modpacks.
@@ -26,47 +26,50 @@ Material activation is automatic from installed provider mods. KubeJS startup sc
 
 ## Supported materials
 
-The texture catalog is the authoritative supported-material list. Iron, gold, and copper are always active. Every other material is activated when at least one listed provider mod is installed.
+The texture catalog is the authoritative supported-material list. Iron, gold, copper, diamond, and pure netherite are always active. Every other material is activated when at least one known material provider mod is installed.
 
 | Material | Type | Raw/ore variants | Provider mods |
 |---|---|---|---|
 | Iron | Metal | `iron`, `hematite`, `magnetite`, `limonite` | Minecraft |
 | Gold | Metal | `gold`, `sylvanite` | Minecraft |
 | Copper | Metal | `chalcopyrite`, `malachite`, `bornite`, `copper` | Minecraft |
-| Tin | Metal | `cassiterite`, `tin` | Mekanism, Thermal, AllTheOres, Tech Reborn, GTCEu |
-| Lead | Metal | `galena`, `lead` | Mekanism, Thermal, AllTheOres, Tech Reborn, GTCEu |
-| Silver | Metal | `silver` | Thermal, AllTheOres, Tech Reborn, GTCEu |
-| Nickel | Metal | `pentlandite`, `garnierite` | Thermal, AllTheOres, Tech Reborn, GTCEu |
-| Zinc | Metal | `sphalerite`, `hemimorphite` | Create, AllTheOres, Thermal, Tech Reborn, GTCEu |
-| Aluminium | Metal | `bauxite`, `cryolite` | Immersive Engineering, AllTheOres, Tech Reborn, GTCEu |
-| Osmium | Metal | `osmium` | Mekanism |
-| Uranium | Metal | `uranium`, `uraninite` | Mekanism, Immersive Engineering, Powah, Big Reactors, Bigger Reactors |
-| Cobalt | Metal | `cobaltite` | Tinkers' Construct, AllTheOres, GTCEu |
-| Titanium | Metal | `titanium` | Ad Astra, Tech Reborn, GTCEu, Modern Industrialization |
-| Chromium | Metal | `chromite` | Tech Reborn, GTCEu, Modern Industrialization |
-| Platinum | Metal | `platinum`, `sperrylite` | Thermal, AllTheOres, Tech Reborn, GTCEu |
-| Iridium | Metal | `iridium` | Tech Reborn, GTCEu, Modern Industrialization |
-| Antimony | Metal | — | GTCEu, Modern Industrialization |
-| Lithium | Metal | — | Mekanism, Tech Reborn, GTCEu, Modern Industrialization |
-| Tungsten | Metal | — | Tech Reborn, GTCEu, Modern Industrialization |
-| Silicon | Material | — | Mekanism, Applied Energistics 2, Ender IO, GTCEu |
-| Diamond | Gem | — | Minecraft |
-| Steel | Alloy | — | Immersive Engineering, Mekanism, Ad Astra, PneumaticCraft, Create Crafts & Additions |
-| Stainless Steel | Alloy | — | GTCEu, Modern Industrialization, Tech Reborn |
-| Brass | Alloy | — | Create, Thermal, AllTheOres |
-| Bronze | Alloy | — | Mekanism, Thermal, AllTheOres, Tech Reborn, GTCEu |
-| Cupronickel | Alloy | — | Immersive Engineering, GTCEu, Modern Industrialization |
-| Electrum | Alloy | — | Thermal, Immersive Engineering, AllTheOres, Tech Reborn, GTCEu |
-| Invar | Alloy | — | Thermal, AllTheOres, Tech Reborn, GTCEu |
-| Constantan | Alloy | — | Immersive Engineering, AllTheOres, Tech Reborn |
-| Wrought Iron | Alloy | — | GTCEu, Modern Industrialization |
-| Enderium | Alloy | — | Thermal |
-| Lumium | Alloy | — | Thermal |
-| Naquadah | Alloy | — | GTCEu |
-| Red Alloy | Alloy | — | ProjectRed, GTCEu |
-| Soul Infused | Alloy | — | Thermal |
+| Tin | Metal | `cassiterite`, `tin` | Known provider set |
+| Lead | Metal | `galena`, `lead` | Known provider set |
+| Silver | Metal | `silver` | Known provider set |
+| Nickel | Metal | `pentlandite`, `garnierite` | Known provider set |
+| Zinc | Metal | `sphalerite`, `hemimorphite` | Known provider set |
+| Aluminium | Metal | `bauxite`, `cryolite` | Known provider set |
+| Osmium | Metal | `osmium` | Known provider set |
+| Uranium | Metal | `uranium`, `uraninite` | Known provider set |
+| Cobalt | Metal | `cobaltite` | Known provider set |
+| Titanium | Metal | `titanium` | Known provider set |
+| Chromium | Metal | `chromite` | Known provider set |
+| Platinum | Metal | `platinum`, `sperrylite` | Known provider set |
+| Iridium | Metal | `iridium` | Known provider set |
+| Antimony | Metal | — | Known provider set |
+| Lithium | Metal | — | Known provider set |
+| Tungsten | Metal | — | Known provider set |
+| Silicon | Material | — | Known provider set |
+| Diamond | Gem | - | Minecraft |
+| Steel | Alloy | — | Known provider set |
+| Stainless Steel | Alloy | — | Known provider set |
+| Brass | Alloy | — | Known provider set |
+| Bronze | Alloy | — | Known provider set |
+| Cupronickel | Alloy | — | Known provider set |
+| Electrum | Alloy | — | Known provider set |
+| Invar | Alloy | — | Known provider set |
+| Constantan | Alloy | — | Known provider set |
+| Wrought Iron | Alloy | — | Known provider set |
+| Enderium | Alloy | — | Known provider set |
+| Lumium | Alloy | — | Known provider set |
+| Signalum | Alloy | - | Known provider set |
+| Rose Gold | Alloy | - | Known provider set |
+| Naquadah | Alloy | — | Known provider set |
+| Pure Netherite | Alloy | - | Minecraft |
+| Red Alloy | Alloy | — | Known provider set |
+| Soul Infused | Alloy | — | Known provider set |
 
-The catalog contains 35 material names. Ore-bearing metals provide ore, raw, crushed, ingot, nugget, dust, plate, rod, gear, bolt, screw, and storage-block forms. Silicon is registered as the bare item `ore_and_alloy:silicon` and unified through `c:silicon`; it is not an ingot and has no storage block. Diamond is registered as the bare item `ore_and_alloy:diamond` and unified through `c:gems/diamond`; it is not an ingot, but its storage and nugget recipes use the base gem item.
+The catalog contains 38 material names. Ore-bearing metals provide ore, raw, crushed, ingot, nugget, dust, plate, rod, gear, bolt, screw, and storage-block forms. Silicon is registered as the bare item `ore_and_alloy:silicon` and unified through `c:silicon`; it is not an ingot and has no storage block. Diamond is registered as the bare item `ore_and_alloy:diamond` and unified through `c:gems/diamond`; it is not an ingot, but its storage and nugget recipes use the base gem item. Pure Netherite is always active and is crafted from vanilla Minecraft netherite items.
 
 ## KubeJS registration
 

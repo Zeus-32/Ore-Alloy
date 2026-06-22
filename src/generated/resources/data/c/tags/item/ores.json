@@ -1,6 +1,22 @@
 {
   "replace": false,
   "values": [
-    { "id": "ore_and_alloy:diamond_ore", "required": false }
+    { "id": "ore_and_alloy:aluminium_ore", "required": false },
+    { "id": "ore_and_alloy:chromium_ore", "required": false },
+    { "id": "ore_and_alloy:cobalt_ore", "required": false },
+    { "id": "ore_and_alloy:copper_ore", "required": false },
+    { "id": "ore_and_alloy:diamond_ore", "required": false },
+    { "id": "ore_and_alloy:gold_ore", "required": false },
+    { "id": "ore_and_alloy:iridium_ore", "required": false },
+    { "id": "ore_and_alloy:iron_ore", "required": false },
+    { "id": "ore_and_alloy:lead_ore", "required": false },
+    { "id": "ore_and_alloy:nickel_ore", "required": false },
+    { "id": "ore_and_alloy:osmium_ore", "required": false },
+    { "id": "ore_and_alloy:platinum_ore", "required": false },
+    { "id": "ore_and_alloy:silver_ore", "required": false },
+    { "id": "ore_and_alloy:tin_ore", "required": false },
+    { "id": "ore_and_alloy:titanium_ore", "required": false },
+    { "id": "ore_and_alloy:uranium_ore", "required": false },
+    { "id": "ore_and_alloy:zinc_ore", "required": false }
   ]
 }

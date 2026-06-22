@@ -1,13 +1,6 @@
 {
   "replace": false,
   "values": [
-    { "id": "ore_and_alloy:andesite_titanium_ore", "required": false },
-    { "id": "ore_and_alloy:deepslate_titanium_ore", "required": false },
-    { "id": "ore_and_alloy:diorite_titanium_ore", "required": false },
-    { "id": "ore_and_alloy:end_titanium_ore", "required": false },
-    { "id": "ore_and_alloy:granite_titanium_ore", "required": false },
-    { "id": "ore_and_alloy:nether_titanium_ore", "required": false },
-    { "id": "ore_and_alloy:titanium_ore", "required": false },
-    { "id": "ore_and_alloy:tuff_titanium_ore", "required": false }
+    { "id": "ore_and_alloy:titanium_ore", "required": false }
   ]
 }

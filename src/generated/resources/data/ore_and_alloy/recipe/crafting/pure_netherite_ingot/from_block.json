@@ -1,0 +1,9 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:pure_netherite_ingot" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:pure_netherite_block" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [ { "item": "ore_and_alloy:pure_netherite_block" } ],
+  "result": { "id": "ore_and_alloy:pure_netherite_ingot", "count": 9 }
+}

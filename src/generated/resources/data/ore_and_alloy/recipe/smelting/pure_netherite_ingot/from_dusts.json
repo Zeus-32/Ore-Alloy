@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:pure_netherite_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:dusts/pure_netherite" }
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "group": "pure_netherite_ingot",
+  "ingredient": { "tag": "c:dusts/pure_netherite" },
+  "result": { "id": "ore_and_alloy:pure_netherite_ingot" },
+  "experience": 0.7,
+  "cookingtime": 200
+}
