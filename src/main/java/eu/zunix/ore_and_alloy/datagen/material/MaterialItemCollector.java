@@ -188,7 +188,10 @@ public final class MaterialItemCollector {
                     && !RawMaterialMappings.isConfiguredRawVariant(variantToken(itemId, parsed.form()))) {
                 return false;
             }
-            return MetalMaterial.fromToken(parsed.material()).isPresent();
+            return MetalMaterial.fromToken(parsed.material())
+                    .map(metal -> metal.getForms().stream()
+                            .anyMatch(form -> form.name().toLowerCase(Locale.ROOT).equals(parsed.form())))
+                    .orElse(false);
         } catch (IllegalArgumentException ignored) {
             return false;
         }
@@ -214,6 +217,13 @@ public final class MaterialItemCollector {
         String lowered = form.toLowerCase(Locale.ROOT);
         if ("raw_material".equals(lowered) || "raw_materials".equals(lowered)) {
             return "raw";
+        }
+        if ("crushed_raw_material".equals(lowered) || "crushed_raw_materials".equals(lowered)) {
+            return "crushed";
+        }
+        String singular = MaterialFormCatalog.FORM_BY_TAG_BUCKET.get(lowered);
+        if (singular != null) {
+            return singular;
         }
         return lowered;
     }

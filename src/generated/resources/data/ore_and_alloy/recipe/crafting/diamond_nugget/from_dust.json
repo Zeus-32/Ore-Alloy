@@ -1,0 +1,9 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:diamond_nugget" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:diamond_dust" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [ { "item": "ore_and_alloy:diamond_dust" } ],
+  "result": { "id": "ore_and_alloy:diamond_nugget", "count": 9 }
+}

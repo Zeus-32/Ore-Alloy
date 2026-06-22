@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:diamond" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:raw_materials/diamond" }
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "group": "diamond",
+  "ingredient": { "tag": "c:raw_materials/diamond" },
+  "result": { "id": "ore_and_alloy:diamond" },
+  "experience": 0.7,
+  "cookingtime": 200
+}

@@ -109,6 +109,9 @@ public final class MaterialIdParser {
         if (form == null) return "";
         String lowered = form.toLowerCase(Locale.ROOT);
         if ("raw_material".equals(lowered) || "raw_materials".equals(lowered)) return PREFIX_RAW;
+        if ("crushed_raw_material".equals(lowered) || "crushed_raw_materials".equals(lowered)) return PREFIX_CRUSHED;
+        String singular = MaterialFormCatalog.FORM_BY_TAG_BUCKET.get(lowered);
+        if (singular != null) return singular;
         return lowered;
     }
 

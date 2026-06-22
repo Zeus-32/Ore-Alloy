@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_diamond_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_diamond_ore", "required": false },
+    { "id": "ore_and_alloy:diamond_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_diamond_ore", "required": false },
+    { "id": "ore_and_alloy:end_diamond_ore", "required": false },
+    { "id": "ore_and_alloy:granite_diamond_ore", "required": false },
+    { "id": "ore_and_alloy:nether_diamond_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_diamond_ore", "required": false }
+  ]
+}

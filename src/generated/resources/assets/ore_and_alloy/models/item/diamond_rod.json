@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "minecraft:item/diamond"
+    "layer0": "ore_and_alloy:item/rod/diamond_rod"
   }
 }

@@ -40,10 +40,8 @@ public final class MaterialModelWriter {
         boolean handheld = MaterialFormCatalog.HANDHELD_FORMS.contains(parsed.form());
         String parent = handheld ? "item/handheld" : "item/generated";
         boolean bareItem = eu.zunix.ore_and_alloy.core.MaterialItemOrder.bareItemForm(itemName).isPresent();
-        String textureFolder = "raw".equals(parsed.form()) ? "raw_materials" : parsed.form();
-        String texture = "diamond".equals(parsed.material())
-                ? "minecraft:item/diamond"
-                : bareItem
+        String textureFolder = textureFolder(parsed.form());
+        String texture = bareItem && !"diamond".equals(parsed.form())
                 ? namespace + ":item/" + itemName
                 : namespace + ":item/" + textureFolder + "/" + itemName;
 
@@ -51,6 +49,14 @@ public final class MaterialModelWriter {
         DatagenFiles.writeText(out, "{"
                 + "\n  \"parent\": \"" + parent + "\","
                 + "\n  \"textures\": {\n    \"layer0\": \"" + texture + "\"\n  }\n}");
+    }
+
+    private static String textureFolder(String form) {
+        return switch (form) {
+            case "raw" -> "raw_materials";
+            case "diamond" -> "gems";
+            default -> form;
+        };
     }
 
 }

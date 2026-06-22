@@ -66,11 +66,16 @@ final class MaterialItemIdUtil {
 
     static List<String> textureCandidates(String itemId, String material, String form) {
         List<String> out = new ArrayList<>();
+        String textureFolder = MaterialFormCatalog.TAG_BUCKET_BY_FORM.getOrDefault(form, form);
         if (MaterialItemOrder.bareItemForm(itemId).map(form::equals).orElse(false)) {
             out.add("item/" + itemId);
+            out.add("item/" + textureFolder + "/" + itemId);
             out.add("item/" + form + "/" + itemId);
             return out;
         }
+        out.add("item/" + textureFolder + "/" + itemId);
+        out.add("item/" + textureFolder + "/" + material + "_" + form);
+        out.add("item/" + textureFolder + "/" + form + "_" + material);
         out.add("item/" + form + "/" + itemId);
         out.add("item/" + form + "/" + material + "_" + form);
         out.add("item/" + form + "/" + form + "_" + material);
@@ -82,6 +87,10 @@ final class MaterialItemIdUtil {
         }
 
         if ("crushed".equals(form)) {
+            out.add("item/crushed_raw_materials/" + itemId);
+            out.add("item/crushed_raw_materials/crushed_" + material);
+            out.add("item/crushed_raw_materials/crushed_raw_" + material);
+            out.add("item/crushed_raw_materials/" + material + "_crushed");
             out.add("item/crushed/" + itemId);
             out.add("item/crushed/crushed_" + material);
             out.add("item/crushed/crushed_raw_" + material);
