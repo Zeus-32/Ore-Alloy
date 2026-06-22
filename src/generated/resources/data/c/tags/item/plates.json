@@ -10,6 +10,7 @@
     { "id": "ore_and_alloy:constantan_plate", "required": false },
     { "id": "ore_and_alloy:copper_plate", "required": false },
     { "id": "ore_and_alloy:cupronickel_plate", "required": false },
+    { "id": "ore_and_alloy:diamond_plate", "required": false },
     { "id": "ore_and_alloy:electrum_plate", "required": false },
     { "id": "ore_and_alloy:enderium_plate", "required": false },
     { "id": "ore_and_alloy:gold_plate", "required": false },

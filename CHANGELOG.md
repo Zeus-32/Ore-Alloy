@@ -2,6 +2,24 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.0.7a] - Planned
+
+### Planned
+- Reserved for the future diamond material texture pass.
+- No texture assets are included in 1.0.6.
+
+## [1.0.6] - 2026-06-22
+
+### Added
+- Added `diamond` as a gem-based material type.
+- Added generated Diamond Plate, Rod, Gear, Bolt, and Screw forms.
+- Added common tags for `c:gems/diamond`, `c:plates/diamond`, `c:rods/diamond`, `c:gears/diamond`, `c:bolts/diamond`, and `c:screws/diamond`.
+
+### Changed
+- Diamond uses the bare item `ore_and_alloy:diamond` instead of an ingot form.
+- Added an explicit `minecraft:diamond -> ore_and_alloy:diamond` unification alias.
+- Diamond generated models currently reuse the vanilla diamond item texture until the 1.0.7a texture pass.
+
 ## [1.0.5] - 2026-06-21
 
 ### Added

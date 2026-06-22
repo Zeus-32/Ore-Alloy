@@ -10,6 +10,7 @@
     { "id": "ore_and_alloy:constantan_screw", "required": false },
     { "id": "ore_and_alloy:copper_screw", "required": false },
     { "id": "ore_and_alloy:cupronickel_screw", "required": false },
+    { "id": "ore_and_alloy:diamond_screw", "required": false },
     { "id": "ore_and_alloy:electrum_screw", "required": false },
     { "id": "ore_and_alloy:enderium_screw", "required": false },
     { "id": "ore_and_alloy:gold_screw", "required": false },

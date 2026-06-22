@@ -20,7 +20,8 @@ public final class MaterialItemOrder {
             Map.entry("aluminum", "aluminium")
     );
     private static final Map<String, String> BARE_ITEM_FORMS = Map.of(
-            "silicon", "silicon"
+            "silicon", "silicon",
+            "diamond", "diamond"
     );
 
     private static final Map<String, Integer> FORM_RANK = buildFormRank();

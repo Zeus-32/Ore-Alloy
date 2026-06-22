@@ -47,6 +47,14 @@ final class GuaranteedMaterialSetBuilder {
                     }
                 });
             }
+            if (forms.contains("diamond")) {
+                MetalMaterial.fromToken(entry.getKey()).ifPresent(metal -> {
+                    for (MaterialForm form : metal.getForms()) {
+                        String formToken = form.name().toLowerCase(java.util.Locale.ROOT);
+                        out.add(MaterialItemIdUtil.itemIdFor(material, formToken));
+                    }
+                });
+            }
             if (forms.contains("raw") && !RawMaterialMappings.rawVariantsForMaterial(material).isEmpty()) {
                 out.addAll(RawMaterialMappings.rawItemIdsForMaterial(material));
             }

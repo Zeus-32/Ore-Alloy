@@ -10,6 +10,7 @@
     { "id": "ore_and_alloy:constantan_gear", "required": false },
     { "id": "ore_and_alloy:copper_gear", "required": false },
     { "id": "ore_and_alloy:cupronickel_gear", "required": false },
+    { "id": "ore_and_alloy:diamond_gear", "required": false },
     { "id": "ore_and_alloy:electrum_gear", "required": false },
     { "id": "ore_and_alloy:enderium_gear", "required": false },
     { "id": "ore_and_alloy:gold_gear", "required": false },
