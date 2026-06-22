@@ -10,6 +10,7 @@
     { "id": "ore_and_alloy:constantan_block", "required": false },
     { "id": "ore_and_alloy:copper_block", "required": false },
     { "id": "ore_and_alloy:cupronickel_block", "required": false },
+    { "id": "ore_and_alloy:diamond_block", "required": false },
     { "id": "ore_and_alloy:electrum_block", "required": false },
     { "id": "ore_and_alloy:enderium_block", "required": false },
     { "id": "ore_and_alloy:gold_block", "required": false },

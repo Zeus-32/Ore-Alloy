@@ -44,12 +44,15 @@ class GuaranteedMaterialSetBuilderTest {
         List<String> items = new GuaranteedMaterialSetBuilder().withGuaranteedForms(List.of("diamond"));
 
         assertTrue(items.contains("diamond"));
+        assertTrue(items.contains("raw_diamond"));
+        assertTrue(items.contains("crushed_diamond"));
+        assertTrue(items.contains("diamond_dust"));
+        assertTrue(items.contains("diamond_nugget"));
         assertTrue(items.contains("diamond_plate"));
         assertTrue(items.contains("diamond_rod"));
         assertTrue(items.contains("diamond_gear"));
         assertTrue(items.contains("diamond_bolt"));
         assertTrue(items.contains("diamond_screw"));
         assertFalse(items.contains("diamond_ingot"));
-        assertFalse(items.contains("diamond_nugget"));
     }
 }

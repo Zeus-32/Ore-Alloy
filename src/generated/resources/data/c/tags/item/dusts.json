@@ -10,6 +10,7 @@
     { "id": "ore_and_alloy:constantan_dust", "required": false },
     { "id": "ore_and_alloy:copper_dust", "required": false },
     { "id": "ore_and_alloy:cupronickel_dust", "required": false },
+    { "id": "ore_and_alloy:diamond_dust", "required": false },
     { "id": "ore_and_alloy:electrum_dust", "required": false },
     { "id": "ore_and_alloy:enderium_dust", "required": false },
     { "id": "ore_and_alloy:gold_dust", "required": false },

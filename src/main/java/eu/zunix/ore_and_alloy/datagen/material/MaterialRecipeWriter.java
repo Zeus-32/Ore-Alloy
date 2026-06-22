@@ -39,46 +39,57 @@ public final class MaterialRecipeWriter {
 
         Set<String> itemSet = Set.copyOf(materialItems);
         Set<String> materials = new LinkedHashSet<>();
+        Set<String> materialsWithNugget = new LinkedHashSet<>();
+        Set<String> materialsWithIngot = new LinkedHashSet<>();
+        Set<String> materialsWithDust = new LinkedHashSet<>();
         for (String itemName : materialItems) {
             MaterialId parsed = MaterialIdParser.parseItemId(itemName);
-            if ("ingot".equals(parsed.form())) {
-                materials.add(parsed.material());
-            }
+            materials.add(parsed.material());
+            if ("nugget".equals(parsed.form())) materialsWithNugget.add(parsed.material());
+            if ("ingot".equals(parsed.form())) materialsWithIngot.add(parsed.material());
+            if ("dust".equals(parsed.form())) materialsWithDust.add(parsed.material());
         }
 
         for (String material : materials) {
+            if (!materialsWithNugget.contains(material)) continue;
+            String compactedForm = materialsWithIngot.contains(material) ? "ingot" : materialsWithDust.contains(material) ? "dust" : "";
+            if (compactedForm.isBlank()) continue;
+
             String nuggetPath = MaterialIdParser.itemIdFor(material, "nugget");
-            String ingotPath = MaterialIdParser.itemIdFor(material, "ingot");
-            if (!itemSet.contains(nuggetPath) || !itemSet.contains(ingotPath)) continue;
+            String compactedPath = MaterialIdParser.itemIdFor(material, compactedForm);
+            if (!itemSet.contains(nuggetPath) || !itemSet.contains(compactedPath)) continue;
 
             String nugget = namespace + ":" + nuggetPath;
-            String ingot = namespace + ":" + ingotPath;
+            String compacted = namespace + ":" + compactedPath;
 
-            Path n2i = craftingRoot.resolve(Path.of(ingotPath, "from_nuggets.json"));
-            DatagenFiles.writeText(n2i, nuggetsToIngotRecipeJson(nugget, null, ingot));
+            Path n2i = craftingRoot.resolve(Path.of(compactedPath, "from_nuggets.json"));
+            DatagenFiles.writeText(n2i, nuggetsToCompactedRecipeJson(nugget, null, compacted));
 
             String vanillaN2I = VANILLA_INGOT_FROM_NUGGET_RECIPE_IDS.get(material);
-            if (vanillaN2I != null) {
+            if (vanillaN2I != null && "ingot".equals(compactedForm)) {
                 String vanillaNugget = "minecraft:" + material + "_nugget";
                 Path overridePath = minecraftRecipesRoot.resolve(vanillaN2I + ".json");
-                DatagenFiles.writeText(overridePath, nuggetsToIngotRecipeJson(nugget, vanillaNugget, ingot));
+                DatagenFiles.writeText(overridePath, nuggetsToCompactedRecipeJson(nugget, vanillaNugget, compacted));
             }
 
             Path i2n = craftingRoot.resolve(Path.of(nuggetPath, "from_ingot.json"));
+            if (!"ingot".equals(compactedForm)) {
+                i2n = craftingRoot.resolve(Path.of(nuggetPath, "from_" + compactedForm + ".json"));
+            }
             String json2 = "{\n"
                     + "  \"neoforge:conditions\": [\n"
                     + "    { \"type\": \"neoforge:item_exists\", \"item\": \"" + nugget + "\" },\n"
-                    + "    { \"type\": \"neoforge:item_exists\", \"item\": \"" + ingot + "\" }\n"
+                    + "    { \"type\": \"neoforge:item_exists\", \"item\": \"" + compacted + "\" }\n"
                     + "  ],\n"
                     + "  \"type\": \"minecraft:crafting_shapeless\",\n"
-                    + "  \"ingredients\": [ { \"item\": \"" + ingot + "\" } ],\n"
+                    + "  \"ingredients\": [ { \"item\": \"" + compacted + "\" } ],\n"
                     + "  \"result\": { \"id\": \"" + nugget + "\", \"count\": 9 }\n"
                     + "}";
             DatagenFiles.writeText(i2n, json2);
         }
     }
 
-    private static String nuggetsToIngotRecipeJson(String canonicalNugget, String fallbackVanillaNugget, String resultIngot) {
+    private static String nuggetsToCompactedRecipeJson(String canonicalNugget, String fallbackVanillaNugget, String resultItem) {
         String ingredient = fallbackVanillaNugget == null
                 ? "{ \"item\": \"" + canonicalNugget + "\" }"
                 : "[ { \"item\": \"" + canonicalNugget + "\" }, { \"item\": \"" + fallbackVanillaNugget + "\" } ]";
@@ -87,17 +98,17 @@ public final class MaterialRecipeWriter {
         sb.append("{\n");
         sb.append("  \"neoforge:conditions\": [\n");
         sb.append("    { \"type\": \"neoforge:item_exists\", \"item\": \"").append(canonicalNugget).append("\" },\n");
-        sb.append("    { \"type\": \"neoforge:item_exists\", \"item\": \"").append(resultIngot).append("\" }\n");
+        sb.append("    { \"type\": \"neoforge:item_exists\", \"item\": \"").append(resultItem).append("\" }\n");
         sb.append("  ],\n");
         sb.append("  \"type\": \"minecraft:crafting_shapeless\",\n");
         sb.append("  \"ingredients\": [\n");
         for (int i = 0; i < 9; i++) {
-            sb.append("    ").append(ingredient);
+        sb.append("    ").append(ingredient);
             if (i + 1 < 9) sb.append(",\n");
             else sb.append('\n');
         }
         sb.append("  ],\n");
-        sb.append("  \"result\": { \"id\": \"").append(resultIngot).append("\", \"count\": 1 }\n");
+        sb.append("  \"result\": { \"id\": \"").append(resultItem).append("\", \"count\": 1 }\n");
         sb.append("}");
         return sb.toString();
     }
@@ -211,11 +222,11 @@ public final class MaterialRecipeWriter {
         Files.createDirectories(minecraftRecipesRoot);
 
         Set<String> itemSet = Set.copyOf(materialItems);
-        Set<String> materialsWithIngot = new LinkedHashSet<>();
+        Set<String> materialsWithCookedResult = new LinkedHashSet<>();
         for (String itemName : materialItems) {
             MaterialId parsed = MaterialIdParser.parseItemId(itemName);
-            if ("ingot".equals(parsed.form())) {
-                materialsWithIngot.add(parsed.material());
+            if ("ingot".equals(parsed.form()) || "diamond".equals(parsed.form())) {
+                materialsWithCookedResult.add(parsed.material());
             }
         }
 
@@ -235,38 +246,39 @@ public final class MaterialRecipeWriter {
             }
         }
 
-        for (String material : materialsWithIngot) {
-            String outputIngotId = MaterialIdParser.itemIdFor(material, "ingot");
-            String outputIngot = namespace + ":" + outputIngotId;
-            String group = outputIngotId;
+        for (String material : materialsWithCookedResult) {
+            String resultForm = itemSet.contains(MaterialIdParser.itemIdFor(material, "ingot")) ? "ingot" : "diamond";
+            String outputResultId = MaterialIdParser.itemIdFor(material, resultForm);
+            String outputResult = namespace + ":" + outputResultId;
+            String group = outputResultId;
             double experience = smeltingExperience(material);
 
             if (materialsWithRawVariants.contains(material)) {
                 String rawTag = "c:raw_materials/" + material;
                 String crushedTag = "c:crushed_raw_materials/" + material;
 
-                Path smeltingRawPath = smeltingRoot.resolve(Path.of(outputIngotId, "from_raw_materials.json"));
+                Path smeltingRawPath = smeltingRoot.resolve(Path.of(outputResultId, "from_raw_materials.json"));
                 DatagenFiles.writeText(
                         smeltingRawPath,
-                        cookingTagRecipeJson("minecraft:smelting", rawTag, outputIngot, group, experience, 200)
+                        cookingTagRecipeJson("minecraft:smelting", rawTag, outputResult, group, experience, 200)
                 );
 
-                Path blastingRawPath = blastingRoot.resolve(Path.of(outputIngotId, "from_raw_materials.json"));
+                Path blastingRawPath = blastingRoot.resolve(Path.of(outputResultId, "from_raw_materials.json"));
                 DatagenFiles.writeText(
                         blastingRawPath,
-                        cookingTagRecipeJson("minecraft:blasting", rawTag, outputIngot, group, experience, 100)
+                        cookingTagRecipeJson("minecraft:blasting", rawTag, outputResult, group, experience, 100)
                 );
 
-                Path smeltingCrushedPath = smeltingRoot.resolve(Path.of(outputIngotId, "from_crushed_raw_materials.json"));
+                Path smeltingCrushedPath = smeltingRoot.resolve(Path.of(outputResultId, "from_crushed_raw_materials.json"));
                 DatagenFiles.writeText(
                         smeltingCrushedPath,
-                        cookingTagRecipeJson("minecraft:smelting", crushedTag, outputIngot, group, experience, 200)
+                        cookingTagRecipeJson("minecraft:smelting", crushedTag, outputResult, group, experience, 200)
                 );
 
-                Path blastingCrushedPath = blastingRoot.resolve(Path.of(outputIngotId, "from_crushed_raw_materials.json"));
+                Path blastingCrushedPath = blastingRoot.resolve(Path.of(outputResultId, "from_crushed_raw_materials.json"));
                 DatagenFiles.writeText(
                         blastingCrushedPath,
-                        cookingTagRecipeJson("minecraft:blasting", crushedTag, outputIngot, group, experience, 100)
+                        cookingTagRecipeJson("minecraft:blasting", crushedTag, outputResult, group, experience, 100)
                 );
 
                 Optional<String> vanillaSmeltingOverride = vanillaRawSmeltingRecipeName(material);
@@ -274,7 +286,7 @@ public final class MaterialRecipeWriter {
                     Path overridePath = minecraftRecipesRoot.resolve(vanillaSmeltingOverride.get() + ".json");
                     DatagenFiles.writeText(
                             overridePath,
-                            cookingTagRecipeJson("minecraft:smelting", rawTag, outputIngot, group, experience, 200)
+                            cookingTagRecipeJson("minecraft:smelting", rawTag, outputResult, group, experience, 200)
                     );
                 }
 
@@ -283,7 +295,7 @@ public final class MaterialRecipeWriter {
                     Path overridePath = minecraftRecipesRoot.resolve(vanillaBlastingOverride.get() + ".json");
                     DatagenFiles.writeText(
                             overridePath,
-                            cookingTagRecipeJson("minecraft:blasting", rawTag, outputIngot, group, experience, 100)
+                            cookingTagRecipeJson("minecraft:blasting", rawTag, outputResult, group, experience, 100)
                     );
                 }
             }
@@ -291,16 +303,16 @@ public final class MaterialRecipeWriter {
             if (materialsWithDust.contains(material)) {
                 String dustTag = "c:dusts/" + material;
 
-                Path smeltingDustPath = smeltingRoot.resolve(Path.of(outputIngotId, "from_dusts.json"));
+                Path smeltingDustPath = smeltingRoot.resolve(Path.of(outputResultId, "from_dusts.json"));
                 DatagenFiles.writeText(
                         smeltingDustPath,
-                        cookingTagRecipeJson("minecraft:smelting", dustTag, outputIngot, group, experience, 200)
+                        cookingTagRecipeJson("minecraft:smelting", dustTag, outputResult, group, experience, 200)
                 );
 
-                Path blastingDustPath = blastingRoot.resolve(Path.of(outputIngotId, "from_dusts.json"));
+                Path blastingDustPath = blastingRoot.resolve(Path.of(outputResultId, "from_dusts.json"));
                 DatagenFiles.writeText(
                         blastingDustPath,
-                        cookingTagRecipeJson("minecraft:blasting", dustTag, outputIngot, group, experience, 100)
+                        cookingTagRecipeJson("minecraft:blasting", dustTag, outputResult, group, experience, 100)
                 );
             }
         }

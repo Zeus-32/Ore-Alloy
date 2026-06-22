@@ -96,6 +96,11 @@ public enum MetalMaterial {
     private static Set<MaterialForm> gemMaterialForms() {
         return EnumSet.of(
                 MaterialForm.DIAMOND,
+                MaterialForm.RAW,
+                MaterialForm.CRUSHED,
+                MaterialForm.ORE,
+                MaterialForm.DUST,
+                MaterialForm.NUGGET,
                 MaterialForm.PLATE,
                 MaterialForm.ROD,
                 MaterialForm.GEAR,
