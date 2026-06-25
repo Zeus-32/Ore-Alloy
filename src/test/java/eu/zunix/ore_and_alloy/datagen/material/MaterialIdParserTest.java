@@ -33,17 +33,20 @@ class MaterialIdParserTest {
         assertEquals("silicon", silicon.form());
         MaterialId diamond = MaterialIdParser.parseItemId("diamond");
         assertEquals("diamond", diamond.material());
-        assertEquals("diamond", diamond.form());
+        assertEquals("gem", diamond.form());
     }
 
     @Test
     void itemIdForRespectsPreferredRawAndMetalForms() {
         assertEquals("raw_bauxite", MaterialIdParser.itemIdFor("aluminum", "raw"));
         assertEquals("crushed_bauxite", MaterialIdParser.itemIdFor("aluminum", "crushed"));
+        assertEquals("bauxite_ore", MaterialIdParser.itemIdFor("aluminum", "ore"));
+        assertEquals("sphalerite_ore", MaterialIdParser.itemIdFor("zinc", "ore"));
         assertEquals("iron_dust", MaterialIdParser.itemIdFor("iron", "dust"));
+        assertEquals("iron_ore", MaterialIdParser.itemIdFor("iron", "ore"));
         assertEquals("copper_plate", MaterialIdParser.itemIdFor("copper", "plate"));
         assertEquals("silicon", MaterialIdParser.itemIdFor("silicon", "silicon"));
-        assertEquals("diamond", MaterialIdParser.itemIdFor("diamond", "diamond"));
+        assertEquals("diamond", MaterialIdParser.itemIdFor("diamond", "gem"));
     }
 
     @Test

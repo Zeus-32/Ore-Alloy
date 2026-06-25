@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:wrought_iron_small_gear", "required": false }
+  ]
+}

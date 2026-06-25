@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:cupronickel_tiny_dust_pile", "required": false }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:tungsten_long_rod", "required": false }
+  ]
+}

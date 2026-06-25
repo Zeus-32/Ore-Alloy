@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_antimony_ore", "required": false },
+    { "id": "ore_and_alloy:antimony_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_antimony_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_antimony_ore", "required": false },
+    { "id": "ore_and_alloy:end_antimony_ore", "required": false },
+    { "id": "ore_and_alloy:granite_antimony_ore", "required": false },
+    { "id": "ore_and_alloy:nether_antimony_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_antimony_ore", "required": false }
+  ]
+}

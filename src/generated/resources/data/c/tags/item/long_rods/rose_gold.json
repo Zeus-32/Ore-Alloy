@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:rose_gold_long_rod", "required": false }
+  ]
+}

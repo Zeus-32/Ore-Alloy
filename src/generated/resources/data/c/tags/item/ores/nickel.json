@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    { "id": "ore_and_alloy:nickel_ore", "required": false }
+    { "id": "ore_and_alloy:pentlandite_ore", "required": false }
   ]
 }

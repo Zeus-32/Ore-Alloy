@@ -25,7 +25,7 @@ class MaterialItemOrderTest {
         assertTrue(MaterialItemOrder.bareItemForm("iron").isEmpty());
         assertTrue(MaterialItemOrder.bareItemForm("copper").isEmpty());
         assertEquals("silicon", MaterialItemOrder.bareItemForm("silicon").orElseThrow());
-        assertEquals("diamond", MaterialItemOrder.bareItemForm("diamond").orElseThrow());
+        assertEquals("gem", MaterialItemOrder.bareItemForm("diamond").orElseThrow());
     }
 
     @Test
@@ -35,6 +35,11 @@ class MaterialItemOrderTest {
 
         assertEquals("iron", MaterialItemOrder.materialPart("deepslate_magnetite_ore"));
         assertEquals("ore", MaterialItemOrder.formToken("deepslate_magnetite_ore").orElseThrow());
+
+        assertEquals("zinc", MaterialItemOrder.materialPart("raw_zinc"));
+        assertEquals("zinc", MaterialItemOrder.materialPart("raw_sphalerite"));
+        assertEquals("zinc", MaterialItemOrder.materialPart("crushed_sphalerite"));
+        assertEquals("zinc", MaterialItemOrder.materialPart("deepslate_sphalerite_ore"));
     }
 
     @Test
@@ -51,7 +56,7 @@ class MaterialItemOrderTest {
     void gemBareFormsSortWithIngots() {
         assertEquals(
                 MaterialItemOrder.formTokenRank("ingot"),
-                MaterialItemOrder.formTokenRank("diamond")
+                MaterialItemOrder.formTokenRank("gem")
         );
     }
 }

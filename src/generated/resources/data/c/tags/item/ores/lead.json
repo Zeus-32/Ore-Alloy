@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    { "id": "ore_and_alloy:lead_ore", "required": false }
+    { "id": "ore_and_alloy:galena_ore", "required": false }
   ]
 }

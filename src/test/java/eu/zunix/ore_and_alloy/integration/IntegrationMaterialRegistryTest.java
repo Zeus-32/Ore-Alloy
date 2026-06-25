@@ -36,7 +36,7 @@ class IntegrationMaterialRegistryTest {
 
     @Test
     void startupRequestActivatesKnownMaterialWithoutProviderMod() {
-        assertTrue(MaterialActivationRequests.request("aluminium"));
+        assertTrue(MaterialActivationRequests.request("aluminum"));
         assertTrue(IntegrationMaterialRegistry.isMetalEnabled(MetalMaterial.ALUMINUM));
         assertTrue(MaterialActivationRequests.requestedMaterials().contains("aluminum"));
     }

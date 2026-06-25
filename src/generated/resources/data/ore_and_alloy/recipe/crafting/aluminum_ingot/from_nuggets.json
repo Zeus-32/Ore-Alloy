@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:aluminum_nugget" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:aluminum_ingot" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "ore_and_alloy:aluminum_nugget" },
+    { "item": "ore_and_alloy:aluminum_nugget" },
+    { "item": "ore_and_alloy:aluminum_nugget" },
+    { "item": "ore_and_alloy:aluminum_nugget" },
+    { "item": "ore_and_alloy:aluminum_nugget" },
+    { "item": "ore_and_alloy:aluminum_nugget" },
+    { "item": "ore_and_alloy:aluminum_nugget" },
+    { "item": "ore_and_alloy:aluminum_nugget" },
+    { "item": "ore_and_alloy:aluminum_nugget" }
+  ],
+  "result": { "id": "ore_and_alloy:aluminum_ingot", "count": 1 }
+}

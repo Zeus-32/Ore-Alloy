@@ -16,12 +16,10 @@ public final class MaterialItemOrder {
             Map.entry("chrome", "chromium"),
             Map.entry("cuppronickel", "cupronickel")
     );
-    private static final Map<String, String> PREFERRED_ITEM_MATERIAL_TOKENS = Map.ofEntries(
-            Map.entry("aluminum", "aluminium")
-    );
+    private static final Map<String, String> PREFERRED_ITEM_MATERIAL_TOKENS = Map.of();
     private static final Map<String, String> BARE_ITEM_FORMS = Map.of(
             "silicon", "silicon",
-            "diamond", "diamond"
+            "diamond", "gem"
     );
     private static final Set<String> INGOT_EQUIVALENT_FORMS = buildIngotEquivalentForms();
 

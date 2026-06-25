@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:antimony_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:raw_materials/antimony" }
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "group": "antimony_ingot",
+  "ingredient": { "tag": "c:raw_materials/antimony" },
+  "result": { "id": "ore_and_alloy:antimony_ingot" },
+  "experience": 0.7,
+  "cookingtime": 200
+}

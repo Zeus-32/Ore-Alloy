@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:lithium_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:crushed_raw_materials/lithium" }
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "lithium_ingot",
+  "ingredient": { "tag": "c:crushed_raw_materials/lithium" },
+  "result": { "id": "ore_and_alloy:lithium_ingot" },
+  "experience": 0.7,
+  "cookingtime": 100
+}

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_lithium_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_lithium_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_lithium_ore", "required": false },
+    { "id": "ore_and_alloy:end_lithium_ore", "required": false },
+    { "id": "ore_and_alloy:granite_lithium_ore", "required": false },
+    { "id": "ore_and_alloy:lithium_ore", "required": false },
+    { "id": "ore_and_alloy:nether_lithium_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_lithium_ore", "required": false }
+  ]
+}

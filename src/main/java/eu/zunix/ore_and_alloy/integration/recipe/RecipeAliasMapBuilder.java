@@ -184,9 +184,6 @@ public final class RecipeAliasMapBuilder {
         String form = MaterialFormCatalog.FORM_BY_TAG_BUCKET.get(bucket);
         if (form == null || material.isBlank()) return Optional.empty();
         if (!IntegrationMaterialRegistry.isMaterialEnabled(material)) return Optional.empty();
-        if ("raw".equals(form) || "crushed".equals(form)) {
-            return Optional.empty();
-        }
         return Optional.of(new MaterialAliasKey(form, normalizeMaterialForForm(material, form)));
     }
 
@@ -258,6 +255,11 @@ public final class RecipeAliasMapBuilder {
             return RawMaterialMappings.primaryCrushedVariantForMaterial(canonicalMaterial)
                     .map(variant -> "crushed_" + variant)
                     .orElse("crushed_" + preferredMaterial);
+        }
+        if ("ore".equals(form)) {
+            return RawMaterialMappings.primaryRawVariantForMaterial(canonicalMaterial)
+                    .map(variant -> variant + "_ore")
+                    .orElse(preferredMaterial + "_ore");
         }
         return preferredMaterial + "_" + form;
     }

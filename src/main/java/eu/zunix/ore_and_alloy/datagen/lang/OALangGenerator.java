@@ -72,6 +72,9 @@ public final class OALangGenerator {
             String crushedName = crushedToken.isBlank() ? material : capitalizeWords(crushedToken.replace('_', ' '));
             return "Crushed " + crushedName;
         }
+        if ("hot_ingot".equals(parsed.form())) {
+            return "Hot " + material + " Ingot";
+        }
         String formNice = switch (parsed.form()) {
             case "ingot" -> "Ingot";
             case "nugget" -> "Nugget";
@@ -85,6 +88,7 @@ public final class OALangGenerator {
             case "ore" -> "Ore";
             case "raw" -> "Raw";
             case "silicon" -> "";
+            case "gem" -> "";
             case "diamond" -> "";
             default -> capitalizeWords(parsed.form().replace('_', ' '));
         };

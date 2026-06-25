@@ -15,37 +15,43 @@ public enum MetalMaterial {
     SILVER(oreMetalForms()),
     NICKEL(oreMetalForms()),
     ZINC(oreMetalForms()),
-    ALUMINUM(oreMetalForms()),
-    OSMIUM(oreMetalForms()),
     URANIUM(oreMetalForms()),
-    COBALT(oreMetalForms()),
-    TITANIUM(oreMetalForms()),
-    CHROME(oreMetalForms()),
-    PLATINUM(oreMetalForms()),
-    IRIDIUM(oreMetalForms()),
 
-    ANTIMONY(processedMetalForms()),
-    STEEL(processedMetalForms()),
-    STAINLESS_STEEL(processedMetalForms()),
-    BRASS(processedMetalForms()),
-    BRONZE(processedMetalForms()),
-    CUPRONICKEL(processedMetalForms()),
-    ELECTRUM(processedMetalForms()),
-    INVAR(processedMetalForms()),
-    CONSTANTAN(processedMetalForms()),
-    WROUGHT_IRON(processedMetalForms()),
-    ENDERIUM(processedMetalForms()),
-    LITHIUM(processedMetalForms()),
-    LUMIUM(processedMetalForms()),
-    SIGNALUM(processedMetalForms()),
-    ROSE_GOLD(processedMetalForms()),
-    NAQUADAH(processedMetalForms()),
-    PURE_NETHERITE(processedMetalForms()),
-    RED_ALLOY(processedMetalForms()),
-    SOUL_INFUSED(processedMetalForms()),
-    TUNGSTEN(processedMetalForms()),
+    ALUMINUM(hotOreMetalForms()),
+    OSMIUM(hotOreMetalForms()),
+    COBALT(hotOreMetalForms()),
+    TITANIUM(hotOreMetalForms()),
+    CHROME(hotOreMetalForms()),
+    PLATINUM(hotOreMetalForms()),
+    IRIDIUM(hotOreMetalForms()),
+    TUNGSTEN(hotOreMetalForms()),
+
+    ANTIMONY(oreMetalForms()),
+    LITHIUM(oreMetalForms()),
+
+    STEEL(alloyForms()),
+    STAINLESS_STEEL(alloyForms()),
+    BRASS(alloyForms()),
+    BRONZE(alloyForms()),
+    CUPRONICKEL(alloyForms()),
+    ELECTRUM(alloyForms()),
+    INVAR(alloyForms()),
+    CONSTANTAN(alloyForms()),
+    WROUGHT_IRON(alloyForms()),
+
+    ENDERIUM(alloyForms()),
+    LUMIUM(alloyForms()),
+    SIGNALUM(alloyForms()),
+    ROSE_GOLD(alloyForms()),
+    RED_ALLOY(alloyForms()),
+    SOUL_INFUSED(alloyForms()),
+
+    NAQUADAH(hotAlloyForms()),
+    PURE_NETHERITE(hotAlloyForms()),
+
     SILICON(EnumSet.of(MaterialForm.SILICON)),
-    DIAMOND(gemMaterialForms());
+
+    DIAMOND(engineeringGemForms());
 
     private final Set<MaterialForm> forms;
 
@@ -75,41 +81,76 @@ public enum MetalMaterial {
         return Optional.empty();
     }
 
-    private static Set<MaterialForm> processedMetalForms() {
+    private static Set<MaterialForm> metalForms() {
         return EnumSet.of(
                 MaterialForm.INGOT,
                 MaterialForm.PLATE,
+                MaterialForm.DOUBLE_PLATE,
                 MaterialForm.NUGGET,
                 MaterialForm.ROD,
+                MaterialForm.LONG_ROD,
                 MaterialForm.GEAR,
+                MaterialForm.SMALL_GEAR,
                 MaterialForm.BOLT,
                 MaterialForm.SCREW,
-                MaterialForm.DUST
+                MaterialForm.DUST,
+                MaterialForm.TINY_DUST_PILE,
+                MaterialForm.DUST_PILE
         );
     }
 
+    private static Set<MaterialForm> hotMetalForms() {
+        EnumSet<MaterialForm> forms = EnumSet.copyOf(metalForms());
+        forms.add(MaterialForm.HOT_INGOT);
+        return forms;
+    }
+
     private static Set<MaterialForm> oreMetalForms() {
-        EnumSet<MaterialForm> forms = EnumSet.copyOf(processedMetalForms());
+        EnumSet<MaterialForm> forms = EnumSet.copyOf(metalForms());
         forms.add(MaterialForm.CRUSHED);
         forms.add(MaterialForm.ORE);
         forms.add(MaterialForm.RAW);
         return forms;
     }
 
-    private static Set<MaterialForm> gemMaterialForms() {
+    private static Set<MaterialForm> hotOreMetalForms() {
+        EnumSet<MaterialForm> forms = EnumSet.copyOf(hotMetalForms());
+        forms.add(MaterialForm.CRUSHED);
+        forms.add(MaterialForm.ORE);
+        forms.add(MaterialForm.RAW);
+        return forms;
+    }
+
+    private static Set<MaterialForm> alloyForms() {
+        return metalForms();
+    }
+
+    private static Set<MaterialForm> hotAlloyForms() {
+        return hotMetalForms();
+    }
+
+    private static Set<MaterialForm> gemForms() {
         return EnumSet.of(
-                MaterialForm.DIAMOND,
+                MaterialForm.GEM,
                 MaterialForm.RAW,
                 MaterialForm.CRUSHED,
                 MaterialForm.ORE,
                 MaterialForm.DUST,
-                MaterialForm.NUGGET,
+                MaterialForm.TINY_DUST_PILE,
+                MaterialForm.DUST_PILE,
                 MaterialForm.PLATE,
                 MaterialForm.ROD,
-                MaterialForm.GEAR,
-                MaterialForm.BOLT,
-                MaterialForm.SCREW
+                MaterialForm.LONG_ROD
         );
+    }
+
+    private static Set<MaterialForm> engineeringGemForms() {
+        EnumSet<MaterialForm> forms = EnumSet.copyOf(gemForms());
+        forms.add(MaterialForm.GEAR);
+        forms.add(MaterialForm.SMALL_GEAR);
+        forms.add(MaterialForm.BOLT);
+        forms.add(MaterialForm.SCREW);
+        return forms;
     }
 
 }

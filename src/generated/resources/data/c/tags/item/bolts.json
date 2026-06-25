@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    { "id": "ore_and_alloy:aluminium_bolt", "required": false },
+    { "id": "ore_and_alloy:aluminum_bolt", "required": false },
     { "id": "ore_and_alloy:antimony_bolt", "required": false },
     { "id": "ore_and_alloy:brass_bolt", "required": false },
     { "id": "ore_and_alloy:bronze_bolt", "required": false },

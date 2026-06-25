@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_tungsten_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_tungsten_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_tungsten_ore", "required": false },
+    { "id": "ore_and_alloy:end_tungsten_ore", "required": false },
+    { "id": "ore_and_alloy:granite_tungsten_ore", "required": false },
+    { "id": "ore_and_alloy:nether_tungsten_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_tungsten_ore", "required": false },
+    { "id": "ore_and_alloy:tungsten_ore", "required": false }
+  ]
+}

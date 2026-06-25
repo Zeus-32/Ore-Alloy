@@ -65,7 +65,7 @@ class MaterialRecipeWriterTest {
         String fromNuggets = Files.readString(tempDir.resolve(
                 "data/ore_and_alloy/recipe/crafting/diamond/from_nuggets.json"));
         String toNuggets = Files.readString(tempDir.resolve(
-                "data/ore_and_alloy/recipe/crafting/diamond_nugget/from_diamond.json"));
+                "data/ore_and_alloy/recipe/crafting/diamond_nugget/from_gem.json"));
 
         assertTrue(fromNuggets.contains("\"id\": \"ore_and_alloy:diamond\""));
         assertTrue(toNuggets.contains("\"item\": \"ore_and_alloy:diamond\""));
@@ -78,10 +78,10 @@ class MaterialRecipeWriterTest {
     @Test
     void gemStorageBlockRecipesUseBareGemInsteadOfDust() throws Exception {
         MaterialRecipeWriter writer = new MaterialRecipeWriter(tempDir, "ore_and_alloy");
-        writer.writeStorageBlockRecipes(Map.of("diamond", "diamond"));
+        writer.writeStorageBlockRecipes(Map.of("diamond", "gem"));
 
         String fromGem = Files.readString(tempDir.resolve(
-                "data/ore_and_alloy/recipe/crafting/diamond_block/from_diamond.json"));
+                "data/ore_and_alloy/recipe/crafting/diamond_block/from_gem.json"));
         String fromBlock = Files.readString(tempDir.resolve(
                 "data/ore_and_alloy/recipe/crafting/diamond/from_block.json"));
 
@@ -91,5 +91,37 @@ class MaterialRecipeWriterTest {
                 "data/ore_and_alloy/recipe/crafting/diamond_block/from_dust.json")));
         assertFalse(Files.exists(tempDir.resolve(
                 "data/ore_and_alloy/recipe/crafting/diamond_dust/from_block.json")));
+    }
+
+    @Test
+    void dustBreakdownRecipesAreShaped() throws Exception {
+        MaterialRecipeWriter writer = new MaterialRecipeWriter(tempDir, "ore_and_alloy");
+        writer.writeCompactingRecipes(List.of(
+                "iron_dust",
+                "iron_dust_pile",
+                "iron_tiny_dust_pile"
+        ));
+
+        String dustToPiles = Files.readString(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/iron_dust_pile/from_dust.json"));
+        String dustToTinyPiles = Files.readString(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/iron_tiny_dust_pile/from_dust.json"));
+        String pilesToDust = Files.readString(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/iron_dust/from_dust_piles.json"));
+        String tinyPilesToDust = Files.readString(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/iron_dust/from_tiny_dust_piles.json"));
+
+        assertTrue(dustToPiles.contains("\"type\": \"minecraft:crafting_shaped\""));
+        assertTrue(dustToPiles.contains("\" # \""));
+        assertTrue(dustToPiles.contains("\"id\": \"ore_and_alloy:iron_dust_pile\", \"count\": 4"));
+        assertTrue(dustToTinyPiles.contains("\"type\": \"minecraft:crafting_shaped\""));
+        assertTrue(dustToTinyPiles.contains("\"#  \""));
+        assertTrue(dustToTinyPiles.contains("\"id\": \"ore_and_alloy:iron_tiny_dust_pile\", \"count\": 9"));
+        assertTrue(pilesToDust.contains("\"##\""));
+        assertTrue(pilesToDust.contains("\"id\": \"ore_and_alloy:iron_dust\", \"count\": 1"));
+        assertTrue(tinyPilesToDust.contains("\"###\""));
+        assertTrue(tinyPilesToDust.contains("\"id\": \"ore_and_alloy:iron_dust\", \"count\": 1"));
+        assertFalse(Files.exists(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/iron_tiny_dust_pile/from_dust_pile.json")));
     }
 }

@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    { "id": "ore_and_alloy:aluminium_block", "required": false }
+    { "id": "ore_and_alloy:aluminum_block", "required": false }
   ]
 }

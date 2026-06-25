@@ -61,6 +61,11 @@ final class MaterialItemIdUtil {
                     .map(variant -> "crushed_" + variant)
                     .orElse("crushed_" + preferredMaterial);
         }
+        if ("ore".equals(form)) {
+            return RawMaterialMappings.primaryRawVariantForMaterial(canonicalMaterial)
+                    .map(variant -> variant + "_ore")
+                    .orElse(preferredMaterial + "_ore");
+        }
         return preferredMaterial + "_" + form;
     }
 
@@ -124,8 +129,7 @@ final class MaterialItemIdUtil {
 
     private static boolean isRemovedLegacyFormId(String itemId) {
         return itemId.endsWith("_dirty_dust")
-                || itemId.endsWith("_purified_dust")
-                || itemId.endsWith("_long_rod");
+                || itemId.endsWith("_purified_dust");
     }
 
     record ParsedId(String material, String form) {}

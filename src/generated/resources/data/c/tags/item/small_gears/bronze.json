@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:bronze_small_gear", "required": false }
+  ]
+}

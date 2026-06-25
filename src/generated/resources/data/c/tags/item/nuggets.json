@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    { "id": "ore_and_alloy:aluminium_nugget", "required": false },
+    { "id": "ore_and_alloy:aluminum_nugget", "required": false },
     { "id": "ore_and_alloy:antimony_nugget", "required": false },
     { "id": "ore_and_alloy:brass_nugget", "required": false },
     { "id": "ore_and_alloy:bronze_nugget", "required": false },
@@ -10,7 +10,6 @@
     { "id": "ore_and_alloy:constantan_nugget", "required": false },
     { "id": "ore_and_alloy:copper_nugget", "required": false },
     { "id": "ore_and_alloy:cupronickel_nugget", "required": false },
-    { "id": "ore_and_alloy:diamond_nugget", "required": false },
     { "id": "ore_and_alloy:electrum_nugget", "required": false },
     { "id": "ore_and_alloy:enderium_nugget", "required": false },
     { "id": "ore_and_alloy:gold_nugget", "required": false },

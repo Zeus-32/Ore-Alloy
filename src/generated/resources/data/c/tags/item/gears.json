@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    { "id": "ore_and_alloy:aluminium_gear", "required": false },
+    { "id": "ore_and_alloy:aluminum_gear", "required": false },
     { "id": "ore_and_alloy:antimony_gear", "required": false },
     { "id": "ore_and_alloy:brass_gear", "required": false },
     { "id": "ore_and_alloy:bronze_gear", "required": false },

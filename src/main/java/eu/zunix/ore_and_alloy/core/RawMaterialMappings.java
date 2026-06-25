@@ -31,7 +31,11 @@ public final class RawMaterialMappings {
     }
 
     public static boolean isConfiguredRawVariant(String rawVariantToken) {
-        return MATERIAL_BY_RAW_VARIANT.containsKey(normalize(rawVariantToken));
+        String normalized = normalize(rawVariantToken);
+        for (List<String> variants : RAW_VARIANTS_BY_MATERIAL.values()) {
+            if (variants.contains(normalized)) return true;
+        }
+        return false;
     }
 
     public static List<String> rawItemIdsForMaterial(String materialToken) {
@@ -73,7 +77,7 @@ public final class RawMaterialMappings {
     private static Map<String, List<String>> buildRawVariantsByMaterial() {
         Map<String, List<String>> out = new LinkedHashMap<>();
 
-        put(out, "aluminium", "bauxite", "cryolite");
+        put(out, "aluminum", "bauxite", "cryolite");
         put(out, "chromium", "chromite");
         put(out, "cobalt", "cobaltite");
         put(out, "copper", "chalcopyrite", "malachite", "bornite", "copper");
@@ -100,6 +104,7 @@ public final class RawMaterialMappings {
             for (String variant : entry.getValue()) {
                 out.putIfAbsent(variant, entry.getKey());
             }
+            out.putIfAbsent(entry.getKey(), entry.getKey());
         }
         return Map.copyOf(out);
     }

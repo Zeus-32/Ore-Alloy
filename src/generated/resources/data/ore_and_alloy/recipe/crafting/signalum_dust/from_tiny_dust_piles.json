@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:signalum_tiny_dust_pile" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:signalum_dust" }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": { "item": "ore_and_alloy:signalum_tiny_dust_pile" }
+  },
+  "result": { "id": "ore_and_alloy:signalum_dust", "count": 1 }
+}

@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    { "id": "ore_and_alloy:aluminium_plate", "required": false },
+    { "id": "ore_and_alloy:aluminum_plate", "required": false },
     { "id": "ore_and_alloy:antimony_plate", "required": false },
     { "id": "ore_and_alloy:brass_plate", "required": false },
     { "id": "ore_and_alloy:bronze_plate", "required": false },

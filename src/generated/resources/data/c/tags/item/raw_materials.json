@@ -3,6 +3,7 @@
   "values": [
     { "id": "ore_and_alloy:raw_bauxite", "required": false },
     { "id": "ore_and_alloy:raw_cryolite", "required": false },
+    { "id": "ore_and_alloy:raw_antimony", "required": false },
     { "id": "ore_and_alloy:raw_chromite", "required": false },
     { "id": "ore_and_alloy:raw_cobaltite", "required": false },
     { "id": "ore_and_alloy:raw_bornite", "required": false },
@@ -19,6 +20,7 @@
     { "id": "ore_and_alloy:raw_magnetite", "required": false },
     { "id": "ore_and_alloy:raw_galena", "required": false },
     { "id": "ore_and_alloy:raw_lead", "required": false },
+    { "id": "ore_and_alloy:raw_lithium", "required": false },
     { "id": "ore_and_alloy:raw_garnierite", "required": false },
     { "id": "ore_and_alloy:raw_pentlandite", "required": false },
     { "id": "ore_and_alloy:raw_osmium", "required": false },
@@ -28,6 +30,7 @@
     { "id": "ore_and_alloy:raw_cassiterite", "required": false },
     { "id": "ore_and_alloy:raw_tin", "required": false },
     { "id": "ore_and_alloy:raw_titanium", "required": false },
+    { "id": "ore_and_alloy:raw_tungsten", "required": false },
     { "id": "ore_and_alloy:raw_uraninite", "required": false },
     { "id": "ore_and_alloy:raw_uranium", "required": false },
     { "id": "ore_and_alloy:raw_hemimorphite", "required": false },

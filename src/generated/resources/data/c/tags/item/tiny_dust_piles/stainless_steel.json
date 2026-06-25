@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:stainless_steel_tiny_dust_pile", "required": false }
+  ]
+}

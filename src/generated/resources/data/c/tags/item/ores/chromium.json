@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    { "id": "ore_and_alloy:chromium_ore", "required": false }
+    { "id": "ore_and_alloy:chromite_ore", "required": false }
   ]
 }

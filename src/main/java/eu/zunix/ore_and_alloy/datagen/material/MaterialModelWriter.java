@@ -41,7 +41,7 @@ public final class MaterialModelWriter {
         String parent = handheld ? "item/handheld" : "item/generated";
         boolean bareItem = eu.zunix.ore_and_alloy.core.MaterialItemOrder.bareItemForm(itemName).isPresent();
         String textureFolder = textureFolder(parsed.form());
-        String texture = bareItem && !"diamond".equals(parsed.form())
+        String texture = bareItem && !"gem".equals(parsed.form())
                 ? namespace + ":item/" + itemName
                 : namespace + ":item/" + textureFolder + "/" + itemName;
 
@@ -54,7 +54,7 @@ public final class MaterialModelWriter {
     private static String textureFolder(String form) {
         return switch (form) {
             case "raw" -> "raw_materials";
-            case "diamond" -> "gems";
+            case "gem", "diamond" -> "gems";
             default -> form;
         };
     }

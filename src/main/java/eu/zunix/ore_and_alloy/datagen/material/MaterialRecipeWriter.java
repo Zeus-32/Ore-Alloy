@@ -45,6 +45,8 @@ public final class MaterialRecipeWriter {
         Set<String> materialsWithIngot = new LinkedHashSet<>();
         Set<String> materialsWithBareBase = new LinkedHashSet<>();
         Set<String> materialsWithDust = new LinkedHashSet<>();
+        Set<String> materialsWithDustPile = new LinkedHashSet<>();
+        Set<String> materialsWithTinyDustPile = new LinkedHashSet<>();
         for (String itemName : materialItems) {
             MaterialId parsed = MaterialIdParser.parseItemId(itemName);
             materials.add(parsed.material());
@@ -54,6 +56,8 @@ public final class MaterialRecipeWriter {
                 materialsWithBareBase.add(parsed.material());
             }
             if ("dust".equals(parsed.form())) materialsWithDust.add(parsed.material());
+            if ("dust_pile".equals(parsed.form())) materialsWithDustPile.add(parsed.material());
+            if ("tiny_dust_pile".equals(parsed.form())) materialsWithTinyDustPile.add(parsed.material());
         }
 
         for (String material : materials) {
@@ -98,6 +102,151 @@ public final class MaterialRecipeWriter {
                     + "}";
             DatagenFiles.writeText(i2n, json2);
         }
+
+        writeDustPileBreakdownRecipes(
+                craftingRoot,
+                itemSet,
+                materials,
+                materialsWithDust,
+                materialsWithDustPile,
+                materialsWithTinyDustPile
+        );
+    }
+
+    private void writeDustPileBreakdownRecipes(
+            Path craftingRoot,
+            Set<String> itemSet,
+            Set<String> materials,
+            Set<String> materialsWithDust,
+            Set<String> materialsWithDustPile,
+            Set<String> materialsWithTinyDustPile
+    ) throws IOException {
+        for (String material : materials) {
+            if (materialsWithDust.contains(material) && materialsWithDustPile.contains(material)) {
+                String dustPath = MaterialIdParser.itemIdFor(material, "dust");
+                String dustPilePath = MaterialIdParser.itemIdFor(material, "dust_pile");
+                if (itemSet.contains(dustPath) && itemSet.contains(dustPilePath)) {
+                    DatagenFiles.writeText(
+                            craftingRoot.resolve(Path.of(dustPilePath, "from_dust.json")),
+                            centeredShapedBreakdownRecipeJson(
+                                    namespace + ":" + dustPath,
+                                    namespace + ":" + dustPilePath,
+                                    4
+                            )
+                    );
+                }
+            }
+
+            if (materialsWithDust.contains(material) && materialsWithTinyDustPile.contains(material)) {
+                String dustPath = MaterialIdParser.itemIdFor(material, "dust");
+                String tinyDustPilePath = MaterialIdParser.itemIdFor(material, "tiny_dust_pile");
+                if (itemSet.contains(dustPath) && itemSet.contains(tinyDustPilePath)) {
+                    DatagenFiles.writeText(
+                            craftingRoot.resolve(Path.of(tinyDustPilePath, "from_dust.json")),
+                            topLeftShapedBreakdownRecipeJson(
+                                    namespace + ":" + dustPath,
+                                    namespace + ":" + tinyDustPilePath,
+                                    9
+                            )
+                    );
+                }
+            }
+
+            if (materialsWithDust.contains(material) && materialsWithDustPile.contains(material)) {
+                String dustPath = MaterialIdParser.itemIdFor(material, "dust");
+                String dustPilePath = MaterialIdParser.itemIdFor(material, "dust_pile");
+                if (itemSet.contains(dustPath) && itemSet.contains(dustPilePath)) {
+                    DatagenFiles.writeText(
+                            craftingRoot.resolve(Path.of(dustPath, "from_dust_piles.json")),
+                            shapedCompactingRecipeJson(
+                                    namespace + ":" + dustPilePath,
+                                    namespace + ":" + dustPath,
+                                    new String[] { "##", "##" }
+                            )
+                    );
+                }
+            }
+
+            if (materialsWithDust.contains(material) && materialsWithTinyDustPile.contains(material)) {
+                String dustPath = MaterialIdParser.itemIdFor(material, "dust");
+                String tinyDustPilePath = MaterialIdParser.itemIdFor(material, "tiny_dust_pile");
+                if (itemSet.contains(dustPath) && itemSet.contains(tinyDustPilePath)) {
+                    DatagenFiles.writeText(
+                            craftingRoot.resolve(Path.of(dustPath, "from_tiny_dust_piles.json")),
+                            shapedCompactingRecipeJson(
+                                    namespace + ":" + tinyDustPilePath,
+                                    namespace + ":" + dustPath,
+                                    new String[] { "###", "###", "###" }
+                            )
+                    );
+                }
+            }
+        }
+    }
+
+    private static String centeredShapedBreakdownRecipeJson(String inputItem, String outputItem, int outputCount) {
+        return shapedBreakdownRecipeJson(
+                inputItem,
+                outputItem,
+                outputCount,
+                new String[] { "   ", " # ", "   " }
+        );
+    }
+
+    private static String topLeftShapedBreakdownRecipeJson(String inputItem, String outputItem, int outputCount) {
+        return shapedBreakdownRecipeJson(
+                inputItem,
+                outputItem,
+                outputCount,
+                new String[] { "#  ", "   ", "   " }
+        );
+    }
+
+    private static String shapedBreakdownRecipeJson(
+            String inputItem,
+            String outputItem,
+            int outputCount,
+            String[] pattern
+    ) {
+        return "{\n"
+                + "  \"neoforge:conditions\": [\n"
+                + "    { \"type\": \"neoforge:item_exists\", \"item\": \"" + inputItem + "\" },\n"
+                + "    { \"type\": \"neoforge:item_exists\", \"item\": \"" + outputItem + "\" }\n"
+                + "  ],\n"
+                + "  \"type\": \"minecraft:crafting_shaped\",\n"
+                + "  \"pattern\": [\n"
+                + "    \"" + pattern[0] + "\",\n"
+                + "    \"" + pattern[1] + "\",\n"
+                + "    \"" + pattern[2] + "\"\n"
+                + "  ],\n"
+                + "  \"key\": {\n"
+                + "    \"#\": { \"item\": \"" + inputItem + "\" }\n"
+                + "  },\n"
+                + "  \"result\": { \"id\": \"" + outputItem + "\", \"count\": " + outputCount + " }\n"
+                + "}";
+    }
+
+    private static String shapedCompactingRecipeJson(String inputItem, String outputItem, String[] pattern) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\n");
+        sb.append("  \"neoforge:conditions\": [\n");
+        sb.append("    { \"type\": \"neoforge:item_exists\", \"item\": \"").append(inputItem).append("\" },\n");
+        sb.append("    { \"type\": \"neoforge:item_exists\", \"item\": \"").append(outputItem).append("\" }\n");
+        sb.append("  ],\n");
+        sb.append("  \"type\": \"minecraft:crafting_shaped\",\n");
+        sb.append("  \"pattern\": [\n");
+        for (int i = 0; i < pattern.length; i++) {
+            sb.append("    \"").append(pattern[i]).append("\"");
+            if (i + 1 < pattern.length) sb.append(',');
+            sb.append('\n');
+        }
+        sb.append("  ],\n");
+        sb.append("  \"key\": {\n");
+        sb.append("    \"#\": { \"item\": \"").append(inputItem).append("\" }\n");
+        sb.append("  },\n");
+        sb.append("  \"result\": { \"id\": \"").append(outputItem).append("\", \"count\": 1 }\n");
+        sb.append("}");
+        return sb.toString();
     }
 
     private static String compactedBaseForm(
@@ -287,7 +436,7 @@ public final class MaterialRecipeWriter {
         Set<String> materialsWithCookedResult = new LinkedHashSet<>();
         for (String itemName : materialItems) {
             MaterialId parsed = MaterialIdParser.parseItemId(itemName);
-            if ("ingot".equals(parsed.form()) || "diamond".equals(parsed.form())) {
+            if ("ingot".equals(parsed.form()) || "gem".equals(parsed.form())) {
                 materialsWithCookedResult.add(parsed.material());
             }
         }
@@ -309,7 +458,7 @@ public final class MaterialRecipeWriter {
         }
 
         for (String material : materialsWithCookedResult) {
-            String resultForm = itemSet.contains(MaterialIdParser.itemIdFor(material, "ingot")) ? "ingot" : "diamond";
+            String resultForm = itemSet.contains(MaterialIdParser.itemIdFor(material, "ingot")) ? "ingot" : "gem";
             String outputResultId = MaterialIdParser.itemIdFor(material, resultForm);
             String outputResult = namespace + ":" + outputResultId;
             String group = outputResultId;

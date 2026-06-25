@@ -59,8 +59,7 @@ final class ViewerAliasRuleEngine {
     );
 
     private static final Map<String, String> MATERIAL_SYNONYMS = Map.ofEntries(
-            Map.entry("aluminium", "aluminum"),
-            Map.entry("aluminum", "aluminium")
+            Map.entry("aluminium", "aluminum")
     );
 
     private ViewerAliasRuleEngine() {}

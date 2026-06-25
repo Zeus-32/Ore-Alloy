@@ -3,18 +3,26 @@ package eu.zunix.ore_and_alloy.core;
 
 public enum MaterialForm {
     INGOT(false),
+    HOT_INGOT(false),
     NUGGET(false),
     DUST(false),
+    DUST_PILE(false),
+    TINY_DUST_PILE(false),
     PLATE(false),
+    DOUBLE_PLATE(false),
     ROD(true),
+    LONG_ROD(true),
     GEAR(false),
+    SMALL_GEAR(false),
     BOLT(false),
     SCREW(false),
     CRUSHED(false),
     ORE(false),
     RAW(false),
+
     SILICON(false),
-    DIAMOND(false);
+    GEM(false),
+    GLASS(false);
 
     private final boolean handheld;
 

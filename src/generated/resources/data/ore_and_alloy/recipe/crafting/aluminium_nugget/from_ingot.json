@@ -1,9 +1,0 @@
-{
-  "neoforge:conditions": [
-    { "type": "neoforge:item_exists", "item": "ore_and_alloy:aluminium_nugget" },
-    { "type": "neoforge:item_exists", "item": "ore_and_alloy:aluminium_ingot" }
-  ],
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [ { "item": "ore_and_alloy:aluminium_ingot" } ],
-  "result": { "id": "ore_and_alloy:aluminium_nugget", "count": 9 }
-}

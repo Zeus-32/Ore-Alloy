@@ -114,7 +114,7 @@ public final class MaterialItemCollector {
                     }
                 });
             }
-            if (forms.contains("diamond")) {
+            if (forms.contains("gem")) {
                 MetalMaterial.fromToken(entry.getKey()).ifPresent(metal -> {
                     for (MaterialForm form : metal.getForms()) {
                         String formToken = form.name().toLowerCase(Locale.ROOT);

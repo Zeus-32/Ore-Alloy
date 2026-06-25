@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:aluminum_hot_ingot", "required": false },
+    { "id": "ore_and_alloy:chromium_hot_ingot", "required": false },
+    { "id": "ore_and_alloy:cobalt_hot_ingot", "required": false },
+    { "id": "ore_and_alloy:iridium_hot_ingot", "required": false },
+    { "id": "ore_and_alloy:naquadah_hot_ingot", "required": false },
+    { "id": "ore_and_alloy:osmium_hot_ingot", "required": false },
+    { "id": "ore_and_alloy:platinum_hot_ingot", "required": false },
+    { "id": "ore_and_alloy:pure_netherite_hot_ingot", "required": false },
+    { "id": "ore_and_alloy:titanium_hot_ingot", "required": false },
+    { "id": "ore_and_alloy:tungsten_hot_ingot", "required": false }
+  ]
+}

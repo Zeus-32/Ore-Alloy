@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:pure_netherite_small_gear", "required": false }
+  ]
+}

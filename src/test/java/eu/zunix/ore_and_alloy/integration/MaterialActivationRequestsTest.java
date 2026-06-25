@@ -15,8 +15,8 @@ class MaterialActivationRequestsTest {
 
     @Test
     void aliasesAndDuplicatesAreHandled() {
-        assertTrue(MaterialActivationRequests.request("aluminium"));
-        assertFalse(MaterialActivationRequests.request("aluminum"));
+        assertTrue(MaterialActivationRequests.request("aluminum"));
+        assertFalse(MaterialActivationRequests.request("aluminium"));
         assertTrue(MaterialActivationRequests.requestedMaterials().contains("aluminum"));
     }
 

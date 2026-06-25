@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:platinum_dust" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:platinum_tiny_dust_pile" }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "   ",
+    "   "
+  ],
+  "key": {
+    "#": { "item": "ore_and_alloy:platinum_dust" }
+  },
+  "result": { "id": "ore_and_alloy:platinum_tiny_dust_pile", "count": 9 }
+}
