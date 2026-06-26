@@ -348,37 +348,6 @@ public final class MaterialRecipeWriter {
             DatagenFiles.writeText(b2i, itemsFromStorage);
         }
 
-        writePureNetheriteConversionRecipes(craftingRoot, storageBlockBaseForms);
-    }
-
-    private void writePureNetheriteConversionRecipes(
-            Path craftingRoot,
-            Map<String, String> storageBlockBaseForms
-    ) throws IOException {
-        if (!storageBlockBaseForms.containsKey("pure_netherite")) return;
-
-        String pureIngot = namespace + ":pure_netherite_ingot";
-        String pureBlock = namespace + ":pure_netherite_block";
-
-        DatagenFiles.writeText(
-                craftingRoot.resolve(Path.of("pure_netherite_ingot", "from_netherite_ingot.json")),
-                conversionRecipeJson("minecraft:netherite_ingot", pureIngot, 1)
-        );
-        DatagenFiles.writeText(
-                craftingRoot.resolve(Path.of("pure_netherite_block", "from_netherite_block.json")),
-                conversionRecipeJson("minecraft:netherite_block", pureBlock, 1)
-        );
-    }
-
-    private static String conversionRecipeJson(String inputItem, String outputItem, int count) {
-        return "{\n"
-                + "  \"neoforge:conditions\": [\n"
-                + "    { \"type\": \"neoforge:item_exists\", \"item\": \"" + outputItem + "\" }\n"
-                + "  ],\n"
-                + "  \"type\": \"minecraft:crafting_shapeless\",\n"
-                + "  \"ingredients\": [ { \"item\": \"" + inputItem + "\" } ],\n"
-                + "  \"result\": { \"id\": \"" + outputItem + "\", \"count\": " + count + " }\n"
-                + "}";
     }
 
     private static void writeVanillaStorageOverrideRecipes(

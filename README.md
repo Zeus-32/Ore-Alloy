@@ -2,7 +2,7 @@
 
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-62B47A?style=flat-square)](https://www.minecraft.net/)
 [![NeoForge](https://img.shields.io/badge/NeoForge-21.1.229+-E68A2E?style=flat-square)](https://neoforged.net/)
-[![Version](https://img.shields.io/badge/version-1.0.9--b-4C8BF5?style=flat-square)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.0.11-4C8BF5?style=flat-square)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-mixed-blue?style=flat-square)](LICENCE.md)
 
 Ore & Alloy is a focused material registry and enforced unification foundation for NeoForge modpacks.
@@ -13,8 +13,8 @@ It provides canonical ores, raw and crushed materials, ingots, nuggets, dusts, p
 
 ## Core behavior
 
-- Iron, gold, and copper are always available.
-- Additional materials activate only when a known provider mod is installed.
+- Iron, gold, copper, and diamond are available by default.
+- Additional materials activate only when a compatible material source is installed.
 - Ore, raw, and crushed variants are defined centrally by `RawMaterialMappings`.
 - Shared `c:` tags keep equivalent materials interoperable.
 - Recipe inputs and outputs are rewritten to the canonical Ore & Alloy representation.
@@ -22,54 +22,71 @@ It provides canonical ores, raw and crushed materials, ingots, nuggets, dusts, p
 - Duplicate external entries are hidden in JEI and EMI.
 - Periodic material symbols are shown directly in item tooltips.
 
-Material activation is automatic from installed provider mods. KubeJS startup scripts can explicitly activate additional supported materials.
+Material activation is automatic from compatible material sources. KubeJS startup scripts can explicitly activate additional supported materials.
 
-## Supported materials
+## Supported Materials
 
-The texture catalog is the authoritative supported-material list. Iron, gold, copper, diamond, and pure netherite are always active. Every other material is activated when at least one known material provider mod is installed.
+The texture catalog is the authoritative supported-material list. Iron, gold, copper, and diamond are available by default. External-source materials activate when a compatible material mod is installed. Custom materials, such as Pure Netherite, stay separate from vanilla Minecraft netherite and can be activated by an explicit request or a dedicated external source.
 
-| Material | Type | Raw/ore variants | Provider mods |
+### Ore-Bearing Materials
+
+| Material | Variants used by O&A | Availability |
+|---|---|---|
+| Iron | `iron`, `hematite`, `magnetite`, `limonite` | Built in |
+| Gold | `gold`, `sylvanite` | Built in |
+| Copper | `chalcopyrite`, `malachite`, `bornite`, `copper` | Built in |
+| Tin | `cassiterite`, `tin` | External source |
+| Lead | `galena`, `lead` | External source |
+| Silver | `silver` | External source |
+| Nickel | `pentlandite`, `garnierite` | External source |
+| Zinc | `sphalerite`, `hemimorphite` | External source |
+| Aluminum | `bauxite`, `cryolite` | External source |
+| Osmium | `osmium` | External source |
+| Uranium | `uranium`, `uraninite` | External source |
+| Cobalt | `cobaltite` | External source |
+| Titanium | `titanium` | External source |
+| Chromium | `chromite` | External source |
+| Platinum | `platinum`, `sperrylite` | External source |
+| Iridium | `iridium` | External source |
+| Antimony | `antimony` | External source |
+| Lithium | `lithium` | External source |
+| Tungsten | `tungsten` | External source |
+
+### Gems
+
+| Material | Type | Notes | Availability |
 |---|---|---|---|
-| Iron | Metal | `iron`, `hematite`, `magnetite`, `limonite` | Minecraft |
-| Gold | Metal | `gold`, `sylvanite` | Minecraft |
-| Copper | Metal | `chalcopyrite`, `malachite`, `bornite`, `copper` | Minecraft |
-| Tin | Metal | `cassiterite`, `tin` | Known provider set |
-| Lead | Metal | `galena`, `lead` | Known provider set |
-| Silver | Metal | `silver` | Known provider set |
-| Nickel | Metal | `pentlandite`, `garnierite` | Known provider set |
-| Zinc | Metal | `sphalerite`, `hemimorphite` | Known provider set |
-| Aluminum | Metal | `bauxite`, `cryolite` | Known provider set |
-| Osmium | Metal | `osmium` | Known provider set |
-| Uranium | Metal | `uranium`, `uraninite` | Known provider set |
-| Cobalt | Metal | `cobaltite` | Known provider set |
-| Titanium | Metal | `titanium` | Known provider set |
-| Chromium | Metal | `chromite` | Known provider set |
-| Platinum | Metal | `platinum`, `sperrylite` | Known provider set |
-| Iridium | Metal | `iridium` | Known provider set |
-| Antimony | Metal | — | Known provider set |
-| Lithium | Metal | — | Known provider set |
-| Tungsten | Metal | — | Known provider set |
-| Silicon | Material | — | Known provider set |
-| Diamond | Gem | - | Minecraft |
-| Steel | Alloy | — | Known provider set |
-| Stainless Steel | Alloy | — | Known provider set |
-| Brass | Alloy | — | Known provider set |
-| Bronze | Alloy | — | Known provider set |
-| Cupronickel | Alloy | — | Known provider set |
-| Electrum | Alloy | — | Known provider set |
-| Invar | Alloy | — | Known provider set |
-| Constantan | Alloy | — | Known provider set |
-| Wrought Iron | Alloy | — | Known provider set |
-| Enderium | Alloy | — | Known provider set |
-| Lumium | Alloy | — | Known provider set |
-| Signalum | Alloy | - | Known provider set |
-| Rose Gold | Alloy | - | Known provider set |
-| Naquadah | Alloy | — | Known provider set |
-| Pure Netherite | Alloy | - | Minecraft |
-| Red Alloy | Alloy | — | Known provider set |
-| Soul Infused | Alloy | — | Known provider set |
+| Diamond | Gem | Bare item `ore_and_alloy:diamond`; gem-based material forms | Built in |
 
-The catalog contains 38 material names. Ore-bearing metals provide ore, raw, crushed, ingot, nugget, dust, plate, rod, gear, bolt, screw, and storage-block forms. Silicon is registered as the bare item `ore_and_alloy:silicon` and unified through `c:silicon`; it is not an ingot and has no storage block. Diamond is registered as the bare item `ore_and_alloy:diamond` and unified through `c:gems/diamond`; it is not an ingot, but its storage and nugget recipes use the base gem item. Pure Netherite is always active and is crafted from vanilla Minecraft netherite items.
+### Special Materials
+
+| Material | Type | Notes | Availability |
+|---|---|---|---|
+| Silicon | Material | Bare item `ore_and_alloy:silicon`; no ingot or storage block | External source |
+| Pure Netherite | Alloy | Fully custom material, separate from vanilla Minecraft netherite | Dedicated external source or explicit request |
+
+### Alloys
+
+| Material | Forms | Availability |
+|---|---|---|
+| Steel | Standard alloy forms | External source |
+| Stainless Steel | Standard alloy forms | External source |
+| Brass | Standard alloy forms | External source |
+| Bronze | Standard alloy forms | External source |
+| Cupronickel | Standard alloy forms | External source |
+| Electrum | Standard alloy forms | External source |
+| Invar | Standard alloy forms | External source |
+| Constantan | Standard alloy forms | External source |
+| Wrought Iron | Standard alloy forms | External source |
+| Enderium | Standard alloy forms | External source |
+| Lumium | Standard alloy forms | External source |
+| Signalum | Standard alloy forms | External source |
+| Rose Gold | Standard alloy forms | External source |
+| Naquadah | Hot alloy forms | External source |
+| Red Alloy | Standard alloy forms | External source |
+| Soul Infused | Standard alloy forms | External source |
+
+The catalog contains 38 material names. Ore-bearing metals provide ore, raw, crushed, ingot, nugget, dust, plate, rod, gear, bolt, screw, and storage-block forms.
 
 ## KubeJS registration
 
@@ -94,6 +111,43 @@ OreAndAlloy.registry(event => {
 Every material name from the supported-material table is available as a global startup-script constant. Quoted names such as `event.reg('aluminum')` are also accepted.
 
 Registration runs only during startup. Changes require a full game restart; `/reload` cannot modify item or block registries. Unknown material names produce a startup-script error.
+
+## Gradle Dependency
+
+Ore & Alloy publishes as a normal Maven artifact:
+
+```text
+eu.zunix.ore_and_alloy:ore_and_alloy:<version>
+```
+To add Ore & Alloy as a dependency, include the Maven repository and dependency in your `build.gradle` file:
+
+```groovy
+repositories {
+    maven {
+        name = "Ore & Alloy Maven"
+        url = uri("https://maven.zunix.eu/repo")
+        content {
+            includeGroup "eu.zunix.ore_and_alloy"
+        }
+    }
+}
+```
+
+Then add the dependency to your project. The following examples show how to include Ore & Alloy in different types of projects:
+
+```groovy
+dependencies {
+    // NeoForge
+    implementation "eu.zunix.ore_and_alloy:ore_and_alloy:1.0.11"
+
+    // ForgeGradle-style projects
+    implementation fg.deobf("eu.zunix.ore_and_alloy:ore_and_alloy:1.0.11")
+
+    // Architectury Loom-style projects
+    modImplementation "eu.zunix.ore_and_alloy:ore_and_alloy:1.0.11"
+}
+```
+
 
 ## Optional integrations
 

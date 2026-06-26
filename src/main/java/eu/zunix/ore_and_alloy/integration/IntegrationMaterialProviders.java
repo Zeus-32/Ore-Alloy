@@ -15,8 +15,7 @@ final class IntegrationMaterialProviders {
             MetalMaterial.IRON,
             MetalMaterial.GOLD,
             MetalMaterial.COPPER,
-            MetalMaterial.DIAMOND,
-            MetalMaterial.PURE_NETHERITE
+            MetalMaterial.DIAMOND
     );
 
     private static final Set<String> COMMON_PROVIDER_MODS = set(
@@ -40,6 +39,11 @@ final class IntegrationMaterialProviders {
             "ftbmaterials"
     );
 
+    private static final Set<String> PURE_NETHERITE_PROVIDER_MODS = set(
+            "tgecore",
+            "tge_core"
+    );
+
     static final Map<MetalMaterial, Set<String>> METAL_PROVIDER_MODS = buildMetalProviders();
 
     private IntegrationMaterialProviders() {}
@@ -48,6 +52,10 @@ final class IntegrationMaterialProviders {
         Map<MetalMaterial, Set<String>> map = new EnumMap<>(MetalMaterial.class);
 
         for (MetalMaterial material : MetalMaterial.values()) {
+            if (material == MetalMaterial.PURE_NETHERITE) {
+                map.put(material, PURE_NETHERITE_PROVIDER_MODS);
+                continue;
+            }
             if (!VANILLA_METALS.contains(material)) {
                 map.put(material, COMMON_PROVIDER_MODS);
             }

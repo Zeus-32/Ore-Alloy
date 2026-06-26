@@ -31,6 +31,10 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
+java {
+    withSourcesJar()
+}
+
 
 runs {
     configureEach {
@@ -149,8 +153,14 @@ publishing {
 
     repositories {
         maven {
-            name = 'localProject'
-            url = uri("${project.projectDir}/repo")
+            name = findProperty('oreAndAlloyMavenName') ?: 'localProject'
+            url = uri(findProperty('oreAndAlloyMavenUrl') ?: "${project.projectDir}/repo")
+            if (findProperty('oreAndAlloyMavenUser') && findProperty('oreAndAlloyMavenPassword')) {
+                credentials {
+                    username = findProperty('oreAndAlloyMavenUser')
+                    password = findProperty('oreAndAlloyMavenPassword')
+                }
+            }
         }
     }
 }

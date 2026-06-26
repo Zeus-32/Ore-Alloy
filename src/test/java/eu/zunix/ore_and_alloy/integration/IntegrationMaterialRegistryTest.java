@@ -23,9 +23,9 @@ class IntegrationMaterialRegistryTest {
         assertTrue(IntegrationMaterialRegistry.isMetalEnabled(MetalMaterial.IRON));
         assertTrue(IntegrationMaterialRegistry.isMetalEnabled(MetalMaterial.GOLD));
         assertTrue(IntegrationMaterialRegistry.isMetalEnabled(MetalMaterial.COPPER));
-        assertTrue(IntegrationMaterialRegistry.isMetalEnabled(MetalMaterial.PURE_NETHERITE));
         assertFalse(IntegrationMaterialRegistry.isMetalEnabled(MetalMaterial.ALUMINUM));
         assertFalse(IntegrationMaterialRegistry.isMetalEnabled(MetalMaterial.OSMIUM));
+        assertFalse(IntegrationMaterialRegistry.isMetalEnabled(MetalMaterial.PURE_NETHERITE));
     }
 
     @Test
@@ -48,6 +48,13 @@ class IntegrationMaterialRegistryTest {
             Set<String> providers = IntegrationMaterialProviders.METAL_PROVIDER_MODS.get(material);
             if (IntegrationMaterialProviders.VANILLA_METALS.contains(material)) {
                 assertTrue(providers == null || providers.isEmpty());
+                continue;
+            }
+            if (material == MetalMaterial.PURE_NETHERITE) {
+                assertTrue(providers.contains("tgecore"));
+                assertTrue(providers.contains("tge_core"));
+                assertFalse(providers.contains("minecraft"));
+                assertFalse(providers.contains("create"));
                 continue;
             }
 

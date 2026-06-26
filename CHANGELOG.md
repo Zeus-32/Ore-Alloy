@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.0.11] - 2026-06-26
+
+### Fixed
+- Recipe cleanup no longer removes legitimate foreign recipes that produce the same canonical result with different inputs.
+
+## [1.0.10] - 2026-06-25
+
+### Fixed
+- Pure Netherite is no longer activated by vanilla Minecraft netherite presence; it now uses a dedicated external-source lookup or explicit request.
+
+### Changed
+- Added sources jar publishing and documented Maven dependency coordinates for importing Ore & Alloy from another mod project.
+
 ## [1.0.9-b] - 2026-06-25
 
 ### Changed

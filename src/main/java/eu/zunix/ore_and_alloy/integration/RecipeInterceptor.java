@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -22,6 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 public final class RecipeInterceptor {
     private static volatile Field recipeManagerRegistriesField;
@@ -129,7 +131,46 @@ public final class RecipeInterceptor {
 
         ResourceLocation resultId = BuiltInRegistries.ITEM.getKey(result.getItem());
         if (resultId == null || result.getItem() == Items.AIR) return null;
-        return new RecipeCollisionKey(typeId, resultId, Math.max(1, result.getCount()));
+        List<String> ingredients = ingredientSignature(recipe);
+        if (ingredients.isEmpty()) return null;
+
+        return new RecipeCollisionKey(typeId, resultId, Math.max(1, result.getCount()), ingredients);
+    }
+
+    static List<String> ingredientSignature(Recipe<?> recipe) {
+        return ingredientSignature(recipe.getIngredients());
+    }
+
+    static List<String> ingredientSignature(List<Ingredient> ingredients) {
+        List<List<String>> rawChoices = new ArrayList<>();
+        for (Ingredient ingredient : ingredients) {
+            ItemStack[] stacks = ingredient.getItems();
+            List<String> choices = new ArrayList<>();
+            for (ItemStack stack : stacks) {
+                if (stack == null || stack.isEmpty()) continue;
+                ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
+                if (itemId == null || stack.getItem() == Items.AIR) continue;
+                choices.add(itemId.toString());
+            }
+            rawChoices.add(choices);
+        }
+        return normalizedIngredientSignature(rawChoices);
+    }
+
+    static List<String> normalizedIngredientSignature(List<List<String>> rawChoices) {
+        List<String> out = new ArrayList<>();
+        for (List<String> rawChoice : rawChoices) {
+            TreeSet<String> choices = new TreeSet<>();
+            for (String value : rawChoice) {
+                if (value == null || value.isBlank()) continue;
+                choices.add(value);
+            }
+            if (!choices.isEmpty()) {
+                out.add(String.join("|", choices));
+            }
+        }
+        out.sort(String::compareTo);
+        return List.copyOf(out);
     }
 
     private static HolderLookup.Provider resolveRecipeRegistries(RecipeManager recipeManager) {
@@ -156,5 +197,10 @@ public final class RecipeInterceptor {
         return null;
     }
 
-    private record RecipeCollisionKey(ResourceLocation recipeTypeId, ResourceLocation resultItemId, int resultCount) {}
+    private record RecipeCollisionKey(
+            ResourceLocation recipeTypeId,
+            ResourceLocation resultItemId,
+            int resultCount,
+            List<String> ingredients
+    ) {}
 }

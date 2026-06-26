@@ -94,6 +94,17 @@ class MaterialRecipeWriterTest {
     }
 
     @Test
+    void pureNetheriteDoesNotAutoConvertFromMinecraftNetherite() throws Exception {
+        MaterialRecipeWriter writer = new MaterialRecipeWriter(tempDir, "ore_and_alloy");
+        writer.writeStorageBlockRecipes(Map.of("pure_netherite", "ingot"));
+
+        assertFalse(Files.exists(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/pure_netherite_ingot/from_netherite_ingot.json")));
+        assertFalse(Files.exists(tempDir.resolve(
+                "data/ore_and_alloy/recipe/crafting/pure_netherite_block/from_netherite_block.json")));
+    }
+
+    @Test
     void dustBreakdownRecipesAreShaped() throws Exception {
         MaterialRecipeWriter writer = new MaterialRecipeWriter(tempDir, "ore_and_alloy");
         writer.writeCompactingRecipes(List.of(
