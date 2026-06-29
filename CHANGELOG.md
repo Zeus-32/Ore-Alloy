@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.0.12-c] - 2026-06-26
+
+### Changed
+- Updated `crushed materials` textures.
+
 ## [1.0.12] - 2026-06-26
 
 ### Added

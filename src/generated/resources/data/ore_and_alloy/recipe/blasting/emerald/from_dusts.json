@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:emerald" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:dusts/emerald" }
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "emerald",
+  "ingredient": { "tag": "c:dusts/emerald" },
+  "result": { "id": "ore_and_alloy:emerald" },
+  "experience": 0.7,
+  "cookingtime": 100
+}

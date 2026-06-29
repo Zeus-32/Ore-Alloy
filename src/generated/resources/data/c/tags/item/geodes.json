@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:apatite_geode", "required": false },
+    { "id": "ore_and_alloy:certus_quartz_geode", "required": false },
+    { "id": "ore_and_alloy:diamond_geode", "required": false },
+    { "id": "ore_and_alloy:emerald_geode", "required": false },
+    { "id": "ore_and_alloy:ruby_geode", "required": false },
+    { "id": "ore_and_alloy:sapphire_geode", "required": false },
+    { "id": "ore_and_alloy:topaz_geode", "required": false }
+  ]
+}

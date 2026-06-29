@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:creosote", "required": false },
+    { "id": "ore_and_alloy:flowing_creosote", "required": false }
+  ]
+}

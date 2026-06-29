@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_ruby_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_ruby_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_ruby_ore", "required": false },
+    { "id": "ore_and_alloy:end_ruby_ore", "required": false },
+    { "id": "ore_and_alloy:granite_ruby_ore", "required": false },
+    { "id": "ore_and_alloy:nether_ruby_ore", "required": false },
+    { "id": "ore_and_alloy:ruby_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_ruby_ore", "required": false }
+  ]
+}

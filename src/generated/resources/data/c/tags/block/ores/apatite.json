@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_apatite_ore", "required": false },
+    { "id": "ore_and_alloy:apatite_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_apatite_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_apatite_ore", "required": false },
+    { "id": "ore_and_alloy:end_apatite_ore", "required": false },
+    { "id": "ore_and_alloy:granite_apatite_ore", "required": false },
+    { "id": "ore_and_alloy:nether_apatite_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_apatite_ore", "required": false }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:liquid_enderium", "required": false },
+    { "id": "ore_and_alloy:flowing_liquid_enderium", "required": false }
+  ]
+}

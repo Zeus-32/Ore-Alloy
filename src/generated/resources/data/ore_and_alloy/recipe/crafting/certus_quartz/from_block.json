@@ -1,0 +1,9 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:certus_quartz" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:certus_quartz_block" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [ { "item": "ore_and_alloy:certus_quartz_block" } ],
+  "result": { "id": "ore_and_alloy:certus_quartz", "count": 9 }
+}

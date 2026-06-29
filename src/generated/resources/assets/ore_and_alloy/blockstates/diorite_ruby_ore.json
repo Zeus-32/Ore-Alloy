@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "ore_and_alloy:block/diorite_ruby_ore" }
+  }
+}

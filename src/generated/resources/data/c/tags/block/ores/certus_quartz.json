@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_certus_quartz_ore", "required": false },
+    { "id": "ore_and_alloy:certus_quartz_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_certus_quartz_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_certus_quartz_ore", "required": false },
+    { "id": "ore_and_alloy:end_certus_quartz_ore", "required": false },
+    { "id": "ore_and_alloy:granite_certus_quartz_ore", "required": false },
+    { "id": "ore_and_alloy:nether_certus_quartz_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_certus_quartz_ore", "required": false }
+  ]
+}

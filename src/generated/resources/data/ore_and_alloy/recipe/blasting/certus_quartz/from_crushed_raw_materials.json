@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:certus_quartz" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:crushed_raw_materials/certus_quartz" }
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "certus_quartz",
+  "ingredient": { "tag": "c:crushed_raw_materials/certus_quartz" },
+  "result": { "id": "ore_and_alloy:certus_quartz" },
+  "experience": 0.7,
+  "cookingtime": 100
+}

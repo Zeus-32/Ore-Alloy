@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:liquid_nickel", "required": false },
+    { "id": "ore_and_alloy:flowing_liquid_nickel", "required": false }
+  ]
+}

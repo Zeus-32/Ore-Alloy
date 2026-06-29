@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "ore_and_alloy:block/granite_ruby_ore" }
+  }
+}

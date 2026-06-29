@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:topaz" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:crushed_raw_materials/topaz" }
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "topaz",
+  "ingredient": { "tag": "c:crushed_raw_materials/topaz" },
+  "result": { "id": "ore_and_alloy:topaz" },
+  "experience": 0.7,
+  "cookingtime": 100
+}

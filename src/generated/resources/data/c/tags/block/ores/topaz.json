@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_topaz_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_topaz_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_topaz_ore", "required": false },
+    { "id": "ore_and_alloy:end_topaz_ore", "required": false },
+    { "id": "ore_and_alloy:granite_topaz_ore", "required": false },
+    { "id": "ore_and_alloy:nether_topaz_ore", "required": false },
+    { "id": "ore_and_alloy:topaz_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_topaz_ore", "required": false }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:andesite_sapphire_ore", "required": false },
+    { "id": "ore_and_alloy:deepslate_sapphire_ore", "required": false },
+    { "id": "ore_and_alloy:diorite_sapphire_ore", "required": false },
+    { "id": "ore_and_alloy:end_sapphire_ore", "required": false },
+    { "id": "ore_and_alloy:granite_sapphire_ore", "required": false },
+    { "id": "ore_and_alloy:nether_sapphire_ore", "required": false },
+    { "id": "ore_and_alloy:sapphire_ore", "required": false },
+    { "id": "ore_and_alloy:tuff_sapphire_ore", "required": false }
+  ]
+}

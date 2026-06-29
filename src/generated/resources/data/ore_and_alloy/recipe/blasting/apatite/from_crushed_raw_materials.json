@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:apatite" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:crushed_raw_materials/apatite" }
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "apatite",
+  "ingredient": { "tag": "c:crushed_raw_materials/apatite" },
+  "result": { "id": "ore_and_alloy:apatite" },
+  "experience": 0.7,
+  "cookingtime": 100
+}

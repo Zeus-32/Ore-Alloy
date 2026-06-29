@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:ruby" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:raw_materials/ruby" }
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "group": "ruby",
+  "ingredient": { "tag": "c:raw_materials/ruby" },
+  "result": { "id": "ore_and_alloy:ruby" },
+  "experience": 0.7,
+  "cookingtime": 200
+}

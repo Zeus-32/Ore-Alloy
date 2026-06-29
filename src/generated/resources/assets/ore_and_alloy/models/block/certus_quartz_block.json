@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "ore_and_alloy:block/storage/certus_quartz_block"
+  }
+}
