@@ -1,7 +1,9 @@
 package eu.zunix.ore_and_alloy.registry.discovery;
 
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
+import eu.zunix.ore_and_alloy.core.DustOnlyMaterials;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
+import eu.zunix.ore_and_alloy.core.StandaloneMaterialItems;
 import eu.zunix.ore_and_alloy.integration.IntegrationMaterialRegistry;
 
 import java.io.IOException;
@@ -37,7 +39,15 @@ final class MaterialManifestReader {
                 if (!VALID_ITEM_ID.matcher(trimmed).matches()) {
                     continue;
                 }
+                if (StandaloneMaterialItems.byId(trimmed).isPresent()) {
+                    ids.add(trimmed);
+                    continue;
+                }
                 MaterialItemIdUtil.ParsedId parsed = MaterialItemIdUtil.parseItemId(trimmed);
+                if (parsed != null && DustOnlyMaterials.isSupported(parsed.material(), parsed.form())) {
+                    ids.add(trimmed);
+                    continue;
+                }
                 if (parsed == null || !IntegrationMaterialRegistry.isMaterialEnabled(parsed.material())) {
                     continue;
                 }

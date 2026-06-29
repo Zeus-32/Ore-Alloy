@@ -47,7 +47,13 @@ class PeriodicMaterialSymbolResolverTest {
             Map.entry("soul_infused", "Fe2NiSi3O6"),
             Map.entry("tungsten", "W"),
             Map.entry("silicon", "Si"),
-            Map.entry("diamond", "C")
+            Map.entry("diamond", "C"),
+            Map.entry("ruby", "Al2O3Cr"),
+            Map.entry("sapphire", "Al2O3"),
+            Map.entry("emerald", "Be3Al2Si6O18"),
+            Map.entry("topaz", "Al2SiO4F2"),
+            Map.entry("apatite", "Ca5(PO4)3F"),
+            Map.entry("certus_quartz", "SiO2")
     );
 
     @Test
@@ -90,7 +96,7 @@ class PeriodicMaterialSymbolResolverTest {
 
     private static String itemIdFor(String materialName) {
         return switch (materialName) {
-            case "silicon", "diamond" -> materialName;
+            case "silicon", "diamond", "ruby", "sapphire", "emerald", "topaz", "apatite", "certus_quartz" -> materialName;
             default -> materialName + "_ingot";
         };
     }

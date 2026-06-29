@@ -18,14 +18,17 @@ public final class MaterialFormCatalog {
             "nugget",
             "plate",
             "double_plate",
+            "foil",
             "rod",
             "long_rod",
+            "wire",
             "small_gear",
             "gear",
             "bolt",
             "screw",
             "silicon",
             "gem",
+            "geode",
             "diamond"
     );
 
@@ -44,8 +47,10 @@ public final class MaterialFormCatalog {
             Map.entry("dust_pile", "dust_piles"),
             Map.entry("plate", "plates"),
             Map.entry("double_plate", "double_plates"),
+            Map.entry("foil", "foils"),
             Map.entry("rod", "rods"),
             Map.entry("long_rod", "long_rods"),
+            Map.entry("wire", "wires"),
             Map.entry("gear", "gears"),
             Map.entry("small_gear", "small_gears"),
             Map.entry("bolt", "bolts"),
@@ -56,6 +61,7 @@ public final class MaterialFormCatalog {
             Map.entry("block", "storage_blocks"),
             Map.entry("silicon", "silicon"),
             Map.entry("gem", "gems"),
+            Map.entry("geode", "geodes"),
             Map.entry("diamond", "gems")
     );
 
@@ -69,8 +75,10 @@ public final class MaterialFormCatalog {
             Map.entry("plates", "plate"),
             Map.entry("sheets", "plate"),
             Map.entry("double_plates", "double_plate"),
+            Map.entry("foils", "foil"),
             Map.entry("rods", "rod"),
             Map.entry("long_rods", "long_rod"),
+            Map.entry("wires", "wire"),
             Map.entry("gears", "gear"),
             Map.entry("small_gears", "small_gear"),
             Map.entry("bolts", "bolt"),
@@ -83,10 +91,11 @@ public final class MaterialFormCatalog {
             Map.entry("raws", "raw"),
             Map.entry("storage_blocks", "block"),
             Map.entry("silicon", "silicon"),
-            Map.entry("gems", "gem")
+            Map.entry("gems", "gem"),
+            Map.entry("geodes", "geode")
     );
 
-    public static final Set<String> HANDHELD_FORMS = Set.of("rod", "long_rod");
+    public static final Set<String> HANDHELD_FORMS = Set.of("rod", "long_rod", "wire");
 
     public static final Set<String> METAL_SET_FORMS = Set.of(
             "ingot",
@@ -94,8 +103,10 @@ public final class MaterialFormCatalog {
             "nugget",
             "plate",
             "double_plate",
+            "foil",
             "rod",
             "long_rod",
+            "wire",
             "dust",
             "tiny_dust_pile",
             "dust_pile",

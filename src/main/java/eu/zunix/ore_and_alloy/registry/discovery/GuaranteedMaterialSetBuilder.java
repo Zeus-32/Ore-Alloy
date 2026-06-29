@@ -5,6 +5,7 @@ import eu.zunix.ore_and_alloy.core.MaterialForm;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
 import eu.zunix.ore_and_alloy.core.MetalMaterial;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
+import eu.zunix.ore_and_alloy.core.StandaloneMaterialItems;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -20,6 +21,10 @@ final class GuaranteedMaterialSetBuilder {
         Set<String> out = new TreeSet<>();
 
         for (String id : base) {
+            if (StandaloneMaterialItems.byId(id).isPresent()) {
+                out.add(id);
+                continue;
+            }
             MaterialItemIdUtil.ParsedId parsed = MaterialItemIdUtil.parseItemId(id);
             if (parsed == null) {
                 continue;

@@ -3,6 +3,7 @@ package eu.zunix.ore_and_alloy.datagen;
 import eu.zunix.ore_and_alloy.datagen.lang.OALangGenerator;
 import eu.zunix.ore_and_alloy.datagen.material.DatagenFiles;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialItemCollector;
+import eu.zunix.ore_and_alloy.datagen.material.MaterialFluidDataWriter;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialModelWriter;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialOreBlockWriter;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialRecipeWriter;
@@ -34,6 +35,7 @@ public final class MaterialDataGenerator {
 
             MaterialModelWriter modelWriter = new MaterialModelWriter(OUT, NAMESPACE);
             modelWriter.writeMaterialItemModels(materialItems);
+            new MaterialFluidDataWriter(OUT, MAIN_RES, NAMESPACE).writeFluidData();
 
             MaterialOreBlockWriter oreBlockWriter = new MaterialOreBlockWriter(OUT, MAIN_RES, NAMESPACE);
             List<String> rawVariants = oreBlockWriter.collectRawVariants(materialItems);

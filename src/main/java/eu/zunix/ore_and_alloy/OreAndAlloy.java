@@ -14,6 +14,7 @@ import eu.zunix.ore_and_alloy.integration.VanillaBehaviorUnifier;
 import eu.zunix.ore_and_alloy.integration.VanillaTradeUnifier;
 import eu.zunix.ore_and_alloy.item.PeriodicTooltip;
 import eu.zunix.ore_and_alloy.registry.ModCreativeTabs;
+import eu.zunix.ore_and_alloy.registry.ModFluids;
 import eu.zunix.ore_and_alloy.registry.ModOreBlocks;
 import eu.zunix.ore_and_alloy.registry.ModStorageBlocks;
 
@@ -24,6 +25,9 @@ public class OreAndAlloy {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public OreAndAlloy(IEventBus modEventBus) {
+        ModFluids.FLUID_TYPES.register(modEventBus);
+        ModFluids.FLUIDS.register(modEventBus);
+        ModFluids.BLOCKS.register(modEventBus);
         ModOreBlocks.BLOCKS.register(modEventBus);
         ModStorageBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);

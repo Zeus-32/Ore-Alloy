@@ -24,6 +24,7 @@ public class ModItems {
             if (isBlockBackedItemId(id)) continue;
             registerMaterialItem(id);
         }
+        ModFluids.registerBuckets(ITEMS);
         ModOreBlocks.registerRawVariantOres(discovered.itemIds(), ITEMS);
         ModStorageBlocks.registerStorageBlocks(discovered.itemIds(), ITEMS);
     }

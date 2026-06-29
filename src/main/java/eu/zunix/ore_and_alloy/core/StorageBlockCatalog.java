@@ -69,6 +69,9 @@ public final class StorageBlockCatalog {
     }
 
     private static boolean isStorageBaseForm(String material, String form) {
+        if (DustOnlyMaterials.isSupported(material, form)) {
+            return false;
+        }
         return BASE_FORM_PRIORITY.contains(form)
                 || isBareGemForm(material, form);
     }

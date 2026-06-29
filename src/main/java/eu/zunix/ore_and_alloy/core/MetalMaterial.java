@@ -51,7 +51,13 @@ public enum MetalMaterial {
 
     SILICON(EnumSet.of(MaterialForm.SILICON)),
 
-    DIAMOND(engineeringGemForms());
+    DIAMOND(engineeringGemForms()),
+    RUBY(engineeringGemForms()),
+    SAPPHIRE(engineeringGemForms()),
+    EMERALD(engineeringGemForms()),
+    TOPAZ(engineeringGemForms()),
+    APATITE(engineeringGemForms()),
+    CERTUS_QUARTZ(engineeringGemForms());
 
     private final Set<MaterialForm> forms;
 
@@ -86,9 +92,11 @@ public enum MetalMaterial {
                 MaterialForm.INGOT,
                 MaterialForm.PLATE,
                 MaterialForm.DOUBLE_PLATE,
+                MaterialForm.FOIL,
                 MaterialForm.NUGGET,
                 MaterialForm.ROD,
                 MaterialForm.LONG_ROD,
+                MaterialForm.WIRE,
                 MaterialForm.GEAR,
                 MaterialForm.SMALL_GEAR,
                 MaterialForm.BOLT,
@@ -138,6 +146,7 @@ public enum MetalMaterial {
                 MaterialForm.DUST,
                 MaterialForm.TINY_DUST_PILE,
                 MaterialForm.DUST_PILE,
+                MaterialForm.GEODE,
                 MaterialForm.PLATE,
                 MaterialForm.ROD,
                 MaterialForm.LONG_ROD

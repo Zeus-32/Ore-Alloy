@@ -1,32 +1,19 @@
 package eu.zunix.ore_and_alloy.integration;
 
-import eu.zunix.ore_and_alloy.OreAndAlloy;
 import eu.zunix.ore_and_alloy.integration.recipe.RecipeAliasMapBuilder;
 import eu.zunix.ore_and_alloy.integration.recipe.RecipeAliasBuildResult;
 import eu.zunix.ore_and_alloy.integration.recipe.RecipeMutationEngine;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 public final class RecipeInterceptor {
-    private static volatile Field recipeManagerRegistriesField;
     private static volatile Map<Item, Item> aliasMapSnapshot = Map.of();
 
     private RecipeInterceptor() {}
@@ -73,134 +60,5 @@ public final class RecipeInterceptor {
             int rewrites = RecipeMutationEngine.rewriteRecipeStacks(holder.value(), aliasToCanonical);
             if (rewrites <= 0) continue;
         }
-        removeForeignRecipesWhenCanonicalExists(recipeManager, recipes);
     }
-
-    private static int removeForeignRecipesWhenCanonicalExists(RecipeManager recipeManager, List<RecipeHolder<?>> recipes) {
-        HolderLookup.Provider registries = resolveRecipeRegistries(recipeManager);
-        if (registries == null) {
-            return 0;
-        }
-
-        Set<RecipeCollisionKey> canonicalKeys = new HashSet<>();
-        for (RecipeHolder<?> holder : recipes) {
-            if (!OreAndAlloy.MODID.equals(holder.id().getNamespace())) continue;
-            RecipeCollisionKey key = collisionKey(holder, registries);
-            if (key != null) {
-                canonicalKeys.add(key);
-            }
-        }
-        if (canonicalKeys.isEmpty()) {
-            return 0;
-        }
-
-        List<RecipeHolder<?>> filtered = new ArrayList<>(recipes.size());
-        int removed = 0;
-        for (RecipeHolder<?> holder : recipes) {
-            if (OreAndAlloy.MODID.equals(holder.id().getNamespace())) {
-                filtered.add(holder);
-                continue;
-            }
-
-            RecipeCollisionKey key = collisionKey(holder, registries);
-            if (key != null && canonicalKeys.contains(key)) {
-                removed++;
-                continue;
-            }
-            filtered.add(holder);
-        }
-
-        if (removed > 0) {
-            recipeManager.replaceRecipes(filtered);
-        }
-        return removed;
-    }
-
-    private static RecipeCollisionKey collisionKey(RecipeHolder<?> holder, HolderLookup.Provider registries) {
-        Recipe<?> recipe = holder.value();
-        ResourceLocation typeId = BuiltInRegistries.RECIPE_TYPE.getKey(recipe.getType());
-        if (typeId == null) return null;
-
-        ItemStack result;
-        try {
-            result = recipe.getResultItem(registries);
-        } catch (RuntimeException ignored) {
-            return null;
-        }
-        if (result.isEmpty()) return null;
-
-        ResourceLocation resultId = BuiltInRegistries.ITEM.getKey(result.getItem());
-        if (resultId == null || result.getItem() == Items.AIR) return null;
-        List<String> ingredients = ingredientSignature(recipe);
-        if (ingredients.isEmpty()) return null;
-
-        return new RecipeCollisionKey(typeId, resultId, Math.max(1, result.getCount()), ingredients);
-    }
-
-    static List<String> ingredientSignature(Recipe<?> recipe) {
-        return ingredientSignature(recipe.getIngredients());
-    }
-
-    static List<String> ingredientSignature(List<Ingredient> ingredients) {
-        List<List<String>> rawChoices = new ArrayList<>();
-        for (Ingredient ingredient : ingredients) {
-            ItemStack[] stacks = ingredient.getItems();
-            List<String> choices = new ArrayList<>();
-            for (ItemStack stack : stacks) {
-                if (stack == null || stack.isEmpty()) continue;
-                ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
-                if (itemId == null || stack.getItem() == Items.AIR) continue;
-                choices.add(itemId.toString());
-            }
-            rawChoices.add(choices);
-        }
-        return normalizedIngredientSignature(rawChoices);
-    }
-
-    static List<String> normalizedIngredientSignature(List<List<String>> rawChoices) {
-        List<String> out = new ArrayList<>();
-        for (List<String> rawChoice : rawChoices) {
-            TreeSet<String> choices = new TreeSet<>();
-            for (String value : rawChoice) {
-                if (value == null || value.isBlank()) continue;
-                choices.add(value);
-            }
-            if (!choices.isEmpty()) {
-                out.add(String.join("|", choices));
-            }
-        }
-        out.sort(String::compareTo);
-        return List.copyOf(out);
-    }
-
-    private static HolderLookup.Provider resolveRecipeRegistries(RecipeManager recipeManager) {
-        Field field = recipeManagerRegistriesField;
-        if (field == null) {
-            try {
-                Field resolved = RecipeManager.class.getDeclaredField("registries");
-                if (!resolved.trySetAccessible()) return null;
-                recipeManagerRegistriesField = resolved;
-                field = resolved;
-            } catch (ReflectiveOperationException ignored) {
-                return null;
-            }
-        }
-
-        try {
-            Object value = field.get(recipeManager);
-            if (value instanceof HolderLookup.Provider provider) {
-                return provider;
-            }
-        } catch (IllegalAccessException ignored) {
-            return null;
-        }
-        return null;
-    }
-
-    private record RecipeCollisionKey(
-            ResourceLocation recipeTypeId,
-            ResourceLocation resultItemId,
-            int resultCount,
-            List<String> ingredients
-    ) {}
 }

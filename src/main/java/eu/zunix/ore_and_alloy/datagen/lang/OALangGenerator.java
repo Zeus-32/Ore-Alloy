@@ -1,11 +1,13 @@
 package eu.zunix.ore_and_alloy.datagen.lang;
 
 import eu.zunix.ore_and_alloy.core.MaterialFormCatalog;
+import eu.zunix.ore_and_alloy.core.MaterialFluidCatalog;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
 import eu.zunix.ore_and_alloy.core.OreHostVariantCatalog;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
 import eu.zunix.ore_and_alloy.core.RawVariantCatalog;
 import eu.zunix.ore_and_alloy.core.StorageBlockCatalog;
+import eu.zunix.ore_and_alloy.core.StandaloneMaterialItems;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialId;
 import eu.zunix.ore_and_alloy.datagen.material.MaterialIdParser;
 
@@ -52,14 +54,23 @@ public final class OALangGenerator {
             String materialName = capitalizeWords(material.replace('_', ' '));
             entries.put("block." + namespace + "." + blockId, materialName + " Block");
         }
+        for (MaterialFluidCatalog.Entry fluid : MaterialFluidCatalog.entries()) {
+            entries.put("block." + namespace + "." + fluid.id(), fluid.displayName());
+            entries.put("fluid." + namespace + "." + fluid.id(), fluid.displayName());
+            entries.put("item." + namespace + "." + fluid.bucketItemId(), fluid.displayName() + " Bucket");
+        }
 
         addTagLangEntries(entries, materialItems);
         addOreTagLangEntries(entries, rawVariants);
         addStorageBlockTagLangEntries(entries, storageBlockBaseForms);
+        addFluidTagLangEntries(entries);
         writeJson(out, entries);
     }
 
     private static String displayNameFromId(String id) {
+        if (StandaloneMaterialItems.byId(id).isPresent()) {
+            return capitalizeWords(id.replace('_', ' '));
+        }
         MaterialId parsed = MaterialIdParser.parseItemId(id);
         String material = capitalizeWords(parsed.material().replace('_', ' '));
         if ("raw".equals(parsed.form())) {
@@ -107,6 +118,12 @@ public final class OALangGenerator {
     private static void addTagLangEntries(Map<String, String> entries, List<String> materialItems) {
         Map<String, Set<String>> materialsByBucket = new LinkedHashMap<>();
         for (String itemName : materialItems) {
+            var standalone = StandaloneMaterialItems.byId(itemName);
+            if (standalone.isPresent()) {
+                String bucket = standalone.get().type().tagBucket();
+                materialsByBucket.computeIfAbsent(bucket, ignored -> new LinkedHashSet<>()).add(itemName);
+                continue;
+            }
             MaterialId parsed = MaterialIdParser.parseItemId(itemName);
             String bucket = MaterialFormCatalog.TAG_BUCKET_BY_FORM.get(parsed.form());
             if (bucket == null) continue;
@@ -166,6 +183,18 @@ public final class OALangGenerator {
             String materialLabel = capitalizeWords(material.replace('_', ' '));
             entries.put(tagLangKey("block", "c", "storage_blocks/" + material), materialLabel + " Storage Blocks");
             entries.put(tagLangKey("item", "c", "storage_blocks/" + material), materialLabel + " Storage Blocks");
+        }
+    }
+
+    private static void addFluidTagLangEntries(Map<String, String> entries) {
+        for (MaterialFluidCatalog.Entry fluid : MaterialFluidCatalog.entries()) {
+            entries.put(tagLangKey("fluid", "c", fluid.id()), fluid.displayName());
+            entries.put(tagLangKey("fluid", "c", "fluids/" + fluid.id()), fluid.displayName() + " Fluids");
+            if (!fluid.metalLike()) continue;
+            String materialLabel = capitalizeWords(fluid.material().replace('_', ' '));
+            entries.put(tagLangKey("fluid", "c", "molten/" + fluid.material()), "Molten " + materialLabel);
+            entries.put(tagLangKey("fluid", "c", "molten_" + fluid.material()), "Molten " + materialLabel);
+            entries.put(tagLangKey("fluid", "c", "liquid/" + fluid.material()), "Liquid " + materialLabel);
         }
     }
 

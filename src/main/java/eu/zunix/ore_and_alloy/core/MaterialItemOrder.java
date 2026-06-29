@@ -17,9 +17,15 @@ public final class MaterialItemOrder {
             Map.entry("cuppronickel", "cupronickel")
     );
     private static final Map<String, String> PREFERRED_ITEM_MATERIAL_TOKENS = Map.of();
-    private static final Map<String, String> BARE_ITEM_FORMS = Map.of(
-            "silicon", "silicon",
-            "diamond", "gem"
+    private static final Map<String, String> BARE_ITEM_FORMS = Map.ofEntries(
+            Map.entry("silicon", "silicon"),
+            Map.entry("diamond", "gem"),
+            Map.entry("ruby", "gem"),
+            Map.entry("sapphire", "gem"),
+            Map.entry("emerald", "gem"),
+            Map.entry("topaz", "gem"),
+            Map.entry("apatite", "gem"),
+            Map.entry("certus_quartz", "gem")
     );
     private static final Set<String> INGOT_EQUIVALENT_FORMS = buildIngotEquivalentForms();
 
@@ -44,11 +50,13 @@ public final class MaterialItemOrder {
     }
 
     public static String materialPart(String itemId) {
+        if (StandaloneMaterialItems.byId(itemId).isPresent()) return itemId;
         ParsedId parsed = parse(itemId);
         return parsed == null ? canonicalMaterialToken(itemId) : canonicalMaterialToken(parsed.material());
     }
 
     public static int formRank(String itemId) {
+        if (StandaloneMaterialItems.byId(itemId).isPresent()) return Integer.MAX_VALUE - 1;
         ParsedId parsed = parse(itemId);
         if (parsed == null) return Integer.MAX_VALUE;
         return formTokenRank(parsed.form());

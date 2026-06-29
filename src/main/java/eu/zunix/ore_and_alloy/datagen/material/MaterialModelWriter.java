@@ -1,6 +1,7 @@
 package eu.zunix.ore_and_alloy.datagen.material;
 
 import eu.zunix.ore_and_alloy.core.MaterialFormCatalog;
+import eu.zunix.ore_and_alloy.core.StandaloneMaterialItems;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -36,6 +37,12 @@ public final class MaterialModelWriter {
     }
 
     private void writeMaterialItemModel(String itemName) throws IOException {
+        var standalone = StandaloneMaterialItems.byId(itemName);
+        if (standalone.isPresent()) {
+            String texture = namespace + ":item/" + itemName;
+            writeGeneratedItemModel(itemName, texture);
+            return;
+        }
         MaterialId parsed = MaterialIdParser.parseItemId(itemName);
         boolean handheld = MaterialFormCatalog.HANDHELD_FORMS.contains(parsed.form());
         String parent = handheld ? "item/handheld" : "item/generated";

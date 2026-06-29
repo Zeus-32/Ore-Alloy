@@ -112,6 +112,19 @@ Every material name from the supported-material table is available as a global s
 
 Registration runs only during startup. Changes require a full game restart; `/reload` cannot modify item or block registries. Unknown material names produce a startup-script error.
 
+## Java API
+
+Other mods can request Ore & Alloy materials directly during mod startup:
+
+```java
+import eu.zunix.ore_and_alloy.api.OreAndAlloyApi;
+
+OreAndAlloyApi.registerMaterial("pure_netherite");
+OreAndAlloyApi.registerMaterial("aluminum");
+```
+
+Requests must run before Ore & Alloy freezes material registration. Use this for custom integrations where KubeJS is not involved.
+
 ## Gradle Dependency
 
 Ore & Alloy publishes as a normal Maven artifact:

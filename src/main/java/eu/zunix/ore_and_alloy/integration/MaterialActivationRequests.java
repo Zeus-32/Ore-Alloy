@@ -15,7 +15,7 @@ public final class MaterialActivationRequests {
 
     public static synchronized boolean request(Object materialToken) {
         if (frozen) {
-            throw new IllegalStateException("Ore & Alloy materials can only be requested from KubeJS startup scripts");
+            throw new IllegalStateException("Ore & Alloy materials can only be requested during mod startup");
         }
 
         String token = materialToken == null ? "" : materialToken.toString();

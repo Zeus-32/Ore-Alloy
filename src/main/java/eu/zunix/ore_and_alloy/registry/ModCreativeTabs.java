@@ -41,6 +41,7 @@ public final class ModCreativeTabs {
                         appendOreBlocks(output);
                         appendStorageBlocks(output);
                         appendMaterialItems(output);
+                        appendFluidBuckets(output);
                     })
                     .build());
 
@@ -59,6 +60,13 @@ public final class ModCreativeTabs {
         for (String id : ids) {
             output.accept(ModItems.materialItems().get(id).value());
         }
+    }
+
+    private static void appendFluidBuckets(CreativeModeTab.Output output) {
+        ModFluids.buckets().keySet().stream()
+                .sorted()
+                .map(ModFluids.buckets()::get)
+                .forEach(item -> output.accept(item.value()));
     }
 
     private static void appendOreBlocks(CreativeModeTab.Output output) {

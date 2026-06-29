@@ -29,7 +29,7 @@ final class TextureBackedItemDiscovery {
     }
 
     private static boolean hasBackedTexture(String itemId) {
-        if ("diamond".equals(itemId)) {
+        if (MaterialItemOrder.bareItemForm(itemId).isPresent()) {
             return true;
         }
         MaterialItemIdUtil.ParsedId parsed = MaterialItemIdUtil.parseItemId(itemId);

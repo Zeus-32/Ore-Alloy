@@ -59,4 +59,47 @@ class GuaranteedMaterialSetBuilderTest {
         assertFalse(items.contains("diamond_ingot"));
         assertFalse(items.contains("diamond_nugget"));
     }
+
+    @Test
+    void newGemsUseBareGemFormAndGeodes() {
+        List<String> items = new GuaranteedMaterialSetBuilder().withGuaranteedForms(List.of("ruby"));
+
+        assertTrue(items.contains("ruby"));
+        assertTrue(items.contains("raw_ruby"));
+        assertTrue(items.contains("crushed_ruby"));
+        assertTrue(items.contains("ruby_geode"));
+        assertTrue(items.contains("ruby_dust"));
+        assertTrue(items.contains("ruby_plate"));
+        assertTrue(items.contains("ruby_gear"));
+        assertFalse(items.contains("ruby_gem"));
+        assertFalse(items.contains("ruby_ingot"));
+    }
+
+    @Test
+    void standaloneItemsRemainRegistered() {
+        List<String> items = new GuaranteedMaterialSetBuilder().withGuaranteedForms(List.of(
+                "crude_rubber",
+                "rubber",
+                "rubber_sheet"
+        ));
+
+        assertTrue(items.contains("crude_rubber"));
+        assertTrue(items.contains("rubber"));
+        assertTrue(items.contains("rubber_sheet"));
+    }
+
+    @Test
+    void dustOnlyMaterialsRemainRegisteredWithoutMetalForms() {
+        List<String> items = new GuaranteedMaterialSetBuilder().withGuaranteedForms(List.of(
+                "flint_dust",
+                "flint_dust_pile",
+                "flint_tiny_dust_pile"
+        ));
+
+        assertTrue(items.contains("flint_dust"));
+        assertTrue(items.contains("flint_dust_pile"));
+        assertTrue(items.contains("flint_tiny_dust_pile"));
+        assertFalse(items.contains("flint_ingot"));
+        assertFalse(items.contains("flint_plate"));
+    }
 }

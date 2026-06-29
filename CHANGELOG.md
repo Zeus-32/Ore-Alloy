@@ -2,7 +2,29 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.0.12] - 2026-06-26
+
+### Added
+- Added `foil` and `wire` material forms for all ingot-backed metal-like materials, including generated models, language entries, and common tags.
+- Added gem materials for Ruby, Sapphire, Emerald, Topaz, Apatite, and Certus Quartz.
+- Added the `geode` material form for gem materials.
+- Added standalone rubber-material items: `crude_rubber`, `rubber`, and `rubber_sheet`.
+- Added dust, dust pile, and tiny dust pile forms for Flint, Sand, Clay and Brick.
+- Added registered fluids for `creosote`, `steam`, and `liquid_<material>` for all ingot-backed metal-like materials, with bucket items and fluid/molten/liquid common-tag aliases. Liquid fluid textures are generated with datagen from an ingot texture and a molten overlay.
+
+### Fixed
+- Fixed AE2 recipe removal during Ore & Alloy recipe unification.
+
+### Changed
+- Updated `silicon` texture to match modern style.
+
+### Info
+- Fluid textures are temporary and will be changed in a future update. The same applies to storage block textures.
+
 ## [1.0.11] - 2026-06-26
+
+### Added
+- Added public Java API `OreAndAlloyApi` for requesting material registration from other mods during startup.
 
 ### Fixed
 - Recipe cleanup no longer removes legitimate foreign recipes that produce the same canonical result with different inputs.

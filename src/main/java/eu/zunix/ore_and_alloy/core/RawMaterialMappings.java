@@ -81,7 +81,9 @@ public final class RawMaterialMappings {
         put(out, "chromium", "chromite");
         put(out, "cobalt", "cobaltite");
         put(out, "copper", "chalcopyrite", "malachite", "bornite", "copper");
+        put(out, "certus_quartz", "certus_quartz");
         put(out, "diamond", "diamond");
+        put(out, "emerald", "emerald");
         put(out, "gold", "gold", "sylvanite");
         put(out, "iridium", "iridium");
         put(out, "iron", "iron", "hematite", "magnetite", "limonite");
@@ -89,9 +91,13 @@ public final class RawMaterialMappings {
         put(out, "nickel", "pentlandite", "garnierite");
         put(out, "osmium", "osmium");
         put(out, "platinum", "platinum", "sperrylite");
+        put(out, "ruby", "ruby");
+        put(out, "sapphire", "sapphire");
         put(out, "silver", "silver");
         put(out, "tin", "cassiterite", "tin");
         put(out, "titanium", "titanium");
+        put(out, "topaz", "topaz");
+        put(out, "apatite", "apatite");
         put(out, "uranium", "uranium", "uraninite");
         put(out, "zinc", "sphalerite", "hemimorphite");
 

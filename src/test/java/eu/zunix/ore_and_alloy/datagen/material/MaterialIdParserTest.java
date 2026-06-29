@@ -34,6 +34,12 @@ class MaterialIdParserTest {
         MaterialId diamond = MaterialIdParser.parseItemId("diamond");
         assertEquals("diamond", diamond.material());
         assertEquals("gem", diamond.form());
+        MaterialId ruby = MaterialIdParser.parseItemId("ruby");
+        assertEquals("ruby", ruby.material());
+        assertEquals("gem", ruby.form());
+        MaterialId rubyGeode = MaterialIdParser.parseItemId("ruby_geode");
+        assertEquals("ruby", rubyGeode.material());
+        assertEquals("geode", rubyGeode.form());
     }
 
     @Test
@@ -47,6 +53,8 @@ class MaterialIdParserTest {
         assertEquals("copper_plate", MaterialIdParser.itemIdFor("copper", "plate"));
         assertEquals("silicon", MaterialIdParser.itemIdFor("silicon", "silicon"));
         assertEquals("diamond", MaterialIdParser.itemIdFor("diamond", "gem"));
+        assertEquals("ruby", MaterialIdParser.itemIdFor("ruby", "gem"));
+        assertEquals("ruby_geode", MaterialIdParser.itemIdFor("ruby", "geode"));
     }
 
     @Test

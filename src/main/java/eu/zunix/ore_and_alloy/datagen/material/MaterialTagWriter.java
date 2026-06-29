@@ -2,6 +2,7 @@ package eu.zunix.ore_and_alloy.datagen.material;
 
 import eu.zunix.ore_and_alloy.core.MaterialFormCatalog;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
+import eu.zunix.ore_and_alloy.core.StandaloneMaterialItems;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,6 +28,12 @@ public final class MaterialTagWriter {
         Map<String, List<String>> byBucketAndMaterial = new LinkedHashMap<>();
 
         for (String itemName : materialItems) {
+            var standalone = StandaloneMaterialItems.byId(itemName);
+            if (standalone.isPresent()) {
+                String itemId = namespace + ":" + itemName;
+                addStandaloneTags(itemName, itemId, topLevel, byBucketAndMaterial);
+                continue;
+            }
             MaterialId parsed = MaterialIdParser.parseItemId(itemName);
             String bucket = MaterialFormCatalog.TAG_BUCKET_BY_FORM.get(parsed.form());
             if (bucket == null) continue;
@@ -52,6 +59,29 @@ public final class MaterialTagWriter {
         }
 
         writeVanillaCompatibilityItemTags(materialItems);
+    }
+
+    private static void addStandaloneTags(
+            String itemName,
+            String itemId,
+            Map<String, List<String>> topLevel,
+            Map<String, List<String>> byBucketAndMaterial
+    ) {
+        switch (itemName) {
+            case "crude_rubber" -> byBucketAndMaterial
+                    .computeIfAbsent("rubber/crude", ignored -> new ArrayList<>())
+                    .add(itemId);
+            case "rubber" -> topLevel
+                    .computeIfAbsent("rubber", ignored -> new ArrayList<>())
+                    .add(itemId);
+            case "rubber_sheet" -> {
+                topLevel.computeIfAbsent("plates", ignored -> new ArrayList<>()).add(itemId);
+                byBucketAndMaterial.computeIfAbsent("plates/rubber", ignored -> new ArrayList<>()).add(itemId);
+            }
+            default -> {
+                // No common tag contract for this standalone item yet.
+            }
+        }
     }
 
     private static void writeTagFile(Path path, List<String> values) throws IOException {

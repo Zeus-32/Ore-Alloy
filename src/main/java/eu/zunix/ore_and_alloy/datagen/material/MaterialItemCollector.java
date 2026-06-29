@@ -4,7 +4,9 @@ import eu.zunix.ore_and_alloy.core.MaterialForm;
 import eu.zunix.ore_and_alloy.core.MaterialFormCatalog;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
 import eu.zunix.ore_and_alloy.core.MetalMaterial;
+import eu.zunix.ore_and_alloy.core.DustOnlyMaterials;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
+import eu.zunix.ore_and_alloy.core.StandaloneMaterialItems;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -138,6 +140,8 @@ public final class MaterialItemCollector {
                 set.addAll(RawMaterialMappings.crushedItemIdsForMaterial(material));
             }
         }
+        set.addAll(DustOnlyMaterials.itemIds());
+        set.addAll(StandaloneMaterialItems.itemIds());
         items.clear();
         items.addAll(set);
     }
@@ -145,6 +149,7 @@ public final class MaterialItemCollector {
     private static Map<String, String> preferredMaterialTokens(List<String> itemIds) {
         Map<String, String> out = new LinkedHashMap<>();
         for (String id : itemIds) {
+            if (StandaloneMaterialItems.byId(id).isPresent()) continue;
             MaterialId parsed = MaterialIdParser.parseItemId(id);
             String token = parsed.material();
             String canonical = MaterialItemOrder.canonicalMaterialToken(token);
@@ -172,7 +177,13 @@ public final class MaterialItemCollector {
 
     private static boolean isKnownMetal(String itemId) {
         try {
+            if (StandaloneMaterialItems.byId(itemId).isPresent()) {
+                return true;
+            }
             MaterialId parsed = MaterialIdParser.parseItemId(itemId);
+            if (DustOnlyMaterials.isSupported(parsed.material(), parsed.form())) {
+                return true;
+            }
             if (("raw".equals(parsed.form()) || "crushed".equals(parsed.form()))
                     && !RawMaterialMappings.isConfiguredRawVariant(variantToken(itemId, parsed.form()))) {
                 return false;

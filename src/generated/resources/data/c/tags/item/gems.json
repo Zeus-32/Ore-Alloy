@@ -1,6 +1,12 @@
 {
   "replace": false,
   "values": [
-    { "id": "ore_and_alloy:diamond", "required": false }
+    { "id": "ore_and_alloy:apatite", "required": false },
+    { "id": "ore_and_alloy:certus_quartz", "required": false },
+    { "id": "ore_and_alloy:diamond", "required": false },
+    { "id": "ore_and_alloy:emerald", "required": false },
+    { "id": "ore_and_alloy:ruby", "required": false },
+    { "id": "ore_and_alloy:sapphire", "required": false },
+    { "id": "ore_and_alloy:topaz", "required": false }
   ]
 }

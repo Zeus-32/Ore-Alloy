@@ -26,6 +26,8 @@ class MaterialItemOrderTest {
         assertTrue(MaterialItemOrder.bareItemForm("copper").isEmpty());
         assertEquals("silicon", MaterialItemOrder.bareItemForm("silicon").orElseThrow());
         assertEquals("gem", MaterialItemOrder.bareItemForm("diamond").orElseThrow());
+        assertEquals("gem", MaterialItemOrder.bareItemForm("ruby").orElseThrow());
+        assertEquals("gem", MaterialItemOrder.bareItemForm("certus_quartz").orElseThrow());
     }
 
     @Test

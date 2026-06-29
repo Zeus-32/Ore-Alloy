@@ -10,8 +10,10 @@ public enum MaterialForm {
     TINY_DUST_PILE(false),
     PLATE(false),
     DOUBLE_PLATE(false),
+    FOIL(false),
     ROD(true),
     LONG_ROD(true),
+    WIRE(true),
     GEAR(false),
     SMALL_GEAR(false),
     BOLT(false),
@@ -22,6 +24,7 @@ public enum MaterialForm {
 
     SILICON(false),
     GEM(false),
+    GEODE(false),
     GLASS(false);
 
     private final boolean handheld;
