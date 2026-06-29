@@ -2,14 +2,14 @@
 
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-62B47A?style=flat-square)](https://www.minecraft.net/)
 [![NeoForge](https://img.shields.io/badge/NeoForge-21.1.229+-E68A2E?style=flat-square)](https://neoforged.net/)
-[![Version](https://img.shields.io/badge/version-1.0.11-4C8BF5?style=flat-square)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.0.12--c-4C8BF5?style=flat-square)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-mixed-blue?style=flat-square)](LICENCE.md)
 
 Ore & Alloy is a focused material registry and enforced unification foundation for NeoForge modpacks.
 
 ![Ore & Alloy ingots](o%26a_ingots.png)
 
-It provides canonical ores, raw and crushed materials, ingots, nuggets, dusts, plates, rods, gears, bolts, screws, and storage blocks. The core mod keeps material identity and recipes consistent without requiring scripts or configuration.
+It provides canonical ores, raw and crushed materials, ingots, hot ingots, nuggets, dusts, dust piles, tiny dust piles, plates, double plates, foils, rods, long rods, wires, gears, small gears, bolts, screws, geodes, fluids, buckets, and storage blocks. The core mod keeps material identity and recipes consistent without requiring scripts or configuration.
 
 ## Core behavior
 
@@ -28,7 +28,7 @@ Material activation is automatic from compatible material sources. KubeJS startu
 
 The texture catalog is the authoritative supported-material list. Iron, gold, copper, and diamond are available by default. External-source materials activate when a compatible material mod is installed. Custom materials, such as Pure Netherite, stay separate from vanilla Minecraft netherite and can be activated by an explicit request or a dedicated external source.
 
-### Ore-Bearing Materials
+### Ore-Bearing Metals
 
 | Material | Variants used by O&A | Availability |
 |---|---|---|
@@ -52,11 +52,21 @@ The texture catalog is the authoritative supported-material list. Iron, gold, co
 | Lithium | `lithium` | External source |
 | Tungsten | `tungsten` | External source |
 
-### Gems
+Ore-bearing metals provide ore, raw, crushed, ingot, nugget, dust, dust pile, tiny dust pile, plate, double plate, foil, rod, long rod, wire, gear, small gear, bolt, screw, fluid, bucket, and storage-block forms. Aluminum, Osmium, Cobalt, Titanium, Chromium, Platinum, Iridium, and Tungsten also provide hot ingots.
+
+### Ore-Bearing Gems
 
 | Material | Type | Notes | Availability |
 |---|---|---|---|
 | Diamond | Gem | Bare item `ore_and_alloy:diamond`; gem-based material forms | Built in |
+| Ruby | Gem | Gem-based material forms | External source |
+| Sapphire | Gem | Gem-based material forms | External source |
+| Emerald | Gem | Gem-based material forms | External source |
+| Topaz | Gem | Gem-based material forms | External source |
+| Apatite | Gem | Gem-based material forms | External source |
+| Certus Quartz | Gem | Gem-based material forms | External source |
+
+Ore-bearing gems provide ore, raw, crushed, gem, dust, dust pile, tiny dust pile, geode, plate, rod, long rod, gear, small gear, bolt, screw, and storage-block forms.
 
 ### Special Materials
 
@@ -64,29 +74,38 @@ The texture catalog is the authoritative supported-material list. Iron, gold, co
 |---|---|---|---|
 | Silicon | Material | Bare item `ore_and_alloy:silicon`; no ingot or storage block | External source |
 | Pure Netherite | Alloy | Fully custom material, separate from vanilla Minecraft netherite | Dedicated external source or explicit request |
+| Flint | Dust-only | Dust, dust pile, and tiny dust pile forms | Built in |
+| Sand | Dust-only | Dust, dust pile, and tiny dust pile forms | Built in |
+| Clay | Dust-only | Dust, dust pile, and tiny dust pile forms | Built in |
+| Brick | Dust-only | Dust, dust pile, and tiny dust pile forms | Built in |
+| Crude Rubber | Standalone item | Rubber material item | Built in |
+| Rubber | Standalone item | Rubber material item | Built in |
+| Rubber Sheet | Standalone item | Rubber material item | Built in |
 
 ### Alloys
 
 | Material | Forms | Availability |
 |---|---|---|
-| Steel | Standard alloy forms | External source |
-| Stainless Steel | Standard alloy forms | External source |
-| Brass | Standard alloy forms | External source |
-| Bronze | Standard alloy forms | External source |
-| Cupronickel | Standard alloy forms | External source |
-| Electrum | Standard alloy forms | External source |
-| Invar | Standard alloy forms | External source |
-| Constantan | Standard alloy forms | External source |
-| Wrought Iron | Standard alloy forms | External source |
-| Enderium | Standard alloy forms | External source |
-| Lumium | Standard alloy forms | External source |
-| Signalum | Standard alloy forms | External source |
-| Rose Gold | Standard alloy forms | External source |
+| Steel | Alloy forms | External source |
+| Stainless Steel | Alloy forms | External source |
+| Brass | Alloy forms | External source |
+| Bronze | Alloy forms | External source |
+| Cupronickel | Alloy forms | External source |
+| Electrum | Alloy forms | External source |
+| Invar | Alloy forms | External source |
+| Constantan | Alloy forms | External source |
+| Wrought Iron | Alloy forms | External source |
+| Enderium | Alloy forms | External source |
+| Lumium | Alloy forms | External source |
+| Signalum | Alloy forms | External source |
+| Rose Gold | Alloy forms | External source |
 | Naquadah | Hot alloy forms | External source |
-| Red Alloy | Standard alloy forms | External source |
-| Soul Infused | Standard alloy forms | External source |
+| Red Alloy | Alloy forms | External source |
+| Soul Infused | Alloy forms | External source |
 
-The catalog contains 38 material names. Ore-bearing metals provide ore, raw, crushed, ingot, nugget, dust, plate, rod, gear, bolt, screw, and storage-block forms.
+Alloys provide ingot, nugget, dust, dust pile, tiny dust pile, plate, double plate, foil, rod, long rod, wire, gear, small gear, bolt, screw, fluid, bucket, and storage-block forms. Naquadah and Pure Netherite also provide hot ingots.
+
+The enum-backed material catalog contains 45 material names, plus 4 dust-only materials and 3 standalone rubber items.
 
 ## KubeJS registration
 
@@ -151,13 +170,13 @@ Then add the dependency to your project. The following examples show how to incl
 ```groovy
 dependencies {
     // NeoForge
-    implementation "eu.zunix.ore_and_alloy:ore_and_alloy:1.0.11"
+    implementation "eu.zunix.ore_and_alloy:ore_and_alloy:1.0.12-c"
 
     // ForgeGradle-style projects
-    implementation fg.deobf("eu.zunix.ore_and_alloy:ore_and_alloy:1.0.11")
+    implementation fg.deobf("eu.zunix.ore_and_alloy:ore_and_alloy:1.0.12-c")
 
     // Architectury Loom-style projects
-    modImplementation "eu.zunix.ore_and_alloy:ore_and_alloy:1.0.11"
+    modImplementation "eu.zunix.ore_and_alloy:ore_and_alloy:1.0.12-c"
 }
 ```
 
