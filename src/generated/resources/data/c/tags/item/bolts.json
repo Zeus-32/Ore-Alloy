@@ -34,7 +34,7 @@
     { "id": "ore_and_alloy:sapphire_bolt", "required": false },
     { "id": "ore_and_alloy:signalum_bolt", "required": false },
     { "id": "ore_and_alloy:silver_bolt", "required": false },
-    { "id": "ore_and_alloy:soul_infused_bolt", "required": false },
+    { "id": "ore_and_alloy:soul_infused_alloy_bolt", "required": false },
     { "id": "ore_and_alloy:stainless_steel_bolt", "required": false },
     { "id": "ore_and_alloy:steel_bolt", "required": false },
     { "id": "ore_and_alloy:tin_bolt", "required": false },

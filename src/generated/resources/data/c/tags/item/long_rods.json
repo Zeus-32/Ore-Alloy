@@ -34,7 +34,7 @@
     { "id": "ore_and_alloy:sapphire_long_rod", "required": false },
     { "id": "ore_and_alloy:signalum_long_rod", "required": false },
     { "id": "ore_and_alloy:silver_long_rod", "required": false },
-    { "id": "ore_and_alloy:soul_infused_long_rod", "required": false },
+    { "id": "ore_and_alloy:soul_infused_alloy_long_rod", "required": false },
     { "id": "ore_and_alloy:stainless_steel_long_rod", "required": false },
     { "id": "ore_and_alloy:steel_long_rod", "required": false },
     { "id": "ore_and_alloy:tin_long_rod", "required": false },

@@ -40,31 +40,31 @@ public final class PeriodicMaterialSymbolResolver {
             Map.entry("silicon", "Si"),
             Map.entry("tungsten", "W"),
             Map.entry("diamond", "C"),
-            Map.entry("ruby", "Al2O3Cr"),
+            Map.entry("ruby", "Al2CrO3"),
             Map.entry("sapphire", "Al2O3"),
-            Map.entry("emerald", "Be3Al2Si6O18"),
-            Map.entry("topaz", "Al2SiO4F2"),
-            Map.entry("apatite", "Ca5(PO4)3F"),
-            Map.entry("certus_quartz", "SiO2"),
+            Map.entry("emerald", "Al2Be3O18Si6"),
+            Map.entry("topaz", "Al2F2O4Si"),
+            Map.entry("apatite", "Ca5FO12P3"),
+            Map.entry("certus_quartz", "O2Si"),
             Map.entry("brass", "Cu3Zn2"),
             Map.entry("bronze", "Cu3Sn"),
-            Map.entry("electrum", "AuAg"),
+            Map.entry("electrum", "AgAu"),
             Map.entry("invar", "Fe2Ni"),
             Map.entry("constantan", "Cu55Ni45"),
-            Map.entry("steel", "FeC2"),
-            Map.entry("stainless_steel", "FeCrNi"),
+            Map.entry("steel", "C2Fe"),
+            Map.entry("stainless_steel", "CrFeNi"),
             Map.entry("wrought_iron", "Fe"),
             Map.entry("enderium", "Pb3Pt"),
-            Map.entry("lumium", "SnAg4"),
-            Map.entry("signalum", "Cu3AgRs10"),
+            Map.entry("lumium", "Ag4Sn"),
+            Map.entry("signalum", "AgCu3Rs10"),
             Map.entry("rose_gold", "AuCu"),
             Map.entry("naquadah", "Nq"),
             Map.entry("netherite", "AuNr"),
             Map.entry("pure_netherite", "Nr"),
             Map.entry("redstone", "Rs"),
             Map.entry("red_alloy", "FeRs4"),
-            Map.entry("soul_sand", "3SiO2"),
-            Map.entry("soul_infused", "Fe2NiSi3O6")
+            Map.entry("soul_sand", "O6Si3"),
+            Map.entry("soul_infused_alloy", "Fe2NiO6Si3")
     );
 
     private PeriodicMaterialSymbolResolver() {}
@@ -73,7 +73,9 @@ public final class PeriodicMaterialSymbolResolver {
         String material = extractMaterialToken(itemPath);
         if (material.isBlank()) return Optional.empty();
         String canonical = canonicalMaterialToken(material);
-        return Optional.ofNullable(MATERIAL_FORMULAS.get(canonical)).filter(formula -> !formula.isBlank());
+        return Optional.ofNullable(MATERIAL_FORMULAS.get(canonical))
+                .filter(formula -> !formula.isBlank())
+                .map(PeriodicMaterialSymbolResolver::toSubscriptFormula);
     }
 
     private static String canonicalMaterialToken(String material) {
@@ -119,6 +121,26 @@ public final class PeriodicMaterialSymbolResolver {
         }
 
         return "";
+    }
+
+    private static String toSubscriptFormula(String formula) {
+        StringBuilder out = new StringBuilder(formula.length());
+        for (int i = 0; i < formula.length(); i++) {
+            out.append(switch (formula.charAt(i)) {
+                case '0' -> '₀';
+                case '1' -> '₁';
+                case '2' -> '₂';
+                case '3' -> '₃';
+                case '4' -> '₄';
+                case '5' -> '₅';
+                case '6' -> '₆';
+                case '7' -> '₇';
+                case '8' -> '₈';
+                case '9' -> '₉';
+                default -> formula.charAt(i);
+            });
+        }
+        return out.toString();
     }
 
 }

@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_platinum" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_platinum_block" }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": { "item": "ore_and_alloy:raw_platinum" }
+  },
+  "result": { "id": "ore_and_alloy:raw_platinum_block", "count": 1 }
+}

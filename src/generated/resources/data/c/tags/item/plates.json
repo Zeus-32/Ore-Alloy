@@ -35,7 +35,7 @@
     { "id": "ore_and_alloy:sapphire_plate", "required": false },
     { "id": "ore_and_alloy:signalum_plate", "required": false },
     { "id": "ore_and_alloy:silver_plate", "required": false },
-    { "id": "ore_and_alloy:soul_infused_plate", "required": false },
+    { "id": "ore_and_alloy:soul_infused_alloy_plate", "required": false },
     { "id": "ore_and_alloy:stainless_steel_plate", "required": false },
     { "id": "ore_and_alloy:steel_plate", "required": false },
     { "id": "ore_and_alloy:tin_plate", "required": false },

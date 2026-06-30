@@ -1,0 +1,9 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_malachite" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_malachite_block" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [ { "item": "ore_and_alloy:raw_malachite_block" } ],
+  "result": { "id": "ore_and_alloy:raw_malachite", "count": 9 }
+}

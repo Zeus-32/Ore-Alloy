@@ -16,6 +16,8 @@ final class ViewerAliasRuleEngine {
 
             "ingot -> ingot",
             "ingot -> {material} ingot",
+            "hot_ingot -> hot ingot",
+            "hot_ingot -> hot {material} ingot",
 
             "nugget -> nugget",
             "nugget -> {material} nugget",
@@ -24,15 +26,29 @@ final class ViewerAliasRuleEngine {
             "plate -> {material} plate",
             "plate -> sheet",
             "plate -> {material} sheet",
+            "double_plate -> double plate",
+            "double_plate -> {material} double plate",
+            "foil -> foil",
+            "foil -> {material} foil",
 
             "rod -> rod",
             "rod -> {material} rod",
+            "long_rod -> long rod",
+            "long_rod -> {material} long rod",
+            "wire -> wire",
+            "wire -> {material} wire",
 
             "dust -> dust",
             "dust -> {material} dust",
+            "dust_pile -> dust pile",
+            "dust_pile -> {material} dust pile",
+            "tiny_dust_pile -> tiny dust pile",
+            "tiny_dust_pile -> {material} tiny dust pile",
 
             "gear -> gear",
             "gear -> {material} gear",
+            "small_gear -> small gear",
+            "small_gear -> {material} small gear",
 
             "bolt -> bolt",
             "bolt -> {material} bolt",
@@ -52,10 +68,19 @@ final class ViewerAliasRuleEngine {
             "block -> {material} block",
             "block -> storage block",
             "block -> {material} storage block",
+            "raw_block -> raw block",
+            "raw_block -> {material} block",
+            "raw_block -> {material} storage block",
 
             "raw -> raw",
             "raw -> raw {material}",
-            "raw -> {material} raw"
+            "raw -> {material} raw",
+
+            "gem -> gem",
+            "gem -> {material} gem",
+            "geode -> geode",
+            "geode -> {material} geode",
+            "silicon -> silicon"
     );
 
     private static final Map<String, String> MATERIAL_SYNONYMS = Map.ofEntries(

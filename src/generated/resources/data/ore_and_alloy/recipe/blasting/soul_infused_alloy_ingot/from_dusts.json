@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:soul_infused_alloy_ingot" },
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:tag_empty", "tag": "c:dusts/soul_infused_alloy" }
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "group": "soul_infused_alloy_ingot",
+  "ingredient": { "tag": "c:dusts/soul_infused_alloy" },
+  "result": { "id": "ore_and_alloy:soul_infused_alloy_ingot" },
+  "experience": 0.7,
+  "cookingtime": 100
+}

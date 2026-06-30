@@ -34,7 +34,7 @@
     { "id": "ore_and_alloy:sapphire_screw", "required": false },
     { "id": "ore_and_alloy:signalum_screw", "required": false },
     { "id": "ore_and_alloy:silver_screw", "required": false },
-    { "id": "ore_and_alloy:soul_infused_screw", "required": false },
+    { "id": "ore_and_alloy:soul_infused_alloy_screw", "required": false },
     { "id": "ore_and_alloy:stainless_steel_screw", "required": false },
     { "id": "ore_and_alloy:steel_screw", "required": false },
     { "id": "ore_and_alloy:tin_screw", "required": false },

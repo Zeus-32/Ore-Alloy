@@ -28,7 +28,7 @@
     { "id": "ore_and_alloy:rose_gold_nugget", "required": false },
     { "id": "ore_and_alloy:signalum_nugget", "required": false },
     { "id": "ore_and_alloy:silver_nugget", "required": false },
-    { "id": "ore_and_alloy:soul_infused_nugget", "required": false },
+    { "id": "ore_and_alloy:soul_infused_alloy_nugget", "required": false },
     { "id": "ore_and_alloy:stainless_steel_nugget", "required": false },
     { "id": "ore_and_alloy:steel_nugget", "required": false },
     { "id": "ore_and_alloy:tin_nugget", "required": false },

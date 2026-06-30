@@ -5,6 +5,7 @@ import eu.zunix.ore_and_alloy.core.MaterialFluidCatalog;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
 import eu.zunix.ore_and_alloy.core.OreHostVariantCatalog;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
+import eu.zunix.ore_and_alloy.core.RawBlockCatalog;
 import eu.zunix.ore_and_alloy.core.RawVariantCatalog;
 import eu.zunix.ore_and_alloy.core.StorageBlockCatalog;
 import eu.zunix.ore_and_alloy.core.StandaloneMaterialItems;
@@ -31,11 +32,13 @@ public final class OALangGenerator {
             String namespace,
             List<String> materialItems,
             List<String> rawVariants,
-            Map<String, String> storageBlockBaseForms
+            Map<String, String> storageBlockBaseForms,
+            Map<String, String> rawBlockBaseItems
     ) throws IOException {
         Map<String, String> entries = new LinkedHashMap<>();
 
-        entries.put("itemGroup." + namespace + ".materials", "Ore & Alloy: Materials");
+        entries.put("itemGroup." + namespace + ".material_items", "Ore & Alloy: Material Items");
+        entries.put("itemGroup." + namespace + ".material_blocks", "Ore & Alloy: Material Blocks");
         IntegrationLangEntries.append(entries, namespace);
 
         for (String name : materialItems) {
@@ -54,6 +57,11 @@ public final class OALangGenerator {
             String materialName = capitalizeWords(material.replace('_', ' '));
             entries.put("block." + namespace + "." + blockId, materialName + " Block");
         }
+        for (String rawVariant : rawBlockBaseItems.keySet()) {
+            String blockId = RawBlockCatalog.blockIdForRawVariant(rawVariant);
+            String rawName = capitalizeWords(rawVariant.replace('_', ' '));
+            entries.put("block." + namespace + "." + blockId, "Raw " + rawName + " Block");
+        }
         for (MaterialFluidCatalog.Entry fluid : MaterialFluidCatalog.entries()) {
             entries.put("block." + namespace + "." + fluid.id(), fluid.displayName());
             entries.put("fluid." + namespace + "." + fluid.id(), fluid.displayName());
@@ -63,6 +71,7 @@ public final class OALangGenerator {
         addTagLangEntries(entries, materialItems);
         addOreTagLangEntries(entries, rawVariants);
         addStorageBlockTagLangEntries(entries, storageBlockBaseForms);
+        addRawBlockTagLangEntries(entries, rawBlockBaseItems);
         addFluidTagLangEntries(entries);
         writeJson(out, entries);
     }
@@ -183,6 +192,17 @@ public final class OALangGenerator {
             String materialLabel = capitalizeWords(material.replace('_', ' '));
             entries.put(tagLangKey("block", "c", "storage_blocks/" + material), materialLabel + " Storage Blocks");
             entries.put(tagLangKey("item", "c", "storage_blocks/" + material), materialLabel + " Storage Blocks");
+        }
+    }
+
+    private static void addRawBlockTagLangEntries(Map<String, String> entries, Map<String, String> rawBlockBaseItems) {
+        if (rawBlockBaseItems.isEmpty()) return;
+
+        for (String rawVariant : rawBlockBaseItems.keySet()) {
+            String label = capitalizeWords(rawVariant.replace('_', ' '));
+            String tagMaterial = "raw_" + rawVariant;
+            entries.put(tagLangKey("block", "c", "storage_blocks/" + tagMaterial), "Raw " + label + " Storage Blocks");
+            entries.put(tagLangKey("item", "c", "storage_blocks/" + tagMaterial), "Raw " + label + " Storage Blocks");
         }
     }
 

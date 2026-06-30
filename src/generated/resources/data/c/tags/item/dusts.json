@@ -38,7 +38,7 @@
     { "id": "ore_and_alloy:sapphire_dust", "required": false },
     { "id": "ore_and_alloy:signalum_dust", "required": false },
     { "id": "ore_and_alloy:silver_dust", "required": false },
-    { "id": "ore_and_alloy:soul_infused_dust", "required": false },
+    { "id": "ore_and_alloy:soul_infused_alloy_dust", "required": false },
     { "id": "ore_and_alloy:stainless_steel_dust", "required": false },
     { "id": "ore_and_alloy:steel_dust", "required": false },
     { "id": "ore_and_alloy:tin_dust", "required": false },

@@ -35,13 +35,22 @@ public final class ModCreativeTabs {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MATERIALS_TAB =
             CREATIVE_TABS.register("materials", () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + OreAndAlloy.MODID + ".materials"))
-                    .icon(ModCreativeTabs::tabIcon)
+                    .title(Component.translatable("itemGroup." + OreAndAlloy.MODID + ".material_items"))
+                    .icon(ModCreativeTabs::itemTabIcon)
                     .displayItems((parameters, output) -> {
-                        appendOreBlocks(output);
-                        appendStorageBlocks(output);
                         appendMaterialItems(output);
                         appendFluidBuckets(output);
+                    })
+                    .build());
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MATERIAL_BLOCKS_TAB =
+            CREATIVE_TABS.register("material_blocks", () -> CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup." + OreAndAlloy.MODID + ".material_blocks"))
+                    .icon(ModCreativeTabs::blockTabIcon)
+                    .displayItems((parameters, output) -> {
+                        appendOreBlocks(output);
+                        appendRawBlocks(output);
+                        appendStorageBlocks(output);
                     })
                     .build());
 
@@ -49,9 +58,14 @@ public final class ModCreativeTabs {
 
     private ModCreativeTabs() {}
 
-    private static ItemStack tabIcon() {
+    private static ItemStack itemTabIcon() {
         DeferredItem<Item> ironIngot = ModItems.materialItems().get("iron_ingot");
         return ironIngot == null ? new ItemStack(Items.IRON_INGOT) : new ItemStack(ironIngot.value());
+    }
+
+    private static ItemStack blockTabIcon() {
+        DeferredItem<BlockItem> ironBlock = ModStorageBlocks.storageBlockItems().get("iron_block");
+        return ironBlock == null ? new ItemStack(Items.IRON_BLOCK) : new ItemStack(ironBlock.value());
     }
 
     private static void appendMaterialItems(CreativeModeTab.Output output) {
@@ -97,6 +111,25 @@ public final class ModCreativeTabs {
                 .map(Map.Entry::getValue)
                 .map(items::get)
                 .filter(java.util.Objects::nonNull)
+                .forEach(item -> output.accept(item.value()));
+    }
+
+    private static void appendRawBlocks(CreativeModeTab.Output output) {
+        Map<String, DeferredItem<BlockItem>> items = ModRawBlocks.rawBlockItems();
+        Set<String> emitted = new LinkedHashSet<>();
+
+        for (String rawVariant : orderedRawVariants()) {
+            String id = "raw_" + rawVariant + "_block";
+            DeferredItem<BlockItem> item = items.get(id);
+            if (item == null) continue;
+            output.accept(item.value());
+            emitted.add(id);
+        }
+
+        items.keySet().stream()
+                .filter(id -> !emitted.contains(id))
+                .sorted(MATERIAL_COMPARATOR)
+                .map(ModRawBlocks.rawBlockItems()::get)
                 .forEach(item -> output.accept(item.value()));
     }
 

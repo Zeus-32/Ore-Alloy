@@ -27,33 +27,33 @@ class PeriodicMaterialSymbolResolverTest {
             Map.entry("platinum", "Pt"),
             Map.entry("iridium", "Ir"),
             Map.entry("antimony", "Sb"),
-            Map.entry("steel", "FeC2"),
-            Map.entry("stainless_steel", "FeCrNi"),
-            Map.entry("brass", "Cu3Zn2"),
-            Map.entry("bronze", "Cu3Sn"),
+            Map.entry("steel", "C₂Fe"),
+            Map.entry("stainless_steel", "CrFeNi"),
+            Map.entry("brass", "Cu₃Zn₂"),
+            Map.entry("bronze", "Cu₃Sn"),
             Map.entry("cupronickel", "CuNi"),
-            Map.entry("electrum", "AuAg"),
-            Map.entry("invar", "Fe2Ni"),
-            Map.entry("constantan", "Cu55Ni45"),
+            Map.entry("electrum", "AgAu"),
+            Map.entry("invar", "Fe₂Ni"),
+            Map.entry("constantan", "Cu₅₅Ni₄₅"),
             Map.entry("wrought_iron", "Fe"),
-            Map.entry("enderium", "Pb3Pt"),
+            Map.entry("enderium", "Pb₃Pt"),
             Map.entry("lithium", "Li"),
-            Map.entry("lumium", "SnAg4"),
-            Map.entry("signalum", "Cu3AgRs10"),
+            Map.entry("lumium", "Ag₄Sn"),
+            Map.entry("signalum", "AgCu₃Rs₁₀"),
             Map.entry("rose_gold", "AuCu"),
             Map.entry("naquadah", "Nq"),
             Map.entry("pure_netherite", "Nr"),
-            Map.entry("red_alloy", "FeRs4"),
-            Map.entry("soul_infused", "Fe2NiSi3O6"),
+            Map.entry("red_alloy", "FeRs₄"),
+            Map.entry("soul_infused_alloy", "Fe₂NiO₆Si₃"),
             Map.entry("tungsten", "W"),
             Map.entry("silicon", "Si"),
             Map.entry("diamond", "C"),
-            Map.entry("ruby", "Al2O3Cr"),
-            Map.entry("sapphire", "Al2O3"),
-            Map.entry("emerald", "Be3Al2Si6O18"),
-            Map.entry("topaz", "Al2SiO4F2"),
-            Map.entry("apatite", "Ca5(PO4)3F"),
-            Map.entry("certus_quartz", "SiO2")
+            Map.entry("ruby", "Al₂CrO₃"),
+            Map.entry("sapphire", "Al₂O₃"),
+            Map.entry("emerald", "Al₂Be₃O₁₈Si₆"),
+            Map.entry("topaz", "Al₂F₂O₄Si"),
+            Map.entry("apatite", "Ca₅FO₁₂P₃"),
+            Map.entry("certus_quartz", "O₂Si")
     );
 
     @Test
@@ -78,8 +78,8 @@ class PeriodicMaterialSymbolResolverTest {
 
     @Test
     void foreignMaterialItemsResolveFromPathConventions() {
-        assertEquals("3SiO2", PeriodicMaterialSymbolResolver.resolve("soulsand_dust").orElseThrow());
-        assertEquals("3SiO2", PeriodicMaterialSymbolResolver.resolve("soul_sand_dust").orElseThrow());
+        assertEquals("O₆Si₃", PeriodicMaterialSymbolResolver.resolve("soulsand_dust").orElseThrow());
+        assertEquals("O₆Si₃", PeriodicMaterialSymbolResolver.resolve("soul_sand_dust").orElseThrow());
         assertEquals("Sn", PeriodicMaterialSymbolResolver.resolve("tin_dust").orElseThrow());
     }
 

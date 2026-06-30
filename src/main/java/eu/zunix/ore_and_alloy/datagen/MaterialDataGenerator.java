@@ -45,16 +45,21 @@ public final class MaterialDataGenerator {
 
             MaterialStorageBlockWriter storageBlockWriter = new MaterialStorageBlockWriter(OUT, NAMESPACE);
             var storageBlockBaseForms = storageBlockWriter.collectStorageBlockBaseForms(materialItems);
+            var rawBlockBaseItems = eu.zunix.ore_and_alloy.core.RawBlockCatalog.collectRawBlockBaseItems(materialItems);
             storageBlockWriter.writeBlockstatesAndModels(storageBlockBaseForms);
+            storageBlockWriter.writeRawBlockstatesAndModels(rawBlockBaseItems);
             storageBlockWriter.writeLootTables(storageBlockBaseForms);
+            storageBlockWriter.writeRawLootTables(rawBlockBaseItems);
             storageBlockWriter.writeBlockTags(storageBlockBaseForms);
+            storageBlockWriter.writeRawBlockTags(rawBlockBaseItems);
 
             OALangGenerator.write(
                     OUT.resolve(Path.of("assets", NAMESPACE, "lang", "en_us.json")),
                     NAMESPACE,
                     materialItems,
                     rawVariants,
-                    storageBlockBaseForms
+                    storageBlockBaseForms,
+                    rawBlockBaseItems
             );
 
             MaterialTagWriter tagWriter = new MaterialTagWriter(OUT, NAMESPACE);
@@ -65,6 +70,7 @@ public final class MaterialDataGenerator {
             MaterialRecipeWriter recipeWriter = new MaterialRecipeWriter(OUT, NAMESPACE);
             recipeWriter.writeCompactingRecipes(materialItems);
             recipeWriter.writeStorageBlockRecipes(storageBlockBaseForms);
+            recipeWriter.writeRawBlockRecipes(rawBlockBaseItems);
             recipeWriter.writeCanonicalSmeltingRecipes(materialItems);
 
             System.out.println("Material data generation complete.");

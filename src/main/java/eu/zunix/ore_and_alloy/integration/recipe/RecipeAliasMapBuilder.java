@@ -183,7 +183,7 @@ public final class RecipeAliasMapBuilder {
         String material = normalizeMaterial(path.substring(split + 1));
         String form = MaterialFormCatalog.FORM_BY_TAG_BUCKET.get(bucket);
         if (form == null || material.isBlank()) return Optional.empty();
-        if (!IntegrationMaterialRegistry.isMaterialEnabled(material)) return Optional.empty();
+        if (!isMaterialEnabledForAlias(form, material)) return Optional.empty();
         return Optional.of(new MaterialAliasKey(form, normalizeMaterialForForm(material, form)));
     }
 
@@ -198,7 +198,7 @@ public final class RecipeAliasMapBuilder {
             if (path.endsWith(suffix) && path.length() > suffix.length()) {
                 String material = normalizeMaterial(path.substring(0, path.length() - suffix.length()));
                 material = normalizeMaterialForForm(material, canonicalForm);
-                if (!material.isBlank() && IntegrationMaterialRegistry.isMaterialEnabled(material)) {
+                if (!material.isBlank() && isMaterialEnabledForAlias(canonicalForm, material)) {
                     return Optional.of(new MaterialAliasKey(canonicalForm, material));
                 }
             }
@@ -207,7 +207,7 @@ public final class RecipeAliasMapBuilder {
             if (path.startsWith(prefix) && path.length() > prefix.length()) {
                 String material = normalizeMaterial(path.substring(prefix.length()));
                 material = normalizeMaterialForForm(material, canonicalForm);
-                if (!material.isBlank() && IntegrationMaterialRegistry.isMaterialEnabled(material)) {
+                if (!material.isBlank() && isMaterialEnabledForAlias(canonicalForm, material)) {
                     return Optional.of(new MaterialAliasKey(canonicalForm, material));
                 }
             }
@@ -216,7 +216,8 @@ public final class RecipeAliasMapBuilder {
         String storageSuffix = "_block";
         if (path.endsWith(storageSuffix) && path.length() > storageSuffix.length()) {
             String material = normalizeMaterial(path.substring(0, path.length() - storageSuffix.length()));
-            if (!material.isBlank() && IntegrationMaterialRegistry.isMaterialEnabled(material)) {
+            material = normalizeMaterialForForm(material, "block");
+            if (!material.isBlank() && isMaterialEnabledForAlias("block", material)) {
                 return Optional.of(new MaterialAliasKey("block", material));
             }
         }
@@ -261,6 +262,12 @@ public final class RecipeAliasMapBuilder {
                     .map(variant -> variant + "_ore")
                     .orElse(preferredMaterial + "_ore");
         }
+        if ("block".equals(form) && canonicalMaterial.startsWith("raw_") && canonicalMaterial.length() > "raw_".length()) {
+            String rawMaterial = canonicalMaterial.substring("raw_".length());
+            return RawMaterialMappings.primaryRawVariantForMaterial(rawMaterial)
+                    .map(variant -> "raw_" + variant + "_block")
+                    .orElse(preferredMaterial + "_block");
+        }
         return preferredMaterial + "_" + form;
     }
 
@@ -288,7 +295,23 @@ public final class RecipeAliasMapBuilder {
         if ("ore".equals(form)) {
             out = normalizeOreMaterialToken(out);
         }
+        if ("block".equals(form) && out.startsWith("raw_") && out.length() > "raw_".length()) {
+            String rawVariant = out.substring("raw_".length());
+            out = "raw_" + RawMaterialMappings.materialForRawVariant(rawVariant).orElse(rawVariant);
+        }
         return out;
+    }
+
+    private static boolean isMaterialEnabledForAlias(String form, String material) {
+        if (IntegrationMaterialRegistry.isMaterialEnabled(material)) {
+            return true;
+        }
+        if (!"block".equals(form) || !material.startsWith("raw_") || material.length() <= "raw_".length()) {
+            return false;
+        }
+        String rawVariant = material.substring("raw_".length());
+        String mappedMaterial = RawMaterialMappings.materialForRawVariant(rawVariant).orElse(rawVariant);
+        return IntegrationMaterialRegistry.isMaterialEnabled(mappedMaterial);
     }
 
     private static String normalizeOreMaterialToken(String materialToken) {

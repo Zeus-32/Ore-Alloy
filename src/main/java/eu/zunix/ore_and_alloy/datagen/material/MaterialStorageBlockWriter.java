@@ -1,6 +1,7 @@
 package eu.zunix.ore_and_alloy.datagen.material;
 
 import eu.zunix.ore_and_alloy.core.StorageBlockCatalog;
+import eu.zunix.ore_and_alloy.core.RawBlockCatalog;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -62,12 +63,76 @@ public final class MaterialStorageBlockWriter {
         }
     }
 
+    public void writeRawBlockstatesAndModels(Map<String, String> rawBlockBaseItemsByVariant) throws IOException {
+        Path blockstatesRoot = outRoot.resolve(Path.of("assets", namespace, "blockstates"));
+        Path blockModelsRoot = outRoot.resolve(Path.of("assets", namespace, "models", "block"));
+        Path itemModelsRoot = outRoot.resolve(Path.of("assets", namespace, "models", "item"));
+
+        Files.createDirectories(blockstatesRoot);
+        Files.createDirectories(blockModelsRoot);
+        Files.createDirectories(itemModelsRoot);
+
+        for (String rawVariant : rawBlockBaseItemsByVariant.keySet()) {
+            String blockId = RawBlockCatalog.blockIdForRawVariant(rawVariant);
+
+            String blockstateJson = "{\n"
+                    + "  \"variants\": {\n"
+                    + "    \"\": { \"model\": \"" + namespace + ":block/" + blockId + "\" }\n"
+                    + "  }\n"
+                    + "}";
+            DatagenFiles.writeText(blockstatesRoot.resolve(blockId + ".json"), blockstateJson);
+
+            String blockModelJson = "{\n"
+                    + "  \"parent\": \"minecraft:block/cube_all\",\n"
+                    + "  \"textures\": {\n"
+                    + "    \"all\": \"" + namespace + ":block/storage/" + blockId + "\"\n"
+                    + "  }\n"
+                    + "}";
+            DatagenFiles.writeText(blockModelsRoot.resolve(blockId + ".json"), blockModelJson);
+
+            String itemModelJson = "{\n"
+                    + "  \"parent\": \"" + namespace + ":block/" + blockId + "\"\n"
+                    + "}";
+            DatagenFiles.writeText(itemModelsRoot.resolve(blockId + ".json"), itemModelJson);
+        }
+    }
+
     public void writeLootTables(Map<String, String> storageBaseFormsByMaterial) throws IOException {
         Path lootRoot = outRoot.resolve(Path.of("data", namespace, "loot_table", "blocks"));
         Files.createDirectories(lootRoot);
 
         for (String material : storageBaseFormsByMaterial.keySet()) {
             String blockId = StorageBlockCatalog.blockIdForMaterial(material);
+
+            String json = "{\n"
+                    + "  \"type\": \"minecraft:block\",\n"
+                    + "  \"pools\": [\n"
+                    + "    {\n"
+                    + "      \"rolls\": 1,\n"
+                    + "      \"entries\": [\n"
+                    + "        {\n"
+                    + "          \"type\": \"minecraft:item\",\n"
+                    + "          \"name\": \"" + namespace + ":" + blockId + "\"\n"
+                    + "        }\n"
+                    + "      ],\n"
+                    + "      \"conditions\": [\n"
+                    + "        {\n"
+                    + "          \"condition\": \"minecraft:survives_explosion\"\n"
+                    + "        }\n"
+                    + "      ]\n"
+                    + "    }\n"
+                    + "  ]\n"
+                    + "}";
+            DatagenFiles.writeText(lootRoot.resolve(blockId + ".json"), json);
+        }
+    }
+
+    public void writeRawLootTables(Map<String, String> rawBlockBaseItemsByVariant) throws IOException {
+        Path lootRoot = outRoot.resolve(Path.of("data", namespace, "loot_table", "blocks"));
+        Files.createDirectories(lootRoot);
+
+        for (String rawVariant : rawBlockBaseItemsByVariant.keySet()) {
+            String blockId = RawBlockCatalog.blockIdForRawVariant(rawVariant);
 
             String json = "{\n"
                     + "  \"type\": \"minecraft:block\",\n"
@@ -129,6 +194,36 @@ public final class MaterialStorageBlockWriter {
         if (!beaconBaseBlockIds.isEmpty()) {
             writeMergedTag(minecraftBlockTagsRoot.resolve("beacon_base_blocks.json"), beaconBaseBlockIds);
         }
+    }
+
+    public void writeRawBlockTags(Map<String, String> rawBlockBaseItemsByVariant) throws IOException {
+        Path commonBlockTagsRoot = outRoot.resolve(Path.of("data", "c", "tags", "block"));
+        Path commonItemTagsRoot = outRoot.resolve(Path.of("data", "c", "tags", "item"));
+        Path minecraftBlockTagsRoot = outRoot.resolve(Path.of("data", "minecraft", "tags", "block"));
+        Files.createDirectories(commonBlockTagsRoot);
+        Files.createDirectories(commonItemTagsRoot);
+        Files.createDirectories(minecraftBlockTagsRoot);
+
+        List<String> rawBlockIds = new ArrayList<>(rawBlockBaseItemsByVariant.size());
+
+        for (String rawVariant : rawBlockBaseItemsByVariant.keySet()) {
+            String blockId = RawBlockCatalog.blockIdForRawVariant(rawVariant);
+            String fullId = namespace + ":" + blockId;
+            rawBlockIds.add(fullId);
+
+            String tagMaterial = "raw_" + rawVariant;
+            writeTag(commonBlockTagsRoot.resolve(Path.of("storage_blocks", tagMaterial + ".json")), List.of(fullId));
+            writeTag(commonItemTagsRoot.resolve(Path.of("storage_blocks", tagMaterial + ".json")), List.of(fullId));
+        }
+
+        rawBlockIds = new ArrayList<>(new LinkedHashSet<>(rawBlockIds));
+        rawBlockIds.sort(String::compareTo);
+
+        writeMergedTag(commonBlockTagsRoot.resolve("storage_blocks.json"), rawBlockIds);
+        writeMergedTag(commonItemTagsRoot.resolve("storage_blocks.json"), rawBlockIds);
+
+        writeMergedTag(minecraftBlockTagsRoot.resolve(Path.of("mineable", "pickaxe.json")), rawBlockIds);
+        writeMergedTag(minecraftBlockTagsRoot.resolve("needs_stone_tool.json"), rawBlockIds);
     }
 
     private static boolean isBeaconBaseMaterial(String material) {

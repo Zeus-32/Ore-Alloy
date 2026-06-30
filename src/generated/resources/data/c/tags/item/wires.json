@@ -28,7 +28,7 @@
     { "id": "ore_and_alloy:rose_gold_wire", "required": false },
     { "id": "ore_and_alloy:signalum_wire", "required": false },
     { "id": "ore_and_alloy:silver_wire", "required": false },
-    { "id": "ore_and_alloy:soul_infused_wire", "required": false },
+    { "id": "ore_and_alloy:soul_infused_alloy_wire", "required": false },
     { "id": "ore_and_alloy:stainless_steel_wire", "required": false },
     { "id": "ore_and_alloy:steel_wire", "required": false },
     { "id": "ore_and_alloy:tin_wire", "required": false },

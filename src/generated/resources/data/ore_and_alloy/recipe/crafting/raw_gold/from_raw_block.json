@@ -1,0 +1,9 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_gold" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_gold_block" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [ { "item": "ore_and_alloy:raw_gold_block" } ],
+  "result": { "id": "ore_and_alloy:raw_gold", "count": 9 }
+}

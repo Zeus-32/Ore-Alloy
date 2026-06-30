@@ -28,7 +28,7 @@
     { "id": "ore_and_alloy:rose_gold_ingot", "required": false },
     { "id": "ore_and_alloy:signalum_ingot", "required": false },
     { "id": "ore_and_alloy:silver_ingot", "required": false },
-    { "id": "ore_and_alloy:soul_infused_ingot", "required": false },
+    { "id": "ore_and_alloy:soul_infused_alloy_ingot", "required": false },
     { "id": "ore_and_alloy:stainless_steel_ingot", "required": false },
     { "id": "ore_and_alloy:steel_ingot", "required": false },
     { "id": "ore_and_alloy:tin_ingot", "required": false },

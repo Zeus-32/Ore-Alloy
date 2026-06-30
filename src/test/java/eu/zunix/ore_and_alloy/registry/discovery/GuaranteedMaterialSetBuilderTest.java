@@ -29,6 +29,23 @@ class GuaranteedMaterialSetBuilderTest {
     }
 
     @Test
+    void canonicalOreMetalRawAndCrushedFormsRemainRegistered() {
+        List<String> items = new GuaranteedMaterialSetBuilder().withGuaranteedForms(List.of(
+                "antimony_ingot",
+                "raw_antimony",
+                "crushed_antimony",
+                "lithium_ingot",
+                "raw_lithium",
+                "crushed_lithium"
+        ));
+
+        assertTrue(items.contains("raw_antimony"));
+        assertTrue(items.contains("crushed_antimony"));
+        assertTrue(items.contains("raw_lithium"));
+        assertTrue(items.contains("crushed_lithium"));
+    }
+
+    @Test
     void singleFormMaterialsDoNotGainMissingTextureForms() {
         List<String> items = new GuaranteedMaterialSetBuilder().withGuaranteedForms(List.of("silicon"));
 

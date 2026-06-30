@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_lithium" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_lithium_block" }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": { "item": "ore_and_alloy:raw_lithium" }
+  },
+  "result": { "id": "ore_and_alloy:raw_lithium_block", "count": 1 }
+}

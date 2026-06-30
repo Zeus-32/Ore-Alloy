@@ -63,6 +63,14 @@ public final class ViewerAliases {
     }
 
     private static Optional<MaterialKey> parseMaterialKey(String path) {
+        String storageSuffix = "_block";
+        if (path.endsWith(storageSuffix) && path.length() > storageSuffix.length()) {
+            String material = path.substring(0, path.length() - storageSuffix.length());
+            if (!material.isBlank()) {
+                return Optional.of(new MaterialKey(normalizeMaterialForForm(material, blockFormToken(material)), blockFormToken(material)));
+            }
+        }
+
         for (String token : MaterialFormCatalog.PREFIX_FORMS) {
             String prefix = token + "_";
             if (!path.startsWith(prefix) || path.length() <= prefix.length()) continue;
@@ -77,13 +85,6 @@ public final class ViewerAliases {
             String material = path.substring(0, path.length() - suffix.length());
             if (!material.isBlank()) return Optional.of(new MaterialKey(normalizeMaterialForForm(material, token), token));
 
-        }
-        String storageSuffix = "_block";
-        if (path.endsWith(storageSuffix) && path.length() > storageSuffix.length()) {
-            String material = path.substring(0, path.length() - storageSuffix.length());
-            if (!material.isBlank()) {
-                return Optional.of(new MaterialKey(MaterialItemOrder.canonicalMaterialToken(material), "block"));
-            }
         }
         Optional<String> bareForm = MaterialItemOrder.bareItemForm(path);
         if (bareForm.isPresent()) {
@@ -110,6 +111,10 @@ public final class ViewerAliases {
             out = stripOreMaterialPrefix(out);
             out = RawMaterialMappings.materialForRawVariant(out).orElse(out);
         }
+        if ("raw_block".equals(formToken) && out.startsWith("raw_") && out.length() > "raw_".length()) {
+            String rawVariant = out.substring("raw_".length());
+            out = "raw_" + RawMaterialMappings.materialForRawVariant(rawVariant).orElse(rawVariant);
+        }
         return out;
     }
 
@@ -121,6 +126,12 @@ public final class ViewerAliases {
             }
         }
         return lowered;
+    }
+
+    private static String blockFormToken(String material) {
+        return material.startsWith("raw_") && material.length() > "raw_".length()
+                ? "raw_block"
+                : "block";
     }
 
     private record MaterialKey(String material, String formToken) {}

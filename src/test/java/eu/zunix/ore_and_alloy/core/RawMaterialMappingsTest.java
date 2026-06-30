@@ -47,6 +47,17 @@ class RawMaterialMappingsTest {
     }
 
     @Test
+    void canonicalOreMaterialsUseTheirMaterialTokenAsRawVariant() {
+        assertEquals(List.of("raw_antimony"), RawMaterialMappings.rawItemIdsForMaterial("antimony"));
+        assertEquals(List.of("crushed_antimony"), RawMaterialMappings.crushedItemIdsForMaterial("antimony"));
+        assertEquals(List.of("raw_lithium"), RawMaterialMappings.rawItemIdsForMaterial("lithium"));
+        assertEquals(List.of("crushed_lithium"), RawMaterialMappings.crushedItemIdsForMaterial("lithium"));
+
+        assertTrue(RawMaterialMappings.isConfiguredRawVariant("antimony"));
+        assertTrue(RawMaterialMappings.isConfiguredRawVariant("lithium"));
+    }
+
+    @Test
     void configuredOreMaterialsAlsoAcceptDirectMaterialRawNamesForUnificationOnly() {
         assertEquals("aluminum", RawMaterialMappings.materialForRawVariant("aluminum").orElseThrow());
         assertEquals("chromium", RawMaterialMappings.materialForRawVariant("chromium").orElseThrow());

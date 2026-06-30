@@ -78,6 +78,7 @@ public final class RawMaterialMappings {
         Map<String, List<String>> out = new LinkedHashMap<>();
 
         put(out, "aluminum", "bauxite", "cryolite");
+        put(out, "antimony", "antimony");
         put(out, "chromium", "chromite");
         put(out, "cobalt", "cobaltite");
         put(out, "copper", "chalcopyrite", "malachite", "bornite", "copper");
@@ -88,6 +89,7 @@ public final class RawMaterialMappings {
         put(out, "iridium", "iridium");
         put(out, "iron", "iron", "hematite", "magnetite", "limonite");
         put(out, "lead", "galena", "lead");
+        put(out, "lithium", "lithium");
         put(out, "nickel", "pentlandite", "garnierite");
         put(out, "osmium", "osmium");
         put(out, "platinum", "platinum", "sperrylite");

@@ -34,7 +34,7 @@
     { "id": "ore_and_alloy:sapphire_small_gear", "required": false },
     { "id": "ore_and_alloy:signalum_small_gear", "required": false },
     { "id": "ore_and_alloy:silver_small_gear", "required": false },
-    { "id": "ore_and_alloy:soul_infused_small_gear", "required": false },
+    { "id": "ore_and_alloy:soul_infused_alloy_small_gear", "required": false },
     { "id": "ore_and_alloy:stainless_steel_small_gear", "required": false },
     { "id": "ore_and_alloy:steel_small_gear", "required": false },
     { "id": "ore_and_alloy:tin_small_gear", "required": false },

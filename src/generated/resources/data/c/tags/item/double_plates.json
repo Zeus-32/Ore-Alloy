@@ -28,7 +28,7 @@
     { "id": "ore_and_alloy:rose_gold_double_plate", "required": false },
     { "id": "ore_and_alloy:signalum_double_plate", "required": false },
     { "id": "ore_and_alloy:silver_double_plate", "required": false },
-    { "id": "ore_and_alloy:soul_infused_double_plate", "required": false },
+    { "id": "ore_and_alloy:soul_infused_alloy_double_plate", "required": false },
     { "id": "ore_and_alloy:stainless_steel_double_plate", "required": false },
     { "id": "ore_and_alloy:steel_double_plate", "required": false },
     { "id": "ore_and_alloy:tin_double_plate", "required": false },

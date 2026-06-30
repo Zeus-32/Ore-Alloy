@@ -3,6 +3,7 @@ package eu.zunix.ore_and_alloy.datagen.material;
 import eu.zunix.ore_and_alloy.core.MaterialFormCatalog;
 import eu.zunix.ore_and_alloy.core.MaterialItemOrder;
 import eu.zunix.ore_and_alloy.core.RawMaterialMappings;
+import eu.zunix.ore_and_alloy.core.RawBlockCatalog;
 import eu.zunix.ore_and_alloy.core.StandaloneMaterialItems;
 import eu.zunix.ore_and_alloy.core.StorageBlockCatalog;
 
@@ -350,6 +351,50 @@ public final class MaterialRecipeWriter {
             DatagenFiles.writeText(b2i, itemsFromStorage);
         }
 
+    }
+
+    public void writeRawBlockRecipes(Map<String, String> rawBlockBaseItems) throws IOException {
+        Path craftingRoot = outRoot.resolve(Path.of("data", namespace, "recipe", "crafting"));
+        Files.createDirectories(craftingRoot);
+
+        for (Map.Entry<String, String> entry : rawBlockBaseItems.entrySet()) {
+            String rawVariant = entry.getKey();
+            String rawItemPath = entry.getValue();
+            String rawBlockPath = RawBlockCatalog.blockIdForRawVariant(rawVariant);
+            String rawItem = namespace + ":" + rawItemPath;
+            String rawBlock = namespace + ":" + rawBlockPath;
+
+            Path rawToBlock = craftingRoot.resolve(Path.of(rawBlockPath, "from_raw_material.json"));
+            String rawBlockFromItems = "{\n"
+                    + "  \"neoforge:conditions\": [\n"
+                    + "    { \"type\": \"neoforge:item_exists\", \"item\": \"" + rawItem + "\" },\n"
+                    + "    { \"type\": \"neoforge:item_exists\", \"item\": \"" + rawBlock + "\" }\n"
+                    + "  ],\n"
+                    + "  \"type\": \"minecraft:crafting_shaped\",\n"
+                    + "  \"pattern\": [\n"
+                    + "    \"###\",\n"
+                    + "    \"###\",\n"
+                    + "    \"###\"\n"
+                    + "  ],\n"
+                    + "  \"key\": {\n"
+                    + "    \"#\": { \"item\": \"" + rawItem + "\" }\n"
+                    + "  },\n"
+                    + "  \"result\": { \"id\": \"" + rawBlock + "\", \"count\": 1 }\n"
+                    + "}";
+            DatagenFiles.writeText(rawToBlock, rawBlockFromItems);
+
+            Path blockToRaw = craftingRoot.resolve(Path.of(rawItemPath, "from_raw_block.json"));
+            String itemsFromRawBlock = "{\n"
+                    + "  \"neoforge:conditions\": [\n"
+                    + "    { \"type\": \"neoforge:item_exists\", \"item\": \"" + rawItem + "\" },\n"
+                    + "    { \"type\": \"neoforge:item_exists\", \"item\": \"" + rawBlock + "\" }\n"
+                    + "  ],\n"
+                    + "  \"type\": \"minecraft:crafting_shapeless\",\n"
+                    + "  \"ingredients\": [ { \"item\": \"" + rawBlock + "\" } ],\n"
+                    + "  \"result\": { \"id\": \"" + rawItem + "\", \"count\": 9 }\n"
+                    + "}";
+            DatagenFiles.writeText(blockToRaw, itemsFromRawBlock);
+        }
     }
 
     private static void writeVanillaStorageOverrideRecipes(

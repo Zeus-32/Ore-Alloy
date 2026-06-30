@@ -1,0 +1,9 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_chalcopyrite" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_chalcopyrite_block" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [ { "item": "ore_and_alloy:raw_chalcopyrite_block" } ],
+  "result": { "id": "ore_and_alloy:raw_chalcopyrite", "count": 9 }
+}

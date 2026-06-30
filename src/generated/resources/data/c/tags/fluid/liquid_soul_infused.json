@@ -1,7 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    { "id": "ore_and_alloy:liquid_soul_infused", "required": false },
-    { "id": "ore_and_alloy:flowing_liquid_soul_infused", "required": false }
-  ]
-}

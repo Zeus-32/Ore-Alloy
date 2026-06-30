@@ -26,6 +26,7 @@ public class ModItems {
         }
         ModFluids.registerBuckets(ITEMS);
         ModOreBlocks.registerRawVariantOres(discovered.itemIds(), ITEMS);
+        ModRawBlocks.registerRawBlocks(discovered.itemIds(), ITEMS);
         ModStorageBlocks.registerStorageBlocks(discovered.itemIds(), ITEMS);
     }
 

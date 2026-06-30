@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:raw_ruby_block", "required": false }
+  ]
+}

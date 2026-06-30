@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:raw_sphalerite_block", "required": false }
+  ]
+}

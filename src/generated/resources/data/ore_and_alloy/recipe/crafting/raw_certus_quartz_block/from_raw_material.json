@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_certus_quartz" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_certus_quartz_block" }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": { "item": "ore_and_alloy:raw_certus_quartz" }
+  },
+  "result": { "id": "ore_and_alloy:raw_certus_quartz_block", "count": 1 }
+}

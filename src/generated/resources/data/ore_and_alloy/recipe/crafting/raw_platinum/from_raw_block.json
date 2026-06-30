@@ -1,0 +1,9 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_platinum" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_platinum_block" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [ { "item": "ore_and_alloy:raw_platinum_block" } ],
+  "result": { "id": "ore_and_alloy:raw_platinum", "count": 9 }
+}

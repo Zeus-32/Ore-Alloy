@@ -44,7 +44,7 @@ public enum MetalMaterial {
     SIGNALUM(alloyForms()),
     ROSE_GOLD(alloyForms()),
     RED_ALLOY(alloyForms()),
-    SOUL_INFUSED(alloyForms()),
+    SOUL_INFUSED_ALLOY(alloyForms()),
 
     NAQUADAH(hotAlloyForms()),
     PURE_NETHERITE(hotAlloyForms()),

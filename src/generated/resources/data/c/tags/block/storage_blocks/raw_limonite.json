@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "ore_and_alloy:raw_limonite_block", "required": false }
+  ]
+}

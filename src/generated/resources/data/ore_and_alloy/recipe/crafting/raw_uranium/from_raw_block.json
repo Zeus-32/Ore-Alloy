@@ -1,0 +1,9 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_uranium" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_uranium_block" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [ { "item": "ore_and_alloy:raw_uranium_block" } ],
+  "result": { "id": "ore_and_alloy:raw_uranium", "count": 9 }
+}

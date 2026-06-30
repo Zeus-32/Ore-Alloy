@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_hemimorphite" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_hemimorphite_block" }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": { "item": "ore_and_alloy:raw_hemimorphite" }
+  },
+  "result": { "id": "ore_and_alloy:raw_hemimorphite_block", "count": 1 }
+}

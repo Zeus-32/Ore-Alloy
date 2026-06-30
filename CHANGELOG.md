@@ -2,10 +2,21 @@
 
 All notable changes to this project are documented in this file.
 
-## [1.0.12-c] - 2026-06-26
+## [1.0.12-c] - 2026-06-26 - Texture update
 
 ### Changed
-- Updated `crushed materials` textures.
+- Creative tab `Material Items` is now separated into `Material Items` and `Material Blocks` instead of one for better clarity in items.
+- Updated `crushed materials` & `gears` textures.
+- Renamed `soul_infused` materials to `soul_infused_alloy`, when updating to this version, all soul_infused materials will be removed and LOST.
+- Periodic material formulas now use conventional element ordering and render numeric counts as subscript digits in tooltips.
+- Added `raw_*_block` blocks for every registered raw material variant, including `c:storage_blocks/raw_*` tags, loot tables, recipes, models, and lang entries. Textures are intentionally missing and will be added later.
+- JEI alias tooltips are now shown directly in the item tooltip without requiring Shift, with expanded aliases for all material forms and duplicate alias text removed.
+
+### Fixed
+- Raw Lithium and Raw Antimony now register their raw and crushed variants through the shared raw material mapping.
+- JEI alias tooltip lines are only added to JEI tooltips and no longer appear in normal inventory item tooltips.
+- Raw material blocks now sort by canonical material order in the Material Blocks creative tab.
+- Raw material blocks now follow raw item alias behavior for recipe unification and JEI search aliases, so variants such as Magnetite resolve through Iron.
 
 ## [1.0.12] - 2026-06-26
 

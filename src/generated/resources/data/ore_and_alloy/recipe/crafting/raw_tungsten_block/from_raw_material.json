@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_tungsten" },
+    { "type": "neoforge:item_exists", "item": "ore_and_alloy:raw_tungsten_block" }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": { "item": "ore_and_alloy:raw_tungsten" }
+  },
+  "result": { "id": "ore_and_alloy:raw_tungsten_block", "count": 1 }
+}

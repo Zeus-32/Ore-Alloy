@@ -20,7 +20,7 @@ It provides canonical ores, raw and crushed materials, ingots, hot ingots, nugge
 - Recipe inputs and outputs are rewritten to the canonical Ore & Alloy representation.
 - Conflicting foreign recipes are removed when an equivalent canonical recipe exists.
 - Duplicate external entries are hidden in JEI and EMI.
-- Periodic material symbols are shown directly in item tooltips.
+- Periodic material formulas are shown directly in item tooltips, using conventional element ordering and subscript digits.
 
 Material activation is automatic from compatible material sources. KubeJS startup scripts can explicitly activate additional supported materials.
 
@@ -73,7 +73,7 @@ Ore-bearing gems provide ore, raw, crushed, gem, dust, dust pile, tiny dust pile
 | Material | Type | Notes | Availability |
 |---|---|---|---|
 | Silicon | Material | Bare item `ore_and_alloy:silicon`; no ingot or storage block | External source |
-| Pure Netherite | Alloy | Fully custom material, separate from vanilla Minecraft netherite | Dedicated external source or explicit request |
+| Pure Netherite | Alloy | Fully custom material, separate from vanilla Minecraft netherite; ID `pure_netherite` | Dedicated external source or explicit request |
 | Flint | Dust-only | Dust, dust pile, and tiny dust pile forms | Built in |
 | Sand | Dust-only | Dust, dust pile, and tiny dust pile forms | Built in |
 | Clay | Dust-only | Dust, dust pile, and tiny dust pile forms | Built in |
@@ -101,7 +101,7 @@ Ore-bearing gems provide ore, raw, crushed, gem, dust, dust pile, tiny dust pile
 | Rose Gold | Alloy forms | External source |
 | Naquadah | Hot alloy forms | External source |
 | Red Alloy | Alloy forms | External source |
-| Soul Infused | Alloy forms | External source |
+| Soul Infused Alloy | Alloy forms; ID `soul_infused_alloy` | External source |
 
 Alloys provide ingot, nugget, dust, dust pile, tiny dust pile, plate, double plate, foil, rod, long rod, wire, gear, small gear, bolt, screw, fluid, bucket, and storage-block forms. Naquadah and Pure Netherite also provide hot ingots.
 
@@ -123,11 +123,14 @@ Multiple materials can be requested in the same callback:
 OreAndAlloy.registry(event => {
     event.reg(aluminum)
     event.reg(antimony)
+    event.reg(soul_infused_alloy)
     event.reg(wrought_iron)
 })
 ```
 
 Every material name from the supported-material table is available as a global startup-script constant. Quoted names such as `event.reg('aluminum')` are also accepted.
+
+`Soul Infused Alloy` uses the material ID `soul_infused_alloy`. The older `soul_infused` ID is not used by current Ore & Alloy versions.
 
 Registration runs only during startup. Changes require a full game restart; `/reload` cannot modify item or block registries. Unknown material names produce a startup-script error.
 
@@ -139,6 +142,7 @@ Other mods can request Ore & Alloy materials directly during mod startup:
 import eu.zunix.ore_and_alloy.api.OreAndAlloyApi;
 
 OreAndAlloyApi.registerMaterial("pure_netherite");
+OreAndAlloyApi.registerMaterial("soul_infused_alloy");
 OreAndAlloyApi.registerMaterial("aluminum");
 ```
 
